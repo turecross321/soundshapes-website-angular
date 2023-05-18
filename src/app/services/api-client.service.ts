@@ -91,6 +91,19 @@ export class ApiClientService {
     axios.defaults.headers.common['Authorization'] = session.Id;
   }
 
+  async logOut() {
+    try {
+      await axios.post(ApiUrl + 'account/logout');
+    } catch (error) {}
+
+    localStorage.removeItem('session');
+    localStorage.removeItem('email');
+    localStorage.removeItem('passwordSha512');
+
+    this._session$.next(undefined);
+    this._isLoggedIn$.next(false);
+  }
+
   async setEmail(emailCode: string, address: string) {
     const body: SetEmailRequest = {
       NewEmail: address,

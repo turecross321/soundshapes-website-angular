@@ -15,6 +15,7 @@
       >{{ button.Label }}</span
     >
     <span
+      *ngIf="button.Count != null"
       [ngClass]="{ 'text-[#efe0da]': selected }"
       class="block font-thin text-[#9a8682] group-hover:text-[#efe0da]"
       >x {{ button.Count }}

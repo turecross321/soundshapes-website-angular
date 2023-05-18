@@ -1,6 +1,7 @@
 import { Component, OnChanges, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import {
+  faChartSimple,
   faClockRotateLeft,
   faHeart,
   faMusic,
@@ -90,6 +91,11 @@ export class UserPageComponent {
         Count: this.User?.ActivitiesCount ?? 0,
         Path: `/user/${this.User?.Username}/activities`,
       },
+      {
+        Label: 'Statistics',
+        Icon: faChartSimple,
+        Path: `/user/${this.User?.Username}/statistics`,
+      },
     ];
   }
 
@@ -112,6 +118,8 @@ export class UserPageComponent {
       case 'activities':
         result = UserSidebarButtonType.Activities;
         break;
+      case 'statistics':
+        result = UserSidebarButtonType.Statistics;
     }
 
     this._sidebarIndex$.next(result);

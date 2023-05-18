@@ -1,8 +1,6 @@
-<div class="flex justify-between items-center">
-  <div class="w-full max-w-xl h-full">
-    <div
-      class="background-off-white p-10 flex-col flex justify-center items-center mr-1"
-    >
+<div class="flex justify-start items-center gap-2">
+  <div class="w-full max-w-xl h-full items-center">
+    <div class="background-off-white p-10 flex w-full flex-col">
       <h1 class="header mb-6">
         {{ User?.Username }}
       </h1>
@@ -18,14 +16,14 @@
     <app-sidebar
       [buttons]="Buttons"
       [index]="sidebarIndex$ | async"
-      class="w-full"
+      class="w-full inline-block overflow-auto"
     ></app-sidebar>
   </div>
 
-  <div class="w-full flex justify-center ml-1">
+  <div>
     <app-levels
       *ngIf="(sidebarIndex$ | async) == UserSidebarButtonType.Levels"
-      class="mr-4 items-center"
+      class="items-center"
     ></app-levels>
   </div>
 </div>

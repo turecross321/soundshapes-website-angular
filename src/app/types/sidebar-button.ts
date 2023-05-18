@@ -4,6 +4,6 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 export interface SidebarButton {
   Label: string;
   Icon: IconProp;
-  Count: number;
+  Count?: number;
   Path: string;
 }

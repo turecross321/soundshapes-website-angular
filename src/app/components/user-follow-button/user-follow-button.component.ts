@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faGear,
+  faRightFromBracket,
   faUserMinus,
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
@@ -24,7 +25,7 @@ export class UserFollowButtonComponent {
   async ngOnInit() {
     this.apiClient.session$.subscribe((session) => {
       if (session?.User.Id == this.userId) {
-        this.type = FollowButtonType.Settings;
+        this.type = FollowButtonType.LogOut;
       }
     });
 
@@ -41,8 +42,8 @@ export class UserFollowButtonComponent {
 
   setIcon() {
     switch (this.type) {
-      case FollowButtonType.Settings:
-        this.icon = faGear;
+      case FollowButtonType.LogOut:
+        this.icon = faRightFromBracket;
         break;
       case FollowButtonType.UnFollow:
         this.icon = faUserMinus;
@@ -61,8 +62,8 @@ export class UserFollowButtonComponent {
       case FollowButtonType.UnFollow:
         this.unFollow;
         break;
-      case FollowButtonType.Settings:
-        this.openSettings();
+      case FollowButtonType.LogOut:
+        this.logOut();
         break;
     }
   }
@@ -71,7 +72,7 @@ export class UserFollowButtonComponent {
 
   async unFollow() {}
 
-  openSettings() {
-    window.alert('lol');
+  async logOut() {
+    this.apiClient.logOut();
   }
 }

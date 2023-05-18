@@ -3,9 +3,13 @@
     <app-dropdown class="w-full mr-5" [buttons]="buttons" label="Order By">
     </app-dropdown>
   </div>
-  <div class="grid gap-4 md:grid-cols-3 grid-rows-3">
+  <div class="grid md:grid-cols-3 grid-rows-3">
     <div *ngFor="let level of levelsWrapper.Levels; let i = index">
-      <app-level-view [level]="level"></app-level-view>
+      <div class="pulse-on-hover w-full h-full">
+        <div class="p-2">
+          <app-level-view [level]="level"></app-level-view>
+        </div>
+      </div>
     </div>
   </div>
 </div>

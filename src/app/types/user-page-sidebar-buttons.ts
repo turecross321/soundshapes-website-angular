@@ -6,4 +6,5 @@ export enum UserSidebarButtonType {
   Followers = 2,
   LikedLevels = 3,
   Activities = 4,
+  Statistics = 5,
 }
