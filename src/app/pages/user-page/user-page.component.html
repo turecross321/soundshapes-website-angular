@@ -1,0 +1,31 @@
+<div class="flex justify-between items-center">
+  <div class="w-full max-w-xl h-full">
+    <div
+      class="background-off-white p-10 flex-col flex justify-center items-center mr-1"
+    >
+      <h1 class="header mb-6">
+        {{ User?.Username }}
+      </h1>
+
+      <div *ngIf="loggedIn && !!User" class="w-full mb-5">
+        <app-user-follow-button
+          class="items-start"
+          [userId]="User.Id"
+        ></app-user-follow-button>
+      </div>
+    </div>
+
+    <app-sidebar
+      [buttons]="Buttons"
+      [index]="sidebarIndex$ | async"
+      class="w-full"
+    ></app-sidebar>
+  </div>
+
+  <div class="w-full flex justify-center ml-1">
+    <app-levels
+      *ngIf="(sidebarIndex$ | async) == UserSidebarButtonType.Levels"
+      class="mr-4 items-center"
+    ></app-levels>
+  </div>
+</div>

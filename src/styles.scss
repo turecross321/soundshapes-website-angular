@@ -1,1 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    @apply shadow-black shadow-xl;
+    background-color: #efe0da;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.router-outlet {
+  width: 500px;
+  height: 300px;
+}
+
+.header {
+  @apply text-6xl text-start w-full text-[#3f2e27];
+}
+
+.pulse-on-hover {
+    &:hover {
+        background-color: #cfb44c;
+        animation: pulse 2s infinite;
+    }
+}
+
+.pulse-on-focus {
+  &:focus {
+      background-color: #cfb44c;
+      animation: pulse 2s infinite;
+  }
+}
+
+.pulse {
+  background-color: #cfb44c;
+  animation: pulse 2s infinite;
+}
+
+.background-off-white {
+  @apply bg-[#efe0da]
+}
+
+.selected-background {
+  background-color: #d74f48;
+}
+
+.text-off-white {
+  @apply text-[#efe0da];
+}
+
+.text-dark-grey {
+  @apply text-[#3f2e27];
+}
+
+.text-light-grey {
+  @apply text-[#bdaca6]
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #cfb44c;
+  }
+  50% {
+    background-color: #c9a751;
+  }
+  100% {
+    background-color: #cfb44c;
+  }
+}

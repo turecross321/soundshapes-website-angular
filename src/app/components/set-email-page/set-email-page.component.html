@@ -1,0 +1,25 @@
+<div class="w-full mb-2">
+  <label for="email code"></label>
+  <app-input-field
+    [id]="emailCodeId"
+    name="Email Code"
+    [icon]="emailCodeIcon"
+  ></app-input-field>
+</div>
+
+<div class="w-full mb-2">
+  <label for="email"></label>
+  <app-input-field
+    [id]="emailId"
+    name="Email Address"
+    [icon]="emailIcon"
+  ></app-input-field>
+</div>
+
+<div class="row w-full mb-2">
+  <app-primary-button
+    label="Next"
+    (click)="setEmail()"
+    class="w-full"
+  ></app-primary-button>
+</div>

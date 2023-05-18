@@ -1,0 +1,43 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="flex container max-w-2xl flex-col">
+    <h1 class="header mb-6">Login</h1>
+    <div class="w-full mb-2">
+      <label for="email"></label>
+      <app-input-field
+        [id]="emailId"
+        name="Email Address"
+        [icon]="emailIcon"
+      ></app-input-field>
+    </div>
+    <div class="w-full mb-2">
+      <label for="password"></label>
+      <app-input-field
+        [id]="passwordId"
+        name="Password"
+        [type]="PasswordInputType"
+        [icon]="passwordIcon"
+      ></app-input-field>
+    </div>
+
+    <div class="row w-full mb-2">
+      <app-primary-button
+        label="Log In"
+        class="w-full"
+        (click)="logIn()"
+      ></app-primary-button>
+    </div>
+
+    <div class="flex justify-between w-full">
+      <app-primary-button
+        routerLink="/resetPassword"
+        label="Reset Password"
+        class="w-full mr-2"
+      ></app-primary-button>
+      <app-primary-button
+        routerLink="/register"
+        label="Register Account"
+        class="w-full"
+      ></app-primary-button>
+    </div>
+  </div>
+</div>

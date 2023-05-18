@@ -1,18 +1,70 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NavbarButtonComponent } from './components/navbar-button/navbar-button.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LevelsPageComponent } from './pages/levels-page/levels-page.component';
+import { AlbumsPageComponent } from './pages/albums-page/albums-page.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
+import { SetEmailPageComponent } from './components/set-email-page/set-email-page.component';
+import { SetPasswordPageComponent } from './components/set-password-page/set-password-page.component';
+import { StepperComponent } from './components/stepper/stepper.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SidebarButtonComponent } from './components/sidebar-button/sidebar-button.component';
+import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
+import { UserFollowButtonComponent } from './components/user-follow-button/user-follow-button.component';
+import { InputFieldComponent } from './components/input-field/input-field.component';
+import { LevelsComponent } from './components/levels/levels.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { DropdownButtonComponent } from './components/dropdown-button/dropdown-button.component';
+import { ClickOutsideDirective } from './directives/clicked-outside';
+import { LevelViewComponent } from './components/level-view/level-view.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    NavbarButtonComponent,
+    HomePageComponent,
+    LevelsPageComponent,
+    AlbumsPageComponent,
+    UsersPageComponent,
+    LoginPageComponent,
+    ErrorPageComponent,
+    RegisterPageComponent,
+    ResetPasswordComponent,
+    UserPageComponent,
+    SetEmailPageComponent,
+    SetPasswordPageComponent,
+    StepperComponent,
+    SidebarComponent,
+    SidebarButtonComponent,
+    PrimaryButtonComponent,
+    UserFollowButtonComponent,
+    InputFieldComponent,
+    LevelsComponent,
+    DropdownComponent,
+    DropdownButtonComponent,
+    ClickOutsideDirective,
+    LevelViewComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

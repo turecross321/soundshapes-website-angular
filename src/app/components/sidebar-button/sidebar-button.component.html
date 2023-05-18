@@ -1,0 +1,23 @@
+<button
+  [routerLink]="button.Path"
+  [ngClass]="{ 'selected-background': selected }"
+  class="background-off-white w-full pt-4 pb-4 pl-6 pr-6 flex justify-start items-center shadow-inner pulse-on-hover group"
+>
+  <fa-icon
+    [icon]="button.Icon"
+    [ngClass]="{ 'text-[#efe0da]': selected }"
+    class="mr-4 ml-4 text-[#43332c] fa-3x w-20 group-hover:text-[#efe0da] text-start"
+  ></fa-icon>
+  <div class="flex flex-col items-start text-xl">
+    <span
+      [ngClass]="{ 'text-[#efe0da]': selected }"
+      class="block text-xl group-hover:text-[#efe0da]"
+      >{{ button.Label }}</span
+    >
+    <span
+      [ngClass]="{ 'text-[#efe0da]': selected }"
+      class="block font-thin text-[#9a8682] group-hover:text-[#efe0da]"
+      >x {{ button.Count }}
+    </span>
+  </div>
+</button>

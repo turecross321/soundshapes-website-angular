@@ -1,0 +1,11 @@
+<div class="w-full flex-col">
+  <div class="grid gap-4 md:grid-cols-3 grid-rows-1 mb-2">
+    <app-dropdown class="w-full mr-5" [buttons]="buttons" label="Order By">
+    </app-dropdown>
+  </div>
+  <div class="grid gap-4 md:grid-cols-3 grid-rows-3">
+    <div *ngFor="let level of levelsWrapper.Levels; let i = index">
+      <app-level-view [level]="level"></app-level-view>
+    </div>
+  </div>
+</div>

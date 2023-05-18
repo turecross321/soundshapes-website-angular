@@ -1,0 +1,6 @@
+<div class="w-full" *ngFor="let button of buttons; let i = index">
+  <app-sidebar-button
+    [button]="button"
+    [selected]="i == index"
+  ></app-sidebar-button>
+</div>

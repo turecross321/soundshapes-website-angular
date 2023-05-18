@@ -1,0 +1,11 @@
+<div class="flex w-full">
+  <ng-container *ngFor="let _ of getRange(); let i = index">
+    <div
+      class="w-full"
+      [ngClass]="{ 'border-white border-r-2': i != StepsCount - 1 }"
+    >
+      <div *ngIf="i < StepIndex" class="step bg-[#cdb242] h-3"></div>
+      <div *ngIf="!(i < StepIndex)" class="step bg-[#8d7a75] h-3"></div>
+    </div>
+  </ng-container>
+</div>

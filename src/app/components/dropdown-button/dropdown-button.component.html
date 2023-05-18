@@ -1,0 +1,19 @@
+<button
+  (click)="click()"
+  [ngClass]="{ 'selected-background': selected }"
+  class="bg-white shadow-inner w-full pulse-on-hover py-4 px-4 group"
+>
+  <div class="relative flex items-center justify-between">
+    <p
+      [ngClass]="{ 'text-white': selected }"
+      class="w-full group-hover:text-white truncate text-start mr-1"
+    >
+      {{ button.Label }}
+    </p>
+    <fa-icon
+      [ngClass]="{ 'text-white': selected }"
+      [icon]="button.Icon"
+      class="text-[#544339] fa-xl group-hover:text-white ml-1"
+    ></fa-icon>
+  </div>
+</button>

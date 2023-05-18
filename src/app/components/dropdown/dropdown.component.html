@@ -1,0 +1,29 @@
+<div class="w-full relative" clickOutside (clickOutside)="clickedOutside()">
+  <p class="mb-1 ml-1 text-lg truncate">{{ _label }}</p>
+  <button
+    id="dropdownDefaultButton"
+    class="px-4 py-4 bg-white text-[#544339] w-full focus:outline-none group"
+    type="button"
+    (click)="toggleDropdown()"
+  >
+    <div class="relative flex items-center w-full truncate justify-between">
+      <span class="truncate"> {{ _buttons[selectedOption].Label }}</span>
+      <fa-icon class="text-[#544339] fa-xl" [icon]="_icon"></fa-icon>
+    </div>
+  </button>
+  <!-- Dropdown menu -->
+  <div
+    id="dropdown"
+    class="max-h-96 overflow-y-auto z-10 absolute"
+    *ngIf="isMenuOpened"
+  >
+    <ng-container *ngFor="let button of _buttons; let i = index">
+      <app-dropdown-button
+        [button]="button"
+        [selected]="i == selectedOption"
+        [index]="i"
+        (numberChanged)="onOptionChanged($event)"
+      ></app-dropdown-button>
+    </ng-container>
+  </div>
+</div>

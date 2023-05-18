@@ -1,0 +1,23 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="container max-w-2xl flex-col">
+    <h1 class="header mb-6">Register</h1>
+
+    <app-stepper
+      [StepsCount]="2"
+      [StepIndex]="PageIndex"
+      class="w-full mb-2"
+    ></app-stepper>
+
+    <app-set-email-page
+      *ngIf="PageIndex == 0"
+      class="w-full"
+      (pageIndexChange)="onPageIndexChange($event)"
+    ></app-set-email-page>
+
+    <app-set-password-page
+      *ngIf="PageIndex == 1"
+      class="w-full"
+      (onFinishedRegistration)="onFinishedRegistration()"
+    ></app-set-password-page>
+  </div>
+</div>
