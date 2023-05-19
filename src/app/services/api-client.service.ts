@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiUrl } from 'config';
+import { ApiUrl } from 'src/app/config';
 import { Session } from '../types/api/account';
 import {
   LoginRequest,
@@ -12,9 +12,6 @@ import { sha512Async } from '../hash';
 import { FullUser, IsFollowingResponse } from '../types/api/users';
 import { LevelOrder } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
-
-if (localStorage.getItem('session') == 'botch') {
-}
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {

@@ -1,5 +1,4 @@
 <div class="w-full relative" clickOutside (clickOutside)="clickedOutside()">
-  <p class="mb-1 ml-1 text-lg truncate">{{ _label }}</p>
   <button
     id="dropdownDefaultButton"
     class="px-4 py-4 bg-white text-[#544339] w-full focus:outline-none group"
@@ -7,7 +6,7 @@
     (click)="toggleDropdown()"
   >
     <div class="relative flex items-center w-full truncate justify-between">
-      <span class="truncate"> {{ _buttons[selectedOption].Label }}</span>
+      <div>{{ _label }}</div>
       <fa-icon class="text-[#544339] fa-xl" [icon]="_icon"></fa-icon>
     </div>
   </button>

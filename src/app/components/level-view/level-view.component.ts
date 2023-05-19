@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ApiUrl } from 'config';
+import { ApiUrl } from 'src/app/config';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { BriefLevel } from 'src/app/types/api/levels';
 

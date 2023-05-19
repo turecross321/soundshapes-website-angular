@@ -18,9 +18,14 @@ export class DropdownComponent {
     },
   ];
 
-  @Output() selectedOption: number = 0;
+  @Output() changedOption: EventEmitter<number> = new EventEmitter<number>();
+  selectedOption = 0;
+
   onOptionChanged(newOption: number) {
-    this.selectedOption = newOption;
+    this.changedOption.next(newOption);
+    this.changedOption.subscribe((value) => {
+      this.selectedOption = value;
+    });
     this.toggleDropdown();
   }
 

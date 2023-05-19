@@ -17,6 +17,13 @@ import { DropDownButton } from 'src/app/types/dropdown-button';
 export class LevelsComponent {
   constructor(private apiClient: ApiClientService) {}
 
+  onChangedOrder(param: number) {
+    this.orderType = param;
+    this.loadLevels();
+  }
+
+  orderType = 0;
+
   buttons: DropDownButton[] = [
     {
       Label: 'Creation Date',
@@ -81,7 +88,7 @@ export class LevelsComponent {
     let response = await this.apiClient.getLevels(
       0,
       9,
-      LevelOrder.CreationDate
+      Object.values(LevelOrder)[this.orderType]
     );
 
     this.levelsWrapper = response.data;

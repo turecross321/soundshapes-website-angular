@@ -1,15 +1,16 @@
 <div class="w-full flex-col">
-  <div class="grid gap-4 md:grid-cols-3 grid-rows-1 mb-2">
-    <app-dropdown class="w-full mr-5" [buttons]="buttons" label="Order By">
+  <div class="grid md:grid-cols-3 grid-rows-1 mb-2">
+    <app-dropdown
+      class="w-full"
+      [buttons]="buttons"
+      label="Order By"
+      (changedOption)="onChangedOrder($event)"
+    >
     </app-dropdown>
   </div>
   <div class="grid md:grid-cols-3 grid-rows-3">
     <div *ngFor="let level of levelsWrapper.Levels; let i = index">
-      <div class="pulse-on-hover w-full h-full">
-        <div class="p-2">
-          <app-level-view [level]="level"></app-level-view>
-        </div>
-      </div>
+      <app-level-view [level]="level"></app-level-view>
     </div>
   </div>
 </div>
