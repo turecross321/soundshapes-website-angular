@@ -11,44 +11,37 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { UserPageComponent } from './pages/user-page/user-page.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent, data: { animation: 'isRight' } },
+  { path: '', component: HomePageComponent },
   {
     path: 'levels',
     component: LevelsPageComponent,
-    data: { animation: 'isRight' },
   },
   {
     path: 'albums',
     component: AlbumsPageComponent,
-    data: { animation: 'isRight' },
   },
   {
     path: 'users',
     component: UsersPageComponent,
-    data: { animation: 'isRight' },
   },
   {
     path: 'login',
     component: LoginPageComponent,
-    data: { animation: 'isRight' },
   },
   {
     path: 'register',
     component: RegisterPageComponent,
-    data: { animation: 'isRight' },
   },
   {
     path: 'resetPassword',
     component: ResetPasswordComponent,
-    data: { animation: 'isRight' },
   },
   {
     path: 'user/:username',
     component: UserPageComponent,
-    data: { animation: 'isRight' },
   },
-  { path: 'me', component: UserPageComponent, data: { animation: 'isRight' } },
-  { path: '**', component: ErrorPageComponent, data: { animation: 'isRight' } },
+  { path: 'me', component: UserPageComponent },
+  { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({

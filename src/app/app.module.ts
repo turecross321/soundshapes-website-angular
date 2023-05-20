@@ -33,6 +33,7 @@ import { StatisticComponent } from './components/statistic/statistic.component';
 import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LevelPageComponent } from './pages/level-page/level-page.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StatisticComponent,
     UserStatisticsComponent,
     IconButtonComponent,
+    LevelPageComponent,
   ],
   imports: [
     BrowserModule,
