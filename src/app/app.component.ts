@@ -1,16 +1,6 @@
-import { Component, HostBinding } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  group,
-  query,
-  // ...
-} from '@angular/animations';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { fader, slider } from './route-animations';
+import { fader } from './route-animations';
 
 @Component({
   selector: 'app-root',
