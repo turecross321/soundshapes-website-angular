@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+}
+
 .container {
-    @apply shadow-black shadow-xl;
+    @apply text-[#3f2e27] m-3;
     background-color: #efe0da;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 40px;
+    box-shadow: 8px 9px 0px rgba(0, 0, 0, 0.30);
 }
 
 .router-outlet {
@@ -23,20 +25,25 @@
 .pulse-on-hover {
     &:hover {
         background-color: #cfb44c;
-        animation: pulse 2s infinite;
+        animation: background-pulse 2s infinite;
     }
 }
 
 .pulse-on-focus {
   &:focus {
       background-color: #cfb44c;
-      animation: pulse 2s infinite;
+      animation: background-pulse 2s infinite;
   }
 }
 
 .pulse {
   background-color: #cfb44c;
-  animation: pulse 2s infinite;
+  animation: background-pulse 2s infinite;
+}
+
+.border-pulse-on-hover:hover {
+  border-color: #cfb44c;
+  animation: border-pulse 2s infinite;
 }
 
 .background-off-white {
@@ -51,15 +58,15 @@
   @apply text-[#efe0da];
 }
 
-.text-dark-grey {
-  @apply text-[#3f2e27];
-}
-
 .text-light-grey {
-  @apply text-[#bdaca6]
+  color: #bdaca6;
 }
 
-@keyframes pulse {
+.text-light-grey-hover:hover {
+  color: #8d837f;
+}
+
+@keyframes background-pulse {
   0% {
     background-color: #cfb44c;
   }
@@ -71,6 +78,27 @@
   }
 }
 
-.max-h-50procent {
-  max-height: 50%;
+@keyframes border-pulse {
+  0% {
+    border-color: #cfb44c;
+  }
+  50% {
+    border-color: #c9a751;
+  }
+  100% {
+    border-color: #cfb44c;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 500ms;
 }

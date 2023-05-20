@@ -1,22 +1,9 @@
 import { Component, OnChanges, Output } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import {
-  faChartSimple,
-  faClockRotateLeft,
-  faHeart,
-  faMusic,
-  faUserPlus,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { faMusic, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
-import {
-  BriefLevel,
-  LevelOrder,
-  LevelsWrapper,
-} from 'src/app/types/api/levels';
+import { LevelsWrapper } from 'src/app/types/api/levels';
 import { FullUser } from 'src/app/types/api/users';
-import { FollowButtonType } from 'src/app/types/follow-button-type';
 import { SidebarButton } from 'src/app/types/sidebar-button';
 import { UserSidebarButtonType } from 'src/app/types/user-page-sidebar-buttons';
 
@@ -30,11 +17,12 @@ export class UserPageComponent {
   User: FullUser | undefined = undefined;
   loggedIn = false;
 
-  private _sidebarIndex$ = new BehaviorSubject<number>(0);
-  sidebarIndex$ = this._sidebarIndex$.asObservable();
+  FollowersIcon = faUsers;
+  LevelsIcon = faMusic;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private apiClient: ApiClientService
   ) {}
 
@@ -44,87 +32,20 @@ export class UserPageComponent {
     });
 
     this.route.paramMap.subscribe((params: ParamMap) => {
-      const route = params.get('route') as string;
-      this.setPageIndex(route);
+      let username = params.get('username') as string | undefined;
 
-      const username = params.get('username') as string | undefined;
+      this.apiClient.session$.subscribe((session) => {
+        username ??= session?.User.Username;
+      });
+
       if (username == null) return;
 
       this.apiClient.getUserWithUsername(username).then((response) => {
+        if (response.status != 200) this.router.navigate(['/404']);
+
         this.User = response.data;
-        this.updateButtons();
+        if (this.User == null) return;
       });
-    });
-  }
-
-  UserSidebarButtonType = UserSidebarButtonType;
-
-  updateButtons() {
-    this.Buttons = [
-      {
-        Label: 'Levels',
-        Icon: faMusic,
-        Count: this.User?.PublishedLevelsCount ?? 0,
-        Path: `/user/${this.User?.Username}/levels`,
-      },
-      {
-        Label: 'Following',
-        Icon: faUserPlus,
-        Count: this.User?.FollowingCount ?? 0,
-        Path: `/user/${this.User?.Username}/following`,
-      },
-      {
-        Label: 'Followers',
-        Icon: faUsers,
-        Count: this.User?.FollowersCount ?? 0,
-        Path: `/user/${this.User?.Username}/followers`,
-      },
-      {
-        Label: 'Liked Levels',
-        Icon: faHeart,
-        Count: this.User?.LikedLevelsCount ?? 0,
-        Path: `/user/${this.User?.Username}/liked`,
-      },
-      {
-        Label: 'Activities',
-        Icon: faClockRotateLeft,
-        Count: this.User?.ActivitiesCount ?? 0,
-        Path: `/user/${this.User?.Username}/activities`,
-      },
-      {
-        Label: 'Statistics',
-        Icon: faChartSimple,
-        Path: `/user/${this.User?.Username}/statistics`,
-      },
-    ];
-  }
-
-  setPageIndex(route: string) {
-    let result = UserSidebarButtonType.Levels;
-
-    switch (route) {
-      case 'levels':
-        result = UserSidebarButtonType.Levels;
-        break;
-      case 'following':
-        result = UserSidebarButtonType.Following;
-        break;
-      case 'followers':
-        result = UserSidebarButtonType.Followers;
-        break;
-      case 'liked':
-        result = UserSidebarButtonType.LikedLevels;
-        break;
-      case 'activities':
-        result = UserSidebarButtonType.Activities;
-        break;
-      case 'statistics':
-        result = UserSidebarButtonType.Statistics;
-    }
-
-    this._sidebarIndex$.next(result);
-    this._sidebarIndex$.subscribe((s) => {
-      console.log(s);
     });
   }
 

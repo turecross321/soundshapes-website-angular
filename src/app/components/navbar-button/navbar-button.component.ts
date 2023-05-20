@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { NavbarButton } from 'src/app/types/navbar-button';
 
 @Component({
   selector: 'app-navbar-button',
@@ -7,9 +8,5 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
   styleUrls: ['./navbar-button.component.scss'],
 })
 export class NavbarButtonComponent {
-  @Input()
-  icon!: IconProp;
-
-  @Input()
-  path!: string;
+  @Input() navbarButton!: NavbarButton;
 }

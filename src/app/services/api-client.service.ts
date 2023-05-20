@@ -143,10 +143,22 @@ export class ApiClientService {
     }
   }
 
-  async getLevels(from: number, count: number, order: LevelOrder) {
+  async getLevels(
+    from: number,
+    count: number,
+    order: LevelOrder,
+    descending: boolean,
+    searchQuery?: string
+  ) {
     try {
       return await axios.get<LevelsWrapper>(ApiUrl + 'levels', {
-        params: { from: from, count: count, orderBy: order },
+        params: {
+          from: from,
+          count: count,
+          orderBy: order,
+          descending: descending,
+          search: searchQuery,
+        },
       });
     } catch (error: any) {
       return error.response;

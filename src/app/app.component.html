@@ -1,2 +1,7 @@
-<router-outlet></router-outlet>
-<app-navbar class="fixed left-0 w-full bottom-0"></app-navbar>
+<app-navbar></app-navbar>
+<main
+  [@routeAnimations]="o.isActivated ? o.activatedRoute : ''"
+  class="content"
+>
+  <router-outlet #o="outlet"></router-outlet>
+</main>

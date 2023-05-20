@@ -1,12 +1,21 @@
 import { Component, Input } from '@angular/core';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { count } from 'rxjs';
-import { ApiClientService } from 'src/app/services/api-client.service';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
-  BriefLevel,
-  LevelOrder,
-  LevelsWrapper,
-} from 'src/app/types/api/levels';
+  faAnglesDown,
+  faAnglesUp,
+  faArrowDown,
+  faArrowLeft,
+  faArrowRight,
+  faArrowUp,
+  faCalendar,
+  faCaretDown,
+  faChevronDown,
+  faChevronUp,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
+import { ApiClientService } from 'src/app/services/api-client.service';
+import { LevelOrder, LevelsWrapper } from 'src/app/types/api/levels';
 import { DropDownButton } from 'src/app/types/dropdown-button';
 
 @Component({
@@ -15,16 +24,129 @@ import { DropDownButton } from 'src/app/types/dropdown-button';
   styleUrls: ['./levels.component.scss'],
 })
 export class LevelsComponent {
-  constructor(private apiClient: ApiClientService) {}
+  orderType!: number;
+  pageIndex!: number;
+  totalPages!: number;
+  descending!: boolean;
+  descendingIcon!: IconProp;
+  searchQuery!: string;
+
+  searchId: string = 'search';
+  loading: boolean = true;
+
+  constructor(
+    private apiClient: ApiClientService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   onChangedOrder(param: number) {
-    this.orderType = param;
-    this.loadLevels();
+    const queryParams: NavigationExtras = {
+      queryParams: { order: param, page: 0 },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    };
+
+    this.router.navigate([], queryParams);
   }
 
-  orderType = 0;
+  onToggledDescending() {
+    this.descending = !this.descending;
 
-  buttons: DropDownButton[] = [
+    const queryParams: NavigationExtras = {
+      queryParams: { descending: this.descending, page: 0 },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    };
+
+    this.router.navigate([], queryParams);
+  }
+
+  goToPage(param: number) {
+    const queryParams: NavigationExtras = {
+      queryParams: { page: param },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    };
+
+    this.router.navigate([], queryParams);
+  }
+
+  setDescendingIcon() {
+    if (this.descending == true) {
+      this.descendingIcon = faAnglesDown;
+    } else this.descendingIcon = faAnglesUp;
+  }
+
+  onSearch() {
+    const searchQuery: string = (<HTMLInputElement>(
+      document.getElementById(this.searchId)
+    )).value;
+
+    if (searchQuery == this.searchQuery) return;
+
+    const queryParams: NavigationExtras = {
+      queryParams: { search: searchQuery, page: 0 },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    };
+
+    this.router.navigate([], queryParams);
+  }
+
+  levelsWrapper: LevelsWrapper | undefined;
+
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.orderType = (params['order'] as number | undefined) ?? 0;
+      if (this.orderType > this.orderTypes.length || this.orderType < 0)
+        this.router.navigate(['/levels']);
+      this.pageIndex = (params['page'] as number | undefined) ?? 0;
+      this.descending = (params['descending'] ?? 'true') === 'true';
+      this.setDescendingIcon();
+      this.searchQuery = params['search'];
+
+      this.loadLevels(
+        this.pageIndex,
+        this.orderType,
+        this.descending,
+        this.searchQuery
+      );
+    });
+  }
+
+  async loadLevels(
+    page: number,
+    orderBy: number,
+    descending: boolean,
+    searchQuery?: string
+  ) {
+    const levelPageSize = 8;
+
+    if (this.levelsWrapper != undefined) this.levelsWrapper.Levels = [];
+
+    this.loading = true;
+
+    let response = await this.apiClient.getLevels(
+      levelPageSize * page,
+      levelPageSize,
+      Object.values(LevelOrder)[orderBy],
+      descending,
+      searchQuery
+    );
+    this.loading = false;
+
+    this.levelsWrapper = response.data;
+    this.totalPages = Math.ceil(
+      (this.levelsWrapper?.Count ?? 0) / levelPageSize
+    );
+  }
+
+  searchIcon = faSearch;
+  arrowLeft = faArrowLeft;
+  arrowRight = faArrowRight;
+
+  orderTypes: DropDownButton[] = [
     {
       Label: 'Creation Date',
       Icon: faCalendar,
@@ -74,23 +196,4 @@ export class LevelsComponent {
       Icon: faCalendar,
     },
   ];
-
-  levelsWrapper: LevelsWrapper = {
-    Levels: [],
-    Count: 0,
-  };
-
-  ngOnInit() {
-    this.loadLevels();
-  }
-
-  async loadLevels() {
-    let response = await this.apiClient.getLevels(
-      0,
-      9,
-      Object.values(LevelOrder)[this.orderType]
-    );
-
-    this.levelsWrapper = response.data;
-  }
 }

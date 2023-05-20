@@ -16,6 +16,7 @@
         name="Password"
         [type]="PasswordInputType"
         [icon]="passwordIcon"
+        (keydown.enter)="logIn()"
       ></app-input-field>
     </div>
 

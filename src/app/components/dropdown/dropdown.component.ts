@@ -19,7 +19,7 @@ export class DropdownComponent {
   ];
 
   @Output() changedOption: EventEmitter<number> = new EventEmitter<number>();
-  selectedOption = 0;
+  @Input() selectedOption: number = 0;
 
   onOptionChanged(newOption: number) {
     this.changedOption.next(newOption);

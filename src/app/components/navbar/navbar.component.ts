@@ -12,6 +12,7 @@ import {
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { Session } from 'src/app/types/api/account';
 import { BriefUser } from 'src/app/types/api/users';
+import { NavbarButton } from 'src/app/types/navbar-button';
 
 @Component({
   selector: 'app-navbar',
@@ -19,36 +20,31 @@ import { BriefUser } from 'src/app/types/api/users';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor(public apiClient: ApiClientService) {
-    apiClient.session$.subscribe((session) => {
-      this.setProfilePath(session);
+  constructor(public apiClient: ApiClientService) {}
+
+  notLoggedInButtons: NavbarButton[] = [
+    { Path: '/login', Icon: faRightToBracket, Label: 'Login' },
+  ];
+
+  loggedInButtons: NavbarButton[] = [
+    { Path: '/authorization', Icon: faKey, Label: 'Authorization' },
+    { Path: '/me', Icon: faUser, Label: 'Profile' },
+  ];
+
+  globalButtons: NavbarButton[] = [
+    { Path: '/', Icon: faHouseChimney, Label: 'Home' },
+    { Path: '/levels', Icon: faMusic, Label: 'Levels' },
+    { Path: '/albums', Icon: faFolderOpen, Label: 'Albums' },
+    { Path: '/users', Icon: faUsers, Label: 'Users' },
+  ];
+
+  buttons: NavbarButton[] = [...this.globalButtons];
+
+  ngOnInit() {
+    this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
+      if (loggedIn)
+        this.buttons = [...this.globalButtons, ...this.loggedInButtons];
+      else this.buttons = [...this.globalButtons, ...this.notLoggedInButtons];
     });
   }
-
-  HomeIcon = faHouseChimney;
-  HomePath = '/';
-
-  LevelsIcon = faMusic;
-  LevelsPath = '/levels';
-
-  AlbumsIcon = faFolderOpen;
-  AlbumsPath = '/albums';
-
-  UsersIcon = faUsers;
-  UsersPath = '/users';
-
-  LogInIcon = faRightToBracket;
-  LogInPath = '/login';
-
-  AuthorizationIcon = faKey;
-  AuthorizationPath = '/authorization';
-
-  setProfilePath(session: Session | undefined) {
-    if (session != undefined) {
-      this.MyProfilePath = '/user/' + session?.User.Username;
-    }
-  }
-
-  MyProfileIcon = faUser;
-  MyProfilePath = `/user/`;
 }

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { ApiUrl } from 'src/app/config';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { BriefLevel } from 'src/app/types/api/levels';
@@ -12,7 +13,18 @@ export class LevelViewComponent {
   @Input() level!: BriefLevel;
   thumbnailUrl = '';
 
+  playIcon = faPlay;
+  likeIcon = faHeart;
+
+  hovered: boolean = false;
+  modificationDate = '';
+
   ngOnInit() {
-    this.thumbnailUrl = ApiUrl + 'levels/id/' + this.level.Id + '/thumbnail';
+    if (this.level) {
+      this.thumbnailUrl = ApiUrl + 'levels/id/' + this.level.Id + '/thumbnail';
+      this.modificationDate = new Date(
+        this.level.ModificationDate
+      ).toLocaleDateString();
+    }
   }
 }

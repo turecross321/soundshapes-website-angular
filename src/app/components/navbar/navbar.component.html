@@ -1,48 +1,5 @@
-<nav
-  class="flex justify-center items-center bg-[#8d7a75] overflow-hidden h-full"
->
-  <app-navbar-button
-    class="h-full"
-    [icon]="HomeIcon"
-    [path]="HomePath"
-  ></app-navbar-button>
-
-  <app-navbar-button
-    class="h-full"
-    [icon]="LevelsIcon"
-    [path]="LevelsPath"
-  ></app-navbar-button>
-
-  <app-navbar-button
-    class="h-full"
-    [icon]="AlbumsIcon"
-    [path]="AlbumsPath"
-  ></app-navbar-button>
-
-  <app-navbar-button
-    class="h-full"
-    [icon]="UsersIcon"
-    [path]="UsersPath"
-  ></app-navbar-button>
-
-  <app-navbar-button
-    class="h-full"
-    *ngIf="!(apiClient.isLoggedIn$ | async)"
-    [icon]="LogInIcon"
-    [path]="LogInPath"
-  ></app-navbar-button>
-
-  <app-navbar-button
-    class="h-full"
-    *ngIf="apiClient.isLoggedIn$ | async"
-    [icon]="AuthorizationIcon"
-    [path]="AuthorizationPath"
-  ></app-navbar-button>
-
-  <app-navbar-button
-    class="h-full"
-    *ngIf="apiClient.isLoggedIn$ | async"
-    [icon]="MyProfileIcon"
-    [path]="MyProfilePath"
-  ></app-navbar-button>
+<nav class="flex justify-center items-center bg-black overflow-hidden h-full">
+  <ng-container *ngFor="let button of buttons; let i = index">
+    <app-navbar-button [navbarButton]="button"></app-navbar-button>
+  </ng-container>
 </nav>

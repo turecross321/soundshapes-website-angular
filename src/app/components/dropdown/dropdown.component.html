@@ -1,28 +1,30 @@
-<div class="w-full relative" clickOutside (clickOutside)="clickedOutside()">
-  <button
-    id="dropdownDefaultButton"
-    class="px-4 py-4 bg-white text-[#544339] w-full focus:outline-none group"
-    type="button"
-    (click)="toggleDropdown()"
-  >
-    <div class="relative flex items-center w-full truncate justify-between">
-      <div>{{ _label }}</div>
-      <fa-icon class="text-[#544339] fa-xl" [icon]="_icon"></fa-icon>
+<div>
+  <div class="w-full relative" clickOutside (clickOutside)="clickedOutside()">
+    <button
+      id="dropdownDefaultButton"
+      class="px-4 py-4 bg-white text-[#544339] w-full focus:outline-none group"
+      type="button"
+      (click)="toggleDropdown()"
+    >
+      <div class="relative flex items-center w-full truncate justify-between">
+        <div>{{ _buttons[selectedOption].Label }}</div>
+        <fa-icon class="text-[#544339] fa-xl" [icon]="_icon"></fa-icon>
+      </div>
+    </button>
+    <!-- Dropdown menu -->
+    <div
+      id="dropdown"
+      class="max-h-96 overflow-y-auto z-10 absolute"
+      *ngIf="isMenuOpened"
+    >
+      <ng-container *ngFor="let button of _buttons; let i = index">
+        <app-dropdown-button
+          [button]="button"
+          [selected]="i == selectedOption"
+          [index]="i"
+          (numberChanged)="onOptionChanged($event)"
+        ></app-dropdown-button>
+      </ng-container>
     </div>
-  </button>
-  <!-- Dropdown menu -->
-  <div
-    id="dropdown"
-    class="max-h-96 overflow-y-auto z-10 absolute"
-    *ngIf="isMenuOpened"
-  >
-    <ng-container *ngFor="let button of _buttons; let i = index">
-      <app-dropdown-button
-        [button]="button"
-        [selected]="i == selectedOption"
-        [index]="i"
-        (numberChanged)="onOptionChanged($event)"
-      ></app-dropdown-button>
-    </ng-container>
   </div>
 </div>

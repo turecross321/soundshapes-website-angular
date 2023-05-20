@@ -29,6 +29,11 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { DropdownButtonComponent } from './components/dropdown-button/dropdown-button.component';
 import { ClickOutsideDirective } from './directives/clicked-outside';
 import { LevelViewComponent } from './components/level-view/level-view.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
+import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +61,9 @@ import { LevelViewComponent } from './components/level-view/level-view.component
     DropdownButtonComponent,
     ClickOutsideDirective,
     LevelViewComponent,
+    StatisticComponent,
+    UserStatisticsComponent,
+    IconButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +71,7 @@ import { LevelViewComponent } from './components/level-view/level-view.component
     FontAwesomeModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

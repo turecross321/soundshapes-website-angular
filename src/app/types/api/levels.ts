@@ -4,8 +4,8 @@ export interface BriefLevel {
   Id: string;
   Name: string;
   Author: BriefUser;
-  Created: Date;
-  Modified: Date;
+  CreationDate: Date;
+  ModificationDate: Date;
   TotalPlays: number;
   UniquePlays: number;
   Likes: number;
@@ -20,7 +20,7 @@ export interface LevelsWrapper {
 export enum LevelOrder {
   CreationDate = 'creationDate',
   ModificationDate = 'modificationDate',
-  Plays = 'plays',
+  TotalPlays = 'plays',
   UniquePlays = 'uniquePlays',
   Likes = 'likes',
   FileSize = 'fileSize',
