@@ -2,7 +2,7 @@
   [contentEditable]="isNameEditable"
   [id]="inputId"
   (keydown.enter)="onKeyDown($event)"
-  (blur)="changeLevelName()"
+  (clickOutside)="onFocusOut()"
   class="text-5xl w-full"
 >
   {{ level.Name }}

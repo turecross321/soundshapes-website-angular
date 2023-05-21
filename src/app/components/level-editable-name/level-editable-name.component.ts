@@ -30,46 +30,61 @@ export class LevelEditableNameComponent {
     });
   }
 
+  onFocusOut() {
+    let levelNameInput = <HTMLHeadingElement>(
+      document.getElementById(this.inputId)
+    );
+    levelNameInput.textContent = this.level.Name;
+  }
+
   onKeyDown(event: any) {
     if (event.key === 'Enter') {
       event.preventDefault();
+      console.log('lmao');
 
       let levelNameInput = <HTMLHeadingElement>(
         document.getElementById(this.inputId)
       );
 
+      this.changeLevelName();
       levelNameInput.blur();
     }
   }
 
   async changeLevelName() {
-    console.log(document.getElementById(this.inputId));
+    console.log('lmao');
     let levelNameInput = <HTMLHeadingElement>(
       document.getElementById(this.inputId)
     );
 
-    if (levelNameInput.textContent) {
-      levelNameInput.textContent = this.enforceCharacterLimit(
-        levelNameInput.textContent
-      );
+    if (!levelNameInput.textContent) return;
 
-      const response = await this.apiClient.setLevelName(
-        this.level.Id,
-        levelNameInput.textContent
-      );
+    levelNameInput.textContent = this.enforceCharacterLimit(
+      levelNameInput.textContent.trim()
+    );
 
-      if (response.status != 201) {
-        levelNameInput.textContent = this.level.Name;
-        return;
-      }
+    if (levelNameInput.textContent == this.level.Name) return;
 
-      this.level.ModificationDate = new Date();
-      this.changedName.next();
+    const response = await this.apiClient.setLevelName(
+      this.level.Id,
+      levelNameInput.textContent
+    );
+
+    if (response.status != 201) {
+      levelNameInput.textContent = this.level.Name;
+      return;
     }
+
+    this.level.Name = levelNameInput.textContent;
+    this.level.ModificationDate = new Date();
+    this.changedName.next();
   }
 
   enforceCharacterLimit(input: string): string {
-    input = input.slice(0, maxLength).replace(/\n/g, '') ?? '';
+    console.log("'" + input + "'");
+    input =
+      input.slice(0, Math.min(maxLength, input.length)).replace(/\n/g, '') ??
+      '';
     return input;
   }
 }
