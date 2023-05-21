@@ -45,6 +45,9 @@ export class LevelStatisticsComponent {
         .slice(0, 2)
         .join();
 
+      if (this.totalPlayTime == '') this.totalPlayTime = '0 seconds';
+      if (this.averagePlayTime == '') this.averagePlayTime = '0 seconds';
+
       this.totalPlays = this.level.TotalPlays.toString();
       this.totalDeaths = this.level.TotalDeaths.toString();
       this.scaleName = Scale[this.level.ScaleIndex];

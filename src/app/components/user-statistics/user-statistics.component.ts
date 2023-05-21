@@ -11,7 +11,7 @@ export class UserStatisticsComponent {
   @Input() user!: FullUser | undefined;
 
   creationDate = '';
-  playTime = '';
+  totalPlayTime = '';
   playedLevels = '';
   totalDeaths = '';
 
@@ -23,13 +23,15 @@ export class UserStatisticsComponent {
       });
 
       this.creationDate = new Date(this.user.CreationDate).toLocaleDateString();
-      this.playTime = formatDuration(totalPlayTime, {
+      this.totalPlayTime = formatDuration(totalPlayTime, {
         format: ['hours', 'minutes', 'seconds'],
         delimiter: ', ',
       })
         .split(',')
         .slice(0, 2)
-        .join(); // Milliseconds to hours
+        .join();
+
+      if (this.totalPlayTime == '') this.totalPlayTime = '0 seconds';
       this.playedLevels = this.user.PlayedLevelsCount.toString();
       this.totalDeaths = this.user.TotalDeaths.toString();
     }

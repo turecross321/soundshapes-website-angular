@@ -8,6 +8,7 @@ import {
   faRightToBracket,
   faUser,
   faKey,
+  faCompactDisc,
 } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { Session } from 'src/app/types/api/account';
@@ -33,7 +34,7 @@ export class NavbarComponent {
   leftButtons: NavbarButton[] = [
     { Path: '/', Icon: faHouseChimney, Label: 'Home' },
     { Path: '/levels', Icon: faMusic, Label: 'Levels' },
-    { Path: '/albums', Icon: faFolderOpen, Label: 'Albums' },
+    { Path: '/albums', Icon: faCompactDisc, Label: 'Albums' },
     { Path: '/users', Icon: faUsers, Label: 'Users' },
   ];
 
