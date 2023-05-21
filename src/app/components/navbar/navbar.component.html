@@ -1,5 +1,17 @@
-<nav class="flex justify-center items-center bg-black overflow-hidden h-full">
-  <ng-container *ngFor="let button of buttons; let i = index">
-    <app-navbar-button [navbarButton]="button"></app-navbar-button>
-  </ng-container>
+<nav
+  class="flex justify-between items-center bg-[#150d01] overflow-hidden h-full"
+>
+  <div class="flex">
+    <app-navbar-button
+      *ngFor="let button of leftButtons; let i = index"
+      [navbarButton]="button"
+    ></app-navbar-button>
+  </div>
+
+  <div class="flex">
+    <app-navbar-button
+      *ngFor="let button of rightButtons; let i = index"
+      [navbarButton]="button"
+    ></app-navbar-button>
+  </div>
 </nav>

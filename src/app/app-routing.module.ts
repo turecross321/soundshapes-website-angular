@@ -9,6 +9,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
+import { LevelPageComponent } from './pages/level-page/level-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'user/:username',
     component: UserPageComponent,
+  },
+  {
+    path: 'level/:levelId',
+    component: LevelPageComponent,
   },
   { path: 'me', component: UserPageComponent },
   { path: '**', component: ErrorPageComponent },

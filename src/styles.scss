@@ -7,10 +7,10 @@
 }
 
 .container {
-    @apply text-[#3f2e27] m-3;
-    background-color: #efe0da;
-    padding: 40px;
-    box-shadow: 8px 9px 0px rgba(0, 0, 0, 0.30);
+  @apply text-[#3f2e27] m-3;
+  background-color: #efe0da;
+  padding: 40px;
+  box-shadow: 8px 9px 0px rgba(0, 0, 0, 0.3);
 }
 
 .router-outlet {
@@ -23,16 +23,16 @@
 }
 
 .pulse-on-hover {
-    &:hover {
-        background-color: #cfb44c;
-        animation: background-pulse 2s infinite;
-    }
+  &:hover {
+    background-color: #cfb44c;
+    animation: background-pulse 2s infinite;
+  }
 }
 
 .pulse-on-focus {
   &:focus {
-      background-color: #cfb44c;
-      animation: background-pulse 2s infinite;
+    background-color: #cfb44c;
+    animation: background-pulse 2s infinite;
   }
 }
 
@@ -47,7 +47,7 @@
 }
 
 .background-off-white {
-  @apply bg-[#efe0da]
+  @apply bg-[#efe0da];
 }
 
 .selected-background {
@@ -58,11 +58,11 @@
   @apply text-[#efe0da];
 }
 
-.text-light-grey {
+.text-light-gray {
   color: #bdaca6;
 }
 
-.text-light-grey-hover:hover {
+.text-light-gray-hover:hover {
   color: #8d837f;
 }
 

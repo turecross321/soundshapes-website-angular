@@ -28,23 +28,29 @@ export class NavbarComponent {
 
   loggedInButtons: NavbarButton[] = [
     { Path: '/authorization', Icon: faKey, Label: 'Authorization' },
-    { Path: '/me', Icon: faUser, Label: 'Profile' },
   ];
 
-  globalButtons: NavbarButton[] = [
+  leftButtons: NavbarButton[] = [
     { Path: '/', Icon: faHouseChimney, Label: 'Home' },
     { Path: '/levels', Icon: faMusic, Label: 'Levels' },
     { Path: '/albums', Icon: faFolderOpen, Label: 'Albums' },
     { Path: '/users', Icon: faUsers, Label: 'Users' },
   ];
 
-  buttons: NavbarButton[] = [...this.globalButtons];
+  rightButtons!: NavbarButton[];
 
   ngOnInit() {
     this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
-      if (loggedIn)
-        this.buttons = [...this.globalButtons, ...this.loggedInButtons];
-      else this.buttons = [...this.globalButtons, ...this.notLoggedInButtons];
+      this.apiClient.session$.subscribe((session) => {
+        if (loggedIn) {
+          this.rightButtons = this.loggedInButtons;
+          this.loggedInButtons.push({
+            Path: 'user/' + session?.User.Username,
+            Icon: faUser,
+            Label: session?.User?.Username ?? 'Profile',
+          });
+        } else this.rightButtons = this.notLoggedInButtons;
+      });
     });
   }
 }

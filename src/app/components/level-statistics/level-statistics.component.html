@@ -1,0 +1,55 @@
+<div class="container w-full gap-4 grid lg:grid-cols-4">
+  <!--- File Size --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">File Size</p>
+    <app-statistic
+      text="{{ level?.FileSize }} bytes"
+      class="w-full"
+    ></app-statistic>
+  </div>
+
+  <!--- Total Entities --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Total Entities</p>
+    <app-statistic
+      text="{{ level?.TotalEntities }}"
+      class="w-full"
+    ></app-statistic>
+  </div>
+
+  <!--- BPM --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">BPM</p>
+    <app-statistic text="{{ level?.Bpm }}" class="w-full"></app-statistic>
+  </div>
+
+  <!--- Scale --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Scale</p>
+    <app-statistic text="{{ scaleName }}" class="w-full"></app-statistic>
+  </div>
+
+  <!--- Total Play Time --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Total Play Time</p>
+    <app-statistic [text]="totalPlayTime" class="w-full"></app-statistic>
+  </div>
+
+  <!--- Averagee Play Time --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Average Play Time</p>
+    <app-statistic [text]="averagePlayTime" class="w-full"></app-statistic>
+  </div>
+
+  <!--- Total Plays Played --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Total Plays</p>
+    <app-statistic [text]="totalPlays" class="w-full"></app-statistic>
+  </div>
+
+  <!--- Deaths --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Total Deaths</p>
+    <app-statistic [text]="totalDeaths" class="w-full"></app-statistic>
+  </div>
+</div>

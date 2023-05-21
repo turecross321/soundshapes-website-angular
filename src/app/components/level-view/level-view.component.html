@@ -1,4 +1,4 @@
-<div class="w-full h-full" [ngClass]="{ pulse: hovered }">
+<div [ngClass]="{ pulse: hovered }">
   <div class="p-2">
     <div
       *ngIf="level"
@@ -19,15 +19,16 @@
             routerLink="/level/{{ level.Id }}"
             class="flex w-full justify-between truncate items-center"
           >
-            <h2 class="text-dark-grey truncate">{{ level.Name }}</h2>
-            <p class="text-sm">{{ modificationDate }}</p>
+            <h2 class="text-dark-gray truncate">{{ level.Name }}</h2>
+            <p class="text-sm text-light-gray">{{ modificationDate }}</p>
           </button>
         </div>
 
-        <div class="flex justify-between items-center">
-          <p class="text-light-grey">
+        <div class="flex justify-between items-center text-sm">
+          <p>
+            by
             <button
-              class="-mt-1 truncate text-light-grey-hover"
+              class="-mt-1 truncate text-light-gray-hover"
               routerLink="/user/{{ level.Author.Username }}"
             >
               {{ level.Author.Username }}

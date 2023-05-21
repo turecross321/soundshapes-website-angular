@@ -15,7 +15,7 @@
           <app-icon-button
             (click)="onToggledDescending()"
             [icon]="descendingIcon"
-            class="w-1/3 h-full"
+            class="w-20 h-full"
           ></app-icon-button>
         </div>
 
@@ -29,9 +29,26 @@
           ></app-input-field>
         </div>
       </div>
+    </div>
+
+    <div class="container animate-fade-in" *ngIf="!loading">
+      <div class="lg:grid lg:grid-cols-4 mb-2">
+        <app-level-view
+          *ngFor="let level of levelsWrapper?.Levels; let i = index"
+          class="ease-in duration-300"
+          [level]="level"
+        ></app-level-view>
+
+        <p
+          *ngIf="levelsWrapper?.Levels?.length == 0 && !loading"
+          class="text-xl"
+        >
+          No Levels Found
+        </p>
+      </div>
 
       <div class="flex justify-between items-center">
-        <p class="h-full text-3xl text-light-grey">
+        <p class="h-full text-3xl text-light-gray">
           {{ pageIndex - -1 }} / {{ totalPages }}
         </p>
         <!--- PLUS DOESNT WORK HERE BUT DOUBLE MINUS FUCKING DOES LMAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO JAVASCRIPT SUCKS ASS--->
@@ -48,17 +65,6 @@
           ></app-icon-button>
           <!-------- I HAD TO DO AGAIN BAHAHA THIS LANGUAGE IS UNHINGED-->
         </div>
-      </div>
-    </div>
-
-    <div class="container animate-fade-in" *ngIf="!loading">
-      <div class="grid lg:grid-cols-4 mb-2 ease-in duration-300">
-        <div *ngFor="let level of levelsWrapper?.Levels; let i = index">
-          <app-level-view [level]="level"></app-level-view>
-        </div>
-        <p *ngIf="levelsWrapper?.Levels?.length == 0" class="text-xl">
-          No Levels Found
-        </p>
       </div>
     </div>
   </div>

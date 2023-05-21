@@ -34,6 +34,8 @@ import { UserStatisticsComponent } from './components/user-statistics/user-stati
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LevelPageComponent } from './pages/level-page/level-page.component';
+import { LevelStatisticsComponent } from './components/level-statistics/level-statistics.component';
+import { DifficultyViewerComponent } from './components/difficulty-viewer/difficulty-viewer.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { LevelPageComponent } from './pages/level-page/level-page.component';
     UserStatisticsComponent,
     IconButtonComponent,
     LevelPageComponent,
+    LevelStatisticsComponent,
+    DifficultyViewerComponent,
   ],
   imports: [
     BrowserModule,

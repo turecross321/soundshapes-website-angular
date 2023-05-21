@@ -121,7 +121,7 @@ export class LevelsComponent {
     descending: boolean,
     searchQuery?: string
   ) {
-    const levelPageSize = 8;
+    const levelPageSize = 32;
 
     if (this.levelsWrapper != undefined) this.levelsWrapper.Levels = [];
 
@@ -184,7 +184,7 @@ export class LevelsComponent {
       Icon: faCalendar,
     },
     {
-      Label: 'Deaths',
+      Label: 'Total Deaths',
       Icon: faCalendar,
     },
     {
@@ -193,6 +193,14 @@ export class LevelsComponent {
     },
     {
       Label: 'Average Play Time',
+      Icon: faCalendar,
+    },
+    {
+      Label: 'Total Screens',
+      Icon: faCalendar,
+    },
+    {
+      Label: 'Total Entities',
       Icon: faCalendar,
     },
   ];

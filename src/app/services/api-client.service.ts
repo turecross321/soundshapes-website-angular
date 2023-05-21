@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 import axios, { AxiosRequestConfig } from 'axios';
 import { sha512Async } from '../hash';
 import { FullUser, IsFollowingResponse } from '../types/api/users';
-import { LevelOrder } from '../types/api/levels';
+import { FullLevel, LevelOrder } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
 
 @Injectable({ providedIn: 'root' })
@@ -160,6 +160,14 @@ export class ApiClientService {
           search: searchQuery,
         },
       });
+    } catch (error: any) {
+      return error.response;
+    }
+  }
+
+  async getLevelWithId(id: string) {
+    try {
+      return await axios.get<FullLevel>(ApiUrl + 'levels/id/' + id);
     } catch (error: any) {
       return error.response;
     }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { formatDistance, formatDistanceStrict } from 'date-fns';
 import { ApiUrl } from 'src/app/config';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { BriefLevel } from 'src/app/types/api/levels';
@@ -22,9 +23,13 @@ export class LevelViewComponent {
   ngOnInit() {
     if (this.level) {
       this.thumbnailUrl = ApiUrl + 'levels/id/' + this.level.Id + '/thumbnail';
-      this.modificationDate = new Date(
-        this.level.ModificationDate
-      ).toLocaleDateString();
+      this.modificationDate = formatDistanceStrict(
+        new Date(this.level.CreationDate),
+        new Date(),
+        {
+          addSuffix: true,
+        }
+      );
     }
   }
 }
