@@ -1,7 +1,9 @@
+import { PermissionsType } from './account';
+
 export interface BriefUser {
   Id: string;
   Username: string;
-  PermissionsType: number;
+  PermissionsType: PermissionsType;
   PublishedLevelsCount: number;
   FollowersCount: number;
 }

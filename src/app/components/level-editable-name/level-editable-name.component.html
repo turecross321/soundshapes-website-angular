@@ -1,0 +1,9 @@
+<h1
+  [contentEditable]="isNameEditable"
+  [id]="inputId"
+  (keydown.enter)="onKeyDown($event)"
+  (blur)="changeLevelName()"
+  class="text-5xl w-full"
+>
+  {{ level.Name }}
+</h1>

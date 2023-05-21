@@ -5,45 +5,66 @@
   <div class="w-full flex items-center justify-center">
     <div class="container flex justify-between">
       <div class="lg:flex w-full gap-6">
-        <img [src]="thumbnailUrl" class="aspect-video w-full lg:w-auto" />
-        <div class="flex-col">
-          <h1 class="text-5xl w-full">{{ level.Name }}</h1>
-          <div class="items-center flex gap-2">
-            <h2 class="text-xl">
-              by
-              <button
-                class="text-light-gray-hover"
-                routerLink="/user/{{ level.Author.Username }}"
-              >
-                {{ level.Author.Username }}
-              </button>
-            </h2>
-          </div>
-
-          <div *ngIf="level.Difficulty > 0" class="pt-2 pb-2">
-            <app-difficulty-viewer
-              [difficulty]="difficulty"
-            ></app-difficulty-viewer>
-          </div>
-
-          <div class="flex gap-2">
-            <!---- Unique Plays --->
-            <div class="flex gap-1 text-lg">
-              <fa-icon [icon]="playIcon"></fa-icon>
-              <p>{{ level.UniquePlays }}</p>
+        <div class="lg:flex w-full overflow-x-auto">
+          <img
+            [src]="thumbnailUrl"
+            class="aspect-video w-full lg:w-auto lg:mr-4"
+          />
+          <div class="flex-col w-full">
+            <div>
+              <app-level-editable-name
+                [level]="level"
+                (changedName)="setDate()"
+                class="truncate w-full"
+              ></app-level-editable-name>
             </div>
 
-            <!---- Likes --->
-            <div class="flex gap-1 text-lg">
-              <fa-icon [icon]="likeIcon"></fa-icon>
-              <p>{{ level.Likes }}</p>
+            <div class="items-center flex gap-2">
+              <h2 class="text-xl">
+                by
+                <button
+                  class="text-light-gray-hover"
+                  routerLink="/user/{{ level.Author.Username }}"
+                >
+                  {{ level.Author.Username }}
+                </button>
+              </h2>
             </div>
-          </div>
 
-          <p class="text-lg italic text-light-gray">
-            {{ creationAndModification }}
-          </p>
+            <div *ngIf="level.Difficulty > 0" class="pt-2 pb-2">
+              <app-difficulty-viewer
+                [difficulty]="difficulty"
+              ></app-difficulty-viewer>
+            </div>
+
+            <div class="flex gap-2">
+              <!---- Total Plays --->
+              <div class="flex gap-1 text-lg">
+                <fa-icon [icon]="playIcon"></fa-icon>
+                <p>{{ level.TotalPlays }}</p>
+              </div>
+
+              <!---- Likes --->
+              <div class="flex gap-1 text-lg">
+                <fa-icon [icon]="likeIcon"></fa-icon>
+                <p>{{ level.Likes }}</p>
+              </div>
+            </div>
+
+            <p class="text-lg italic text-light-gray">
+              {{ creationAndModification }}
+            </p>
+          </div>
         </div>
+
+        <div class="flex items-start gap-2">
+          <app-report-button></app-report-button>
+          <app-level-interaction-button
+            [level]="level"
+          ></app-level-interaction-button>
+        </div>
+
+        <div></div>
       </div>
     </div>
   </div>

@@ -27,7 +27,7 @@ export class NavbarComponent {
     { Path: '/login', Icon: faRightToBracket, Label: 'Login' },
   ];
 
-  loggedInButtons: NavbarButton[] = [
+  loggedInButtonPreset: NavbarButton[] = [
     { Path: '/authorization', Icon: faKey, Label: 'Authorization' },
   ];
 
@@ -43,13 +43,15 @@ export class NavbarComponent {
   ngOnInit() {
     this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
       this.apiClient.session$.subscribe((session) => {
-        if (loggedIn) {
-          this.rightButtons = this.loggedInButtons;
-          this.loggedInButtons.push({
-            Path: 'user/' + session?.User.Username,
-            Icon: faUser,
-            Label: session?.User?.Username ?? 'Profile',
-          });
+        if (loggedIn && session) {
+          this.rightButtons = [
+            ...this.loggedInButtonPreset,
+            {
+              Path: 'user/' + session?.User.Username,
+              Icon: faUser,
+              Label: session.User.Username,
+            },
+          ];
         } else this.rightButtons = this.notLoggedInButtons;
       });
     });

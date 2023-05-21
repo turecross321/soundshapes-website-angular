@@ -172,4 +172,28 @@ export class ApiClientService {
       return error.response;
     }
   }
+  async checkLevelLikeStatus(id: string) {
+    try {
+      return await axios.get(ApiUrl + 'levels/id/' + id + '/liked');
+    } catch (error: any) {
+      return error.response;
+    }
+  }
+  async likeLevel(id: string) {
+    return await axios.post(ApiUrl + 'levels/id/' + id + '/like');
+  }
+
+  async unLikeLevel(id: string) {
+    return await axios.post(ApiUrl + 'levels/id/' + id + '/unLike');
+  }
+
+  async setLevelName(id: string, newName: string) {
+    try {
+      return await axios.post(ApiUrl + 'levels/id/' + id + '/edit', {
+        Name: newName,
+      });
+    } catch (error: any) {
+      return error.response;
+    }
+  }
 }

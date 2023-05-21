@@ -36,6 +36,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LevelPageComponent } from './pages/level-page/level-page.component';
 import { LevelStatisticsComponent } from './components/level-statistics/level-statistics.component';
 import { DifficultyViewerComponent } from './components/difficulty-viewer/difficulty-viewer.component';
+import { LevelInteractionButtonComponent } from './components/level-interaction-button/level-interaction-button.component';
+import { LevelEditableNameComponent } from './components/level-editable-name/level-editable-name.component';
+import { ReportButtonComponent } from './components/report-button/report-button.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +73,9 @@ import { DifficultyViewerComponent } from './components/difficulty-viewer/diffic
     LevelPageComponent,
     LevelStatisticsComponent,
     DifficultyViewerComponent,
+    LevelInteractionButtonComponent,
+    LevelEditableNameComponent,
+    ReportButtonComponent,
   ],
   imports: [
     BrowserModule,

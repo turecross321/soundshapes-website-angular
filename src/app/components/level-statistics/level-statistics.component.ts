@@ -12,7 +12,7 @@ export class LevelStatisticsComponent {
 
   totalPlayTime = '';
   averagePlayTime = '';
-  totalPlays = '';
+  uniquePlays = '';
   totalDeaths = '';
   scaleName = '';
 
@@ -48,7 +48,7 @@ export class LevelStatisticsComponent {
       if (this.totalPlayTime == '') this.totalPlayTime = '0 seconds';
       if (this.averagePlayTime == '') this.averagePlayTime = '0 seconds';
 
-      this.totalPlays = this.level.TotalPlays.toString();
+      this.uniquePlays = this.level.UniquePlays.toString();
       this.totalDeaths = this.level.TotalDeaths.toString();
       this.scaleName = Scale[this.level.ScaleIndex];
     }

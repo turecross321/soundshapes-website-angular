@@ -20,3 +20,9 @@ export interface Session {
   IsBanned: boolean;
   BanReason?: string;
 }
+
+export enum PermissionsType {
+  Defualt = 0,
+  Moderator = 1,
+  Admin = 2,
+}

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { faPlay, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faHeart, IconPack } from '@fortawesome/free-solid-svg-icons';
 import { ApiUrl } from 'src/app/config';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { FullLevel } from 'src/app/types/api/levels';
@@ -11,6 +11,7 @@ import {
   formatRelative,
   subDays,
 } from 'date-fns';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-level-page',
@@ -23,6 +24,7 @@ export class LevelPageComponent {
   thumbnailUrl = '';
   difficulty = 0;
   creationAndModification = '';
+  interactionIcon!: IconProp;
 
   playIcon = faPlay;
   likeIcon = faHeart;
@@ -32,6 +34,28 @@ export class LevelPageComponent {
     private router: Router,
     private apiClient: ApiClientService
   ) {}
+
+  setDate() {
+    if (this.level) {
+      this.creationAndModification =
+        'Published ' +
+        formatDistanceStrict(new Date(this.level.CreationDate), new Date(), {
+          addSuffix: true,
+        });
+
+      if (this.level.ModificationDate != this.level.CreationDate) {
+        this.creationAndModification +=
+          ', modified ' +
+          formatDistanceStrict(
+            new Date(this.level.ModificationDate),
+            new Date(),
+            {
+              addSuffix: true,
+            }
+          );
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -47,23 +71,13 @@ export class LevelPageComponent {
           ApiUrl + 'levels/id/' + this.level.Id + '/thumbnail';
         this.difficulty = this.level.Difficulty;
 
-        this.creationAndModification =
-          'Published ' +
-          formatDistanceStrict(new Date(this.level.CreationDate), new Date(), {
-            addSuffix: true,
-          });
+        this.setDate();
 
-        if (this.level.ModificationDate != this.level.CreationDate) {
-          this.creationAndModification +=
-            ', modified ' +
-            formatDistanceStrict(
-              new Date(this.level.ModificationDate),
-              new Date(),
-              {
-                addSuffix: true,
-              }
-            );
-        }
+        this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
+          if (!loggedIn) return;
+
+          this.interactionIcon = faHeart;
+        });
       });
     });
   }
