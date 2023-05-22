@@ -34,6 +34,8 @@ export enum LevelOrder {
   AveragePlayTime = 'averagePlayTime',
   TotalScreens = 'totalScreens',
   TotalEntities = 'totalEntities',
+  Bpm = 'bpm',
+  TransposeValue = 'transposeValue',
 }
 
 export interface FullLevel {

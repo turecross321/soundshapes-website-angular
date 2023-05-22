@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faSquareBehance } from '@fortawesome/free-brands-svg-icons';
+import { faRectangleTimes } from '@fortawesome/free-regular-svg-icons';
 import {
   faAnglesDown,
   faAnglesUp,
@@ -8,11 +10,35 @@ import {
   faArrowLeft,
   faArrowRight,
   faArrowUp,
+  faArrowsUpDown,
+  faBookSkull,
+  faBox,
+  faBoxesStacked,
   faCalendar,
   faCaretDown,
+  faChartLine,
   faChevronDown,
   faChevronUp,
+  faClock,
+  faCubesStacked,
+  faFile,
+  faFire,
+  faHeart,
+  faHeartPulse,
+  faList,
+  faPenNib,
+  faPhotoFilm,
+  faPlay,
+  faRectangleAd,
+  faRectangleList,
   faSearch,
+  faShuffle,
+  faSitemap,
+  faSkull,
+  faSpaghettiMonsterFlying,
+  faSquare,
+  faTimesRectangle,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { LevelOrder, LevelsWrapper } from 'src/app/types/api/levels';
@@ -153,55 +179,63 @@ export class LevelsComponent {
     },
     {
       Label: 'Modification Date',
-      Icon: faCalendar,
+      Icon: faPenNib,
     },
     {
       Label: 'Total Plays',
-      Icon: faCalendar,
+      Icon: faPlay,
     },
     {
       Label: 'Unique Plays',
-      Icon: faCalendar,
+      Icon: faUsers,
     },
     {
       Label: 'Likes',
-      Icon: faCalendar,
+      Icon: faHeart,
     },
     {
       Label: 'File Size',
-      Icon: faCalendar,
+      Icon: faFile,
     },
     {
       Label: 'Difficulty',
-      Icon: faCalendar,
+      Icon: faSkull,
     },
     {
       Label: 'Relevance',
-      Icon: faCalendar,
+      Icon: faFire,
     },
     {
       Label: 'Random',
-      Icon: faCalendar,
+      Icon: faShuffle,
     },
     {
       Label: 'Total Deaths',
-      Icon: faCalendar,
+      Icon: faBookSkull,
     },
     {
       Label: 'Total Play Time',
-      Icon: faCalendar,
+      Icon: faClock,
     },
     {
       Label: 'Average Play Time',
-      Icon: faCalendar,
+      Icon: faChartLine,
     },
     {
       Label: 'Total Screens',
-      Icon: faCalendar,
+      Icon: faSitemap,
     },
     {
       Label: 'Total Entities',
-      Icon: faCalendar,
+      Icon: faList,
+    },
+    {
+      Label: 'BPM',
+      Icon: faHeartPulse,
+    },
+    {
+      Label: 'Transpose Value',
+      Icon: faArrowsUpDown,
     },
   ];
 }

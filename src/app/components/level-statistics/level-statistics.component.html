@@ -1,4 +1,4 @@
-<div class="container w-full gap-4 grid lg:grid-cols-4">
+<div class="container w-full gap-4 grid lg:grid-cols-3">
   <!--- File Size --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">File Size</p>
@@ -17,6 +17,15 @@
     ></app-statistic>
   </div>
 
+  <!--- Total Screens --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Total Screens</p>
+    <app-statistic
+      text="{{ level?.TotalScreens }}"
+      class="w-full"
+    ></app-statistic>
+  </div>
+
   <!--- BPM --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">BPM</p>
@@ -29,27 +38,36 @@
     <app-statistic text="{{ scaleName }}" class="w-full"></app-statistic>
   </div>
 
+  <!--- Transpose Value --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Transpose Value</p>
+    <app-statistic
+      text="{{ level?.TransposeValue }}"
+      class="w-full"
+    ></app-statistic>
+  </div>
+
   <!--- Total Play Time --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Total Play Time</p>
     <app-statistic [text]="totalPlayTime" class="w-full"></app-statistic>
   </div>
 
-  <!--- Averagee Play Time --->
-  <div class="w-full">
-    <p class="text-center text-2xl mb-4">Average Play Time</p>
-    <app-statistic [text]="averagePlayTime" class="w-full"></app-statistic>
-  </div>
-
   <!--- Unique Plays --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Unique Plays</p>
-    <app-statistic [text]="uniquePlays" class="w-full"></app-statistic>
+    <app-statistic
+      text="{{ level?.UniquePlays }}"
+      class="w-full"
+    ></app-statistic>
   </div>
 
   <!--- Deaths --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Total Deaths</p>
-    <app-statistic [text]="totalDeaths" class="w-full"></app-statistic>
+    <app-statistic
+      text="{{ level?.TotalDeaths }}"
+      class="w-full"
+    ></app-statistic>
   </div>
 </div>

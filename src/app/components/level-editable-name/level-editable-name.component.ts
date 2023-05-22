@@ -15,6 +15,8 @@ export class LevelEditableNameComponent {
   inputId = 'levelName';
   isNameEditable = false;
 
+  hasNameBeenEdited = false;
+
   constructor(private apiClient: ApiClientService) {}
 
   ngOnInit() {
@@ -40,7 +42,6 @@ export class LevelEditableNameComponent {
   onKeyDown(event: any) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      console.log('lmao');
 
       let levelNameInput = <HTMLHeadingElement>(
         document.getElementById(this.inputId)
@@ -52,7 +53,6 @@ export class LevelEditableNameComponent {
   }
 
   async changeLevelName() {
-    console.log('lmao');
     let levelNameInput = <HTMLHeadingElement>(
       document.getElementById(this.inputId)
     );
@@ -81,7 +81,6 @@ export class LevelEditableNameComponent {
   }
 
   enforceCharacterLimit(input: string): string {
-    console.log("'" + input + "'");
     input =
       input.slice(0, Math.min(maxLength, input.length)).replace(/\n/g, '') ??
       '';

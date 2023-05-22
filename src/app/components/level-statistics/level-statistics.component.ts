@@ -11,9 +11,6 @@ export class LevelStatisticsComponent {
   @Input() level!: FullLevel | undefined;
 
   totalPlayTime = '';
-  averagePlayTime = '';
-  uniquePlays = '';
-  totalDeaths = '';
   scaleName = '';
 
   ngOnInit() {
@@ -22,20 +19,6 @@ export class LevelStatisticsComponent {
         start: 0,
         end: this.level.TotalPlayTime,
       });
-
-      if (this.level.TotalPlays != 0) {
-        const averagePlayTime: Duration = intervalToDuration({
-          start: 0,
-          end: this.level.TotalPlayTime / this.level.TotalPlays,
-        });
-        this.averagePlayTime = formatDuration(averagePlayTime, {
-          format: ['hours', 'minutes', 'seconds'],
-          delimiter: ', ',
-        })
-          .split(',') // i'm so sorry
-          .slice(0, 2)
-          .join();
-      }
 
       this.totalPlayTime = formatDuration(totalPlayTime, {
         format: ['hours', 'minutes', 'seconds'],
@@ -46,10 +29,6 @@ export class LevelStatisticsComponent {
         .join();
 
       if (this.totalPlayTime == '') this.totalPlayTime = '0 seconds';
-      if (this.averagePlayTime == '') this.averagePlayTime = '0 seconds';
-
-      this.uniquePlays = this.level.UniquePlays.toString();
-      this.totalDeaths = this.level.TotalDeaths.toString();
       this.scaleName = Scale[this.level.ScaleIndex];
     }
   }
