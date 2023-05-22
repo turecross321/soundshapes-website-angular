@@ -18,12 +18,12 @@ export class LevelViewComponent {
   likeIcon = faHeart;
 
   hovered: boolean = false;
-  modificationDate = '';
+  creationDate = '';
 
   ngOnInit() {
     if (this.level) {
       this.thumbnailUrl = ApiUrl + 'levels/id/' + this.level.Id + '/thumbnail';
-      this.modificationDate = formatDistanceStrict(
+      this.creationDate = formatDistanceStrict(
         new Date(this.level.CreationDate),
         new Date(),
         {

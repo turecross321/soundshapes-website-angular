@@ -23,7 +23,8 @@ export class LevelPageComponent {
 
   thumbnailUrl = '';
   difficulty = 0;
-  creationAndModification = '';
+  creation: string = '';
+  modification: string | null = null;
   interactionIcon!: IconProp;
 
   playIcon = faPlay;
@@ -37,15 +38,15 @@ export class LevelPageComponent {
 
   setDate() {
     if (this.level) {
-      this.creationAndModification =
+      this.creation =
         'Published ' +
         formatDistanceStrict(new Date(this.level.CreationDate), new Date(), {
           addSuffix: true,
         });
 
       if (this.level.ModificationDate != this.level.CreationDate) {
-        this.creationAndModification +=
-          ', modified ' +
+        this.modification =
+          ', last modified ' +
           formatDistanceStrict(
             new Date(this.level.ModificationDate),
             new Date(),

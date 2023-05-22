@@ -51,9 +51,14 @@
               </div>
             </div>
 
-            <p class="text-lg italic text-light-gray">
-              {{ creationAndModification }}
-            </p>
+            <div class="flex text-lg italic text-light-gray">
+              <span title="{{ 'Created at ' + level.CreationDate }}">{{
+                creation
+              }}</span>
+              <span title="{{ 'Last Modified at ' + level.ModificationDate }}">
+                {{ modification }}
+              </span>
+            </div>
           </div>
         </div>
 
