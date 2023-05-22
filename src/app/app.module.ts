@@ -39,6 +39,7 @@ import { DifficultyViewerComponent } from './components/difficulty-viewer/diffic
 import { LevelInteractionButtonComponent } from './components/level-interaction-button/level-interaction-button.component';
 import { LevelEditableNameComponent } from './components/level-editable-name/level-editable-name.component';
 import { ReportButtonComponent } from './components/report-button/report-button.component';
+import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { ReportButtonComponent } from './components/report-button/report-button.
     LevelInteractionButtonComponent,
     LevelEditableNameComponent,
     ReportButtonComponent,
+    ResetPasswordPageComponent,
   ],
   imports: [
     BrowserModule,

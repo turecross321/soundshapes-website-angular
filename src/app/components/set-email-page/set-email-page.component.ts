@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { faEnvelope, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
+import { InputType } from 'src/app/types/input-type';
 
 @Component({
   selector: 'app-set-email-page',
@@ -13,6 +14,10 @@ export class SetEmailPageComponent {
 
   emailCodeId: string = 'register-email-code';
   emailId: string = 'register-email';
+  emailCodeInputType = InputType.EmailCode;
+  emailInputType = InputType.Email;
+
+  errorMessage: string | null = null;
 
   emailCodeIcon = faHashtag;
   emailIcon = faEnvelope;
@@ -31,6 +36,10 @@ export class SetEmailPageComponent {
     if (response.status == 201) {
       this.pageIndexChange.emit(1);
       localStorage.setItem('email', email);
+    } else if (response.status == 403) {
+      this.errorMessage = 'The Email Code was incorrect.';
+    } else {
+      this.errorMessage = 'An error has occurred.';
     }
   }
 }

@@ -2,11 +2,13 @@
   <div class="container max-w-2xl flex-col">
     <h1 class="header mb-6">Register</h1>
 
-    <app-stepper
-      [StepsCount]="2"
-      [StepIndex]="PageIndex"
-      class="w-full mb-2"
-    ></app-stepper>
+    <div class="mb-2">
+      <app-stepper
+        [StepsCount]="2"
+        [StepIndex]="PageIndex"
+        class="w-full"
+      ></app-stepper>
+    </div>
 
     <app-set-email-page
       *ngIf="PageIndex == 0"

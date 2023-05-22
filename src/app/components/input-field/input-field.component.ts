@@ -9,41 +9,70 @@ import { InputType } from 'src/app/types/input-type';
   styleUrls: ['./input-field.component.scss'],
 })
 export class InputFieldComponent {
-  _icon: IconProp = faPoo; // DON'T WORRY ABOUT IT JVYDEN IT WAS DEFINITELY A COINCIDENCE
-  _name: string = 'NAME NOT SET';
-  _type: InputType = InputType.Text;
-  _id: string | undefined = undefined;
-  _readonly: boolean = false;
-  _value: string = '';
+  @Input() icon: IconProp = faPoo; // DON'T WORRY ABOUT IT JVYDEN IT WAS DEFINITELY A COINCIDENCE
+  @Input() name: string = 'NAME NOT SET';
+  @Input() type: InputType = InputType.Text;
+  @Input() id!: string;
+  @Input() readonly: boolean = false;
+  @Input() value: string = '';
 
-  @Input()
-  set icon(param: IconProp) {
-    this._icon = param;
+  typeString!: string;
+  errorMessage: string | null = null;
+
+  field!: HTMLInputElement;
+
+  ngOnInit() {
+    switch (this.type) {
+      case InputType.Email:
+        this.typeString = 'email';
+        break;
+      case InputType.Password:
+        this.typeString = 'password';
+        break;
+      case InputType.PasswordCode:
+      case InputType.Text:
+      case InputType.EmailCode:
+        this.typeString = 'text';
+        break;
+    }
   }
 
-  @Input()
-  set name(param: string) {
-    this._name = param;
+  validateInput() {
+    this.field = <HTMLInputElement>document.getElementById(this.id);
+
+    if (this.type == InputType.Email) {
+      const emailRegex = /\S+@\S+\.\S+/;
+      if (!emailRegex.test(this.field.value)) {
+        this.errorMessage = 'Invalid Email Address.';
+      } else {
+        this.errorMessage = null;
+      }
+    } else if (this.type == InputType.EmailCode) {
+      const emailCodeRegex = /^\d{8}$/;
+      if (!emailCodeRegex.test(this.field.value)) {
+        this.errorMessage = 'Invalid Email Code.';
+      }
+    } else if (this.type == InputType.PasswordCode) {
+      const passwordCodeRegex = /^\A-Z{8}$/;
+      if (!passwordCodeRegex.test(this.field.value)) {
+        this.errorMessage = 'Invalid Password Code.';
+      }
+    }
   }
 
-  @Input()
-  set type(param: InputType) {
-    this._type = param;
-  }
+  resolveInputError() {
+    this.field = <HTMLInputElement>document.getElementById(this.id);
 
-  @Input()
-  set id(param: string) {
-    this._id = param;
-  }
-
-  @Input()
-  set readonly(param: boolean) {
-    this._readonly = param;
-  }
-
-  @Input()
-  set value(param: string | undefined) {
-    if (param === undefined) param = '';
-    this._value = param;
+    if (this.type == InputType.Email) {
+      const emailRegex = /\S+@\S+\.\S+/;
+      if (emailRegex.test(this.field.value)) {
+        this.errorMessage = null;
+      }
+    } else if (this.type == InputType.EmailCode) {
+      const emailCodeRegex = /^\d{8}$/;
+      if (emailCodeRegex.test(this.field.value)) {
+        this.errorMessage = null;
+      }
+    }
   }
 }

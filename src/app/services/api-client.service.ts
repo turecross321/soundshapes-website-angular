@@ -39,9 +39,6 @@ export class ApiClientService {
         currentDate.getUTCMinutes()
       );
 
-      console.log(expiryDate);
-      console.log(currentUTCDate);
-
       // Use saved session if it's not expired
       if (expiryDate > currentUTCDate) {
         this.finishLogIn(session);
@@ -106,11 +103,17 @@ export class ApiClientService {
       NewEmail: address,
     };
 
-    return axios.post(ApiUrl + 'account/setEmail', body, {
-      headers: {
-        Authorization: emailCode,
-      },
-    });
+    try {
+      const response = await axios.post(ApiUrl + 'account/setEmail', body, {
+        headers: {
+          Authorization: emailCode,
+        },
+      });
+
+      return response;
+    } catch (error: any) {
+      return error.response;
+    }
   }
 
   async setPassword(passwordCode: string, hash: string) {

@@ -14,6 +14,9 @@ export class LoginPageComponent {
   emailId: string = 'login-email';
   passwordId: string = 'login-password';
 
+  errorMessage = null;
+
+  EmailInputType: InputType = InputType.Email;
   PasswordInputType: InputType = InputType.Password;
 
   emailIcon = faEnvelope;
@@ -36,8 +39,9 @@ export class LoginPageComponent {
 
     const hash = await sha512Async(passwordInput);
     const response = await this.apiClientService.logIn(emailInput, hash);
-    if (response.status != 200) console.log(response.data);
-    else {
+    if (response.status != 200) {
+      this.errorMessage = response.data;
+    } else {
       this.router.navigate(['user/' + response.data.User.Username]);
     }
   }

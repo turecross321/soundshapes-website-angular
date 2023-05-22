@@ -14,6 +14,7 @@ export class SetPasswordPageComponent {
   passwordCodeId: string = 'register-password-code';
   passwordId: string = 'register-password';
 
+  passwordCodeInputType = InputType.PasswordCode;
   passwordInputType = InputType.Password;
 
   passwordCodeIcon = faHashtag;

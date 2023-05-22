@@ -1,25 +1,34 @@
-<div class="w-full mb-2">
-  <label for="email code"></label>
-  <app-input-field
-    [id]="emailCodeId"
-    name="Email Code"
-    [icon]="emailCodeIcon"
-  ></app-input-field>
-</div>
+<div>
+  <p class="text-red-600 mb-2" *ngIf="errorMessage != null">
+    {{ errorMessage }}
+  </p>
+  <div class="w-full mb-2">
+    <label for="email code"></label>
+    <app-input-field
+      [id]="emailCodeId"
+      name="Email Code"
+      [icon]="emailCodeIcon"
+      [type]="emailCodeInputType"
+      (keydown.enter)="setEmail()"
+    ></app-input-field>
+  </div>
 
-<div class="w-full mb-2">
-  <label for="email"></label>
-  <app-input-field
-    [id]="emailId"
-    name="Email Address"
-    [icon]="emailIcon"
-  ></app-input-field>
-</div>
+  <div class="w-full gap-2 mb-2">
+    <label for="email"></label>
+    <app-input-field
+      [id]="emailId"
+      name="Email Address"
+      [icon]="emailIcon"
+      [type]="emailInputType"
+      (keydown.enter)="setEmail()"
+    ></app-input-field>
+  </div>
 
-<div class="row w-full mb-2">
-  <app-primary-button
-    label="Next"
-    (click)="setEmail()"
-    class="w-full"
-  ></app-primary-button>
+  <div class="row w-full">
+    <app-primary-button
+      label="Next"
+      (click)="setEmail()"
+      class="w-full"
+    ></app-primary-button>
+  </div>
 </div>
