@@ -10,7 +10,6 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { LevelPageComponent } from './pages/level-page/level-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -36,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'resetPassword',
-    component: ResetPasswordComponent,
+    component: ResetPasswordPageComponent,
   },
   {
     path: 'user/:username',

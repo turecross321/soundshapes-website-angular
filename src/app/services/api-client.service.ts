@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiUrl } from 'src/app/config';
-import { Session } from '../types/api/account';
+import { SendPasswordSessionRequest, Session } from '../types/api/account';
 import {
   LoginRequest,
   SetEmailRequest,
@@ -12,6 +12,7 @@ import { sha512Async } from '../hash';
 import { FullUser, IsFollowingResponse } from '../types/api/users';
 import { FullLevel, LevelOrder } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
+import { SendPasswordSessionComponent } from '../components/send-password-session/send-password-session.component';
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {
@@ -116,6 +117,14 @@ export class ApiClientService {
     }
   }
 
+  async sendPasswordSession(email: string) {
+    const body: SendPasswordSessionRequest = {
+      Email: email,
+    };
+
+    return await axios.post(ApiUrl + 'account/sendPasswordSession', body);
+  }
+
   async setPassword(passwordCode: string, hash: string) {
     const body: SetPasswordRequest = {
       NewPasswordSha512: hash,
@@ -123,7 +132,7 @@ export class ApiClientService {
 
     return axios.post(ApiUrl + 'account/setPassword', body, {
       headers: {
-        Authorization: passwordCode,
+        Authorization: passwordCode.toUpperCase(),
       },
     });
   }

@@ -8,12 +8,14 @@ import { ApiClientService } from 'src/app/services/api-client.service';
   styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent {
-  constructor(private apiClient: ApiClientService, private router: Router) {}
+  constructor(private router: Router) {}
 
+  emailAddress!: string;
   PageIndex = 0;
 
-  onPageIndexChange(newPageIndex: number): void {
-    this.PageIndex = newPageIndex;
+  sentCode(email: string): void {
+    this.emailAddress = email;
+    this.PageIndex = 1;
   }
 
   onFinishedRegistration(): void {

@@ -21,6 +21,10 @@ export class InputFieldComponent {
 
   field!: HTMLInputElement;
 
+  usePasswordCheckbox: boolean = false;
+  showPassword: boolean = false;
+  visibilityCheckboxId!: string;
+
   ngOnInit() {
     switch (this.type) {
       case InputType.Email:
@@ -28,6 +32,8 @@ export class InputFieldComponent {
         break;
       case InputType.Password:
         this.typeString = 'password';
+        this.visibilityCheckboxId = this.id + '-show-checkbox';
+        this.usePasswordCheckbox = true;
         break;
       case InputType.PasswordCode:
       case InputType.Text:
@@ -51,28 +57,35 @@ export class InputFieldComponent {
       const emailCodeRegex = /^\d{8}$/;
       if (!emailCodeRegex.test(this.field.value)) {
         this.errorMessage = 'Invalid Email Code.';
+      } else {
+        this.errorMessage = null;
       }
     } else if (this.type == InputType.PasswordCode) {
-      const passwordCodeRegex = /^\A-Z{8}$/;
+      const passwordCodeRegex = /^[a-zA-Z]{8}$/;
       if (!passwordCodeRegex.test(this.field.value)) {
         this.errorMessage = 'Invalid Password Code.';
+      } else {
+        this.errorMessage = null;
       }
     }
   }
 
-  resolveInputError() {
-    this.field = <HTMLInputElement>document.getElementById(this.id);
+  togglePasswordVisiblity() {
+    // only used for password inputs
 
-    if (this.type == InputType.Email) {
-      const emailRegex = /\S+@\S+\.\S+/;
-      if (emailRegex.test(this.field.value)) {
-        this.errorMessage = null;
-      }
-    } else if (this.type == InputType.EmailCode) {
-      const emailCodeRegex = /^\d{8}$/;
-      if (emailCodeRegex.test(this.field.value)) {
-        this.errorMessage = null;
-      }
+    const checkbox = <HTMLInputElement>(
+      document.getElementById(this.visibilityCheckboxId)
+    );
+
+    if (this.type != InputType.Password) return;
+    this.showPassword = !this.showPassword;
+
+    if (this.showPassword) {
+      this.typeString = 'text';
+    } else {
+      this.typeString = 'password';
     }
+
+    checkbox.checked = this.showPassword;
   }
 }

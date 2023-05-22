@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center">
+<div class="flex justify-center">
   <div class="container max-w-2xl flex-col">
     <h1 class="header mb-6">Register</h1>
 
@@ -13,12 +13,13 @@
     <app-set-email-page
       *ngIf="PageIndex == 0"
       class="w-full"
-      (pageIndexChange)="onPageIndexChange($event)"
+      (sentCode)="sentCode($event)"
     ></app-set-email-page>
 
     <app-set-password-page
       *ngIf="PageIndex == 1"
       class="w-full"
+      [emailAddress]="emailAddress"
       (onFinishedRegistration)="onFinishedRegistration()"
     ></app-set-password-page>
   </div>

@@ -11,6 +11,8 @@ import { faHashtag, faKey } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./set-password-page.component.scss'],
 })
 export class SetPasswordPageComponent {
+  @Input() emailAddress! : string;
+  
   passwordCodeId: string = 'register-password-code';
   passwordId: string = 'register-password';
 

@@ -23,7 +23,7 @@ export class SetEmailPageComponent {
   emailIcon = faEnvelope;
 
   @Output()
-  pageIndexChange = new EventEmitter<number>();
+  sentCode = new EventEmitter<string>();
 
   async setEmail() {
     const emailCode = (<HTMLInputElement>(
@@ -34,7 +34,7 @@ export class SetEmailPageComponent {
 
     let response = await this.apiClient.setEmail(emailCode, email);
     if (response.status == 201) {
-      this.pageIndexChange.emit(1);
+      this.sentCode.emit(email);
       localStorage.setItem('email', email);
     } else if (response.status == 403) {
       this.errorMessage = 'The Email Code was incorrect.';

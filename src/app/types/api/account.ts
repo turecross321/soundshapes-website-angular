@@ -9,6 +9,10 @@ export interface SetEmailRequest {
   NewEmail: string;
 }
 
+export interface SendPasswordSessionRequest {
+  Email: string;
+}
+
 export interface SetPasswordRequest {
   NewPasswordSha512: string;
 }

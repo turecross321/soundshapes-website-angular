@@ -3,18 +3,26 @@
     <input
       class="px-4 py-4 pr-12 bg-white text-[#544339] w-full focus:placeholder:text-[#efe0da] pulse-on-focus focus:text-[#efe0da] focus:outline-none group"
       [placeholder]="name"
-      [type]="type"
+      [type]="typeString"
       [id]="id"
       [readonly]="readonly"
       [value]="value"
-      (blur)="validateInput()"
-      (input)="resolveInputError()"
+      (input)="validateInput()"
     />
     <fa-icon
       class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#544339] fa-xl"
       [icon]="icon"
     ></fa-icon>
   </div>
+  <div *ngIf="usePasswordCheckbox" class="flex gap-1 mt-2 items-center" (click)="togglePasswordVisiblity()">
+    <input
+      type="checkbox"
+      class="text-primary h-4 w-4"
+      [id]="visibilityCheckboxId"
+    />
+    <p class="select-none">Show Password</p>
+  </div>
+
   <p class="text-red-600 w-full mt-2" *ngIf="errorMessage">
     {{ errorMessage }}
   </p>

@@ -14,7 +14,6 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { SetEmailPageComponent } from './components/set-email-page/set-email-page.component';
 import { SetPasswordPageComponent } from './components/set-password-page/set-password-page.component';
@@ -40,6 +39,7 @@ import { LevelInteractionButtonComponent } from './components/level-interaction-
 import { LevelEditableNameComponent } from './components/level-editable-name/level-editable-name.component';
 import { ReportButtonComponent } from './components/report-button/report-button.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
+import { SendPasswordSessionComponent } from './components/send-password-session/send-password-session.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +53,6 @@ import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-pa
     LoginPageComponent,
     ErrorPageComponent,
     RegisterPageComponent,
-    ResetPasswordComponent,
     UserPageComponent,
     SetEmailPageComponent,
     SetPasswordPageComponent,
@@ -78,6 +77,7 @@ import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-pa
     LevelEditableNameComponent,
     ReportButtonComponent,
     ResetPasswordPageComponent,
+    SendPasswordSessionComponent,
   ],
   imports: [
     BrowserModule,
