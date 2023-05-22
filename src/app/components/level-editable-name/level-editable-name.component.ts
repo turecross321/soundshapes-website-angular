@@ -51,7 +51,10 @@ export class LevelEditableNameComponent {
       document.getElementById(this.inputId)
     );
 
-    if (!levelNameInput.textContent) return;
+    if (!levelNameInput.textContent) {
+      levelNameInput.textContent = this.level.Name;
+      return;
+    }
 
     levelNameInput.textContent = this.enforceCharacterLimit(
       levelNameInput.textContent.trim()
