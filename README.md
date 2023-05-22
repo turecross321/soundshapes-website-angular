@@ -1,6 +1,6 @@
 Website for [turecross321/SoundShapesServer](https://github.com/turecross321/SoundShapesServer)
 
-![image](https://github.com/turecross321/soundshapes-website-angular/assets/51852312/9b83626d-c24a-49bd-b858-51efef13bff7)
+![image](https://github.com/turecross321/soundshapes-website-angular/assets/51852312/c529d92d-7caf-4f0a-89b5-6fd77661a386)
 
 
 ## Development server
