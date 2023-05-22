@@ -1,9 +1,27 @@
-<h1
-  [contentEditable]="isNameEditable"
-  [id]="inputId"
-  (keydown.enter)="onKeyDown($event)"
-  (clickOutside)="onFocusOut()"
-  class="text-5xl w-full"
->
-  {{ level.Name }}
-</h1>
+<div class="flex items-center gap-4">
+  <h1
+    [contentEditable]="isNameEditable"
+    [id]="inputId"
+    (blur)="onBlur()"
+    (keydown.enter)="onKeyDown($event)"
+    class="text-5xl"
+  >
+    {{ level.Name }}
+  </h1>
+
+  <div class="gap-1 flex">
+    <app-icon-button
+      *ngIf="hasNameBeenEdited"
+      (click)="cancelLevelNameChange()"
+      [icon]="cancelIcon"
+      class="animate-fade-in"
+    ></app-icon-button>
+
+    <app-icon-button
+      *ngIf="hasNameBeenEdited"
+      (click)="changeLevelName()"
+      [icon]="confirmIcon"
+      class="animate-fade-in"
+    ></app-icon-button>
+  </div>
+</div>

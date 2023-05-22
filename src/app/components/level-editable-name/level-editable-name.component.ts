@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faCheck, faCross, faX } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { PermissionsType } from 'src/app/types/api/account';
 import { BriefLevel, FullLevel } from 'src/app/types/api/levels';
@@ -14,8 +15,10 @@ export class LevelEditableNameComponent {
 
   inputId = 'levelName';
   isNameEditable = false;
-
   hasNameBeenEdited = false;
+
+  confirmIcon = faCheck;
+  cancelIcon = faX;
 
   constructor(private apiClient: ApiClientService) {}
 
@@ -32,13 +35,6 @@ export class LevelEditableNameComponent {
     });
   }
 
-  onFocusOut() {
-    let levelNameInput = <HTMLHeadingElement>(
-      document.getElementById(this.inputId)
-    );
-    levelNameInput.textContent = this.level.Name;
-  }
-
   onKeyDown(event: any) {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -46,10 +42,33 @@ export class LevelEditableNameComponent {
       let levelNameInput = <HTMLHeadingElement>(
         document.getElementById(this.inputId)
       );
-
-      this.changeLevelName();
       levelNameInput.blur();
     }
+  }
+
+  onBlur() {
+    let levelNameInput = <HTMLHeadingElement>(
+      document.getElementById(this.inputId)
+    );
+
+    if (!levelNameInput.textContent) return;
+
+    levelNameInput.textContent = this.enforceCharacterLimit(
+      levelNameInput.textContent.trim()
+    );
+
+    if (levelNameInput.textContent == this.level.Name) return;
+
+    this.hasNameBeenEdited = true;
+  }
+
+  cancelLevelNameChange() {
+    let levelNameInput = <HTMLHeadingElement>(
+      document.getElementById(this.inputId)
+    );
+
+    levelNameInput.textContent = this.level.Name;
+    this.hasNameBeenEdited = false;
   }
 
   async changeLevelName() {
@@ -71,13 +90,13 @@ export class LevelEditableNameComponent {
     );
 
     if (response.status != 201) {
-      levelNameInput.textContent = this.level.Name;
-      return;
+      return this.cancelLevelNameChange();
     }
 
     this.level.Name = levelNameInput.textContent;
     this.level.ModificationDate = new Date();
     this.changedName.next();
+    this.hasNameBeenEdited = false;
   }
 
   enforceCharacterLimit(input: string): string {
