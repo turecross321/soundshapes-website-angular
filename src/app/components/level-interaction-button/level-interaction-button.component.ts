@@ -55,17 +55,15 @@ export class LevelInteractionButtonComponent {
   }
 
   setButtonType() {
-    this.apiClient.session$.subscribe((session) => {
-      this.apiClient.checkLevelLikeStatus(this.level.Id).then((response) => {
-        const isLiked = response.data.IsLiked;
-        if (isLiked) {
-          this.icon = faHeartBroken;
-          this.buttonType = ButtonType.UnLike;
-        } else {
-          this.icon = faHeart;
-          this.buttonType = ButtonType.Like;
-        }
-      });
+    this.apiClient.getLevelRelation(this.level.Id).then((response) => {
+      const isLiked = response.data.Liked;
+      if (isLiked) {
+        this.icon = faHeartBroken;
+        this.buttonType = ButtonType.UnLike;
+      } else {
+        this.icon = faHeart;
+        this.buttonType = ButtonType.Like;
+      }
     });
   }
 }

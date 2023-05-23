@@ -6,11 +6,11 @@ import {
   SetEmailRequest,
   SetPasswordRequest,
 } from '../types/api/account';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import axios, { AxiosRequestConfig } from 'axios';
 import { sha512Async } from '../hash';
-import { FullUser, IsFollowingResponse } from '../types/api/users';
-import { FullLevel, LevelOrder } from '../types/api/levels';
+import { FullUser, UserRelation } from '../types/api/users';
+import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
 import { SendPasswordSessionComponent } from '../components/send-password-session/send-password-session.component';
 
@@ -147,8 +147,10 @@ export class ApiClientService {
 
   async checkFollowStatus(userId: string) {
     try {
-      return await axios.get<IsFollowingResponse>(
-        ApiUrl + 'users/id/' + userId + '/following'
+      let session = await firstValueFrom(this.session$);
+
+      return await axios.get<UserRelation>(
+        ApiUrl + 'users/id/' + userId + '/users/id/' + session?.User.Id
       );
     } catch (error: any) {
       return error.response;
@@ -184,9 +186,13 @@ export class ApiClientService {
       return error.response;
     }
   }
-  async checkLevelLikeStatus(id: string) {
+  async getLevelRelation(id: string) {
     try {
-      return await axios.get(ApiUrl + 'levels/id/' + id + '/liked');
+      let session = await firstValueFrom(this.session$);
+
+      return await axios.get<LevelRelation>(
+        ApiUrl + 'levels/id/' + id + '/users/id/' + session?.User.Id
+      );
     } catch (error: any) {
       return error.response;
     }

@@ -23,6 +23,6 @@ export interface FullUser {
   TotalPlayTime: number;
 }
 
-export interface IsFollowingResponse {
-  IsFollowing: boolean;
+export interface UserRelation {
+  Following: boolean;
 }

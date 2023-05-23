@@ -32,7 +32,7 @@ export class UserFollowButtonComponent {
     if (this.type == null) {
       let response = await this.apiClient.checkFollowStatus(this.userId);
 
-      if (response.data.IsFollowing === true)
+      if (response.data.Following === true)
         this.type = FollowButtonType.UnFollow;
       else this.type = FollowButtonType.Follow;
     }

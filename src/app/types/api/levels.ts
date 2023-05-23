@@ -67,3 +67,8 @@ export enum Scale {
   Minor = 2,
   Chromatic = 3,
 }
+
+export interface LevelRelation {
+  Completed: boolean;
+  Liked: boolean;
+}
