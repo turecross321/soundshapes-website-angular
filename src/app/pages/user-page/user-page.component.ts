@@ -1,6 +1,7 @@
 import { Component, OnChanges, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faMusic, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { formatDistanceStrict } from 'date-fns';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { LevelsWrapper } from 'src/app/types/api/levels';
 import { FullUser } from 'src/app/types/api/users';
@@ -13,12 +14,14 @@ import { UserSidebarButtonType } from 'src/app/types/user-page-sidebar-buttons';
   styleUrls: ['./user-page.component.scss'],
 })
 export class UserPageComponent {
-  Buttons: SidebarButton[] = [];
-  User: FullUser | undefined = undefined;
+  buttons: SidebarButton[] = [];
+  user: FullUser | undefined = undefined;
   loggedIn = false;
 
-  FollowersIcon = faUsers;
-  LevelsIcon = faMusic;
+  followersIcon = faUsers;
+  levelsIcon = faMusic;
+
+  joined!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,8 +46,14 @@ export class UserPageComponent {
       this.apiClient.getUserWithUsername(username).then((response) => {
         if (response.status != 200) this.router.navigate(['/404']);
 
-        this.User = response.data;
-        if (this.User == null) return;
+        this.user = response.data;
+        if (this.user == null) return;
+
+        this.joined =
+        'Joined ' +
+        formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
+          addSuffix: true,
+        });
       });
     });
   }
