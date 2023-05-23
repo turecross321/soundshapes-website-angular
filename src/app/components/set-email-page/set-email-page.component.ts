@@ -36,8 +36,10 @@ export class SetEmailPageComponent {
     if (response.status == 201) {
       this.sentCode.emit(email);
       localStorage.setItem('email', email);
-    } else if (response.status == 403) {
-      this.errorMessage = 'The Email Code was incorrect.';
+    } else if (response.data) {
+      this.errorMessage = response.data;
+    } else if (response.code == 403) {
+      this.errorMessage = 'Email Code is Incorrect.';
     } else {
       this.errorMessage = 'An error has occurred.';
     }
