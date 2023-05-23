@@ -24,6 +24,7 @@
             [id]="searchId"
             name="Search"
             [icon]="searchIcon"
+            [value]="searchQuery"
             (keydown.enter)="onSearch()"
             (clickOutside)="onSearch()"
           ></app-input-field>
