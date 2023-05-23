@@ -55,7 +55,7 @@ export class LevelsComponent {
   totalPages!: number;
   descending!: boolean;
   descendingIcon!: IconProp;
-  searchQuery!: string;
+  searchQuery: string = '';
 
   searchId: string = 'search';
   loading: boolean = true;
@@ -130,7 +130,8 @@ export class LevelsComponent {
       this.pageIndex = (params['page'] as number | undefined) ?? 0;
       this.descending = (params['descending'] ?? 'true') === 'true';
       this.setDescendingIcon();
-      this.searchQuery = params['search'];
+      const searchQuery = params['search'];
+      if (searchQuery) this.searchQuery = searchQuery;
 
       this.loadLevels(
         this.pageIndex,
