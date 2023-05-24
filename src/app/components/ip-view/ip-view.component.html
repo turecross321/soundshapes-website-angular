@@ -1,1 +1,24 @@
-<p>ip-view works!</p>
+<div>
+  <div class="flex mb-2 gap-1">
+    <h1 class="text-4xl">{{ ip.IpAddress }}</h1>
+    <span
+      title="Will automatically be removed upon next login"
+      *ngIf="ip.OneTimeUse"
+    >
+      <fa-icon [icon]="oneTimeUseIcon"></fa-icon>
+    </span>
+  </div>
+  <div class="flex gap-2">
+    <app-primary-button
+      label="Authorize"
+      (click)="authorize()"
+      *ngIf="!ip.Authorized"
+    ></app-primary-button>
+    <app-primary-button
+      label="Authorize Once"
+      (click)="authorizeOnce()"
+      *ngIf="!ip.Authorized"
+    ></app-primary-button>
+    <app-primary-button label="Remove" (click)="remove()"></app-primary-button>
+  </div>
+</div>

@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DropDownButton } from 'src/app/types/dropdown-button';
+import { SelectableButton } from 'src/app/types/selectable-button';
 
 @Component({
-  selector: 'app-dropdown-button',
-  templateUrl: './dropdown-button.component.html',
-  styleUrls: ['./dropdown-button.component.scss'],
+  selector: 'app-selectable-button',
+  templateUrl: './selectable-button.component.html',
+  styleUrls: ['./selectable-button.component.scss'],
 })
 export class DropdownButtonComponent {
   @Input() index!: number;
-  @Input() button!: DropDownButton;
+  @Input() button!: SelectableButton;
   @Input() selected!: boolean;
 
   @Output() numberChanged: EventEmitter<number> = new EventEmitter<number>();

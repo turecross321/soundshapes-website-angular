@@ -24,6 +24,8 @@ export enum LevelOrder {
   ModificationDate = 'modificationDate',
   TotalPlays = 'plays',
   UniquePlays = 'uniquePlays',
+  TotalCompletions = 'totalCompletions',
+  UniqueCompletions = 'uniqueCompletions',
   Likes = 'likes',
   FileSize = 'fileSize',
   Difficulty = 'difficulty',

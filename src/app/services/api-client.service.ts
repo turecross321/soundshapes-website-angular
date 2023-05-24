@@ -11,7 +11,7 @@ import axios from 'axios';
 import { FullUser, UserRelation } from '../types/api/users';
 import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
-import { IpWrapper } from '../types/api/ip';
+import { AuthorizeIpRequest, IpWrapper } from '../types/api/ip';
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {
@@ -222,5 +222,18 @@ export class ApiClientService {
         authorized: authorized,
       },
     });
+  }
+
+  async authorizeIp(address: string, oneTimeUse: boolean) {
+    const body: AuthorizeIpRequest = {
+      IpAddress: address,
+      OneTimeUse: oneTimeUse,
+    };
+
+    await axios.post(ApiUrl + 'ip/authorize', body);
+  }
+
+  async removeAuthorizedIp(address: string) {
+    await axios.post(ApiUrl + 'ip/' + address + '/remove');
   }
 }

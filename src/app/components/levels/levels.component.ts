@@ -38,11 +38,12 @@ import {
   faSpaghettiMonsterFlying,
   faSquare,
   faTimesRectangle,
+  faTrophy,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { LevelOrder, LevelsWrapper } from 'src/app/types/api/levels';
-import { DropDownButton } from 'src/app/types/dropdown-button';
+import { SelectableButton } from 'src/app/types/selectable-button';
 
 @Component({
   selector: 'app-levels',
@@ -173,7 +174,7 @@ export class LevelsComponent {
   arrowLeft = faArrowLeft;
   arrowRight = faArrowRight;
 
-  orderTypes: DropDownButton[] = [
+  orderTypes: SelectableButton[] = [
     {
       Label: 'Creation Date',
       Icon: faCalendar,
@@ -189,6 +190,14 @@ export class LevelsComponent {
     {
       Label: 'Unique Plays',
       Icon: faUsers,
+    },
+    {
+      Label: 'Total Completions',
+      Icon: faTrophy,
+    },
+    {
+      Label: 'Unique Completions',
+      Icon: faTrophy,
     },
     {
       Label: 'Likes',

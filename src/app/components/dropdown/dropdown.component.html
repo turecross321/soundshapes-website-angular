@@ -18,12 +18,12 @@
       *ngIf="isMenuOpened"
     >
       <ng-container *ngFor="let button of _buttons; let i = index">
-        <app-dropdown-button
+        <app-selectable-button
           [button]="button"
           [selected]="i == selectedOption"
           [index]="i"
           (numberChanged)="onOptionChanged($event)"
-        ></app-dropdown-button>
+        ></app-selectable-button>
       </ng-container>
     </div>
   </div>

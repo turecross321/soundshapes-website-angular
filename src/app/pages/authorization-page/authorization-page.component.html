@@ -2,22 +2,58 @@
   <div class="container">
     <h1 class="text-5xl mb-4">Authorization</h1>
     <div class="gap-2 flex">
-      <app-primary-button
-        routerLink="/authorization/pending"
-        label="Pending Requests"
-      ></app-primary-button>
-      <app-primary-button
-        routerLink="/authorization/authorized"
-        label="Authorized Requests"
-      ></app-primary-button>
+      <app-selectable-button
+        [button]="pendingButton"
+        [selected]="filter == 0"
+        [index]="0"
+        (numberChanged)="goToPending()"
+        class="w-full"
+      ></app-selectable-button>
+      <app-selectable-button
+        [button]="authorizedButton"
+        [selected]="filter == 1"
+        [index]="1"
+        (numberChanged)="goToAuthorized()"
+        class="w-full"
+      ></app-selectable-button>
+      <app-icon-button
+        [icon]="refreshIcon"
+        (click)="refresh()"
+      ></app-icon-button>
     </div>
   </div>
-  <div class="container">
-    <div class="flex-col">
-      <h2 class="text-5xl">Pending</h2>
-      <app-ip-view
-        *ngFor="let level of requests?.IpAddresses; let i = index"
-      ></app-ip-view>
+  <div *ngIf="!loading" class="container animate-fade-in">
+    <div class="mb-4">
+      <div *ngFor="let ip of requests?.IpAddresses; let i = index" class="py-2">
+        <app-ip-view
+          (authorized)="authorizeIp($event, false)"
+          (authorizedOnce)="authorizeIp($event, true)"
+          (removed)="removeIp($event)"
+          [ip]="ip"
+        ></app-ip-view>
+      </div>
+
+      <p *ngIf="requests?.IpAddresses?.length == 0 && !loading" class="text-xl">
+        No Requests Found
+      </p>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <p class="h-full text-3xl text-light-gray">
+        {{ page - -1 }} / {{ totalPages }}
+      </p>
+      <div class="flex gap-2">
+        <app-icon-button
+          *ngIf="page > 0"
+          [icon]="arrowLeft"
+          (click)="goToPage(page - 1)"
+        ></app-icon-button>
+        <app-icon-button
+          *ngIf="page < totalPages - 1"
+          [icon]="arrowRight"
+          (click)="goToPage(page - -1)"
+        ></app-icon-button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faCaretDown, faPoo } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject } from 'rxjs';
-import { DropDownButton } from 'src/app/types/dropdown-button';
+import { SelectableButton } from 'src/app/types/selectable-button';
 
 @Component({
   selector: 'app-dropdown',
@@ -11,7 +11,7 @@ import { DropDownButton } from 'src/app/types/dropdown-button';
 export class DropdownComponent {
   _label = 'NOT SET';
   _icon = faCaretDown;
-  _buttons: DropDownButton[] = [
+  _buttons: SelectableButton[] = [
     {
       Label: 'NOT SET',
       Icon: faPoo,
@@ -35,7 +35,7 @@ export class DropdownComponent {
   }
 
   @Input()
-  set buttons(param: DropDownButton[]) {
+  set buttons(param: SelectableButton[]) {
     this._buttons = param;
   }
 
@@ -45,9 +45,7 @@ export class DropdownComponent {
     this.isMenuOpened = !this.isMenuOpened;
   }
 
-  selectButton(index: number) {
-    console.log(index);
-  }
+  selectButton(index: number) {}
 
   clickedOutside(): void {
     this.isMenuOpened = false;

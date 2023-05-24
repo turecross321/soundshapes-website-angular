@@ -1,6 +1,6 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-export interface DropDownButton {
+export interface SelectableButton {
   Label: string;
   Icon: IconProp;
 }

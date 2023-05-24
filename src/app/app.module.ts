@@ -25,7 +25,7 @@ import { UserFollowButtonComponent } from './components/user-follow-button/user-
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { LevelsComponent } from './components/levels/levels.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
-import { DropdownButtonComponent } from './components/dropdown-button/dropdown-button.component';
+import { DropdownButtonComponent as SelectableButtonComponent } from './components/selectable-button/selectable-button.component';
 import { ClickOutsideDirective } from './directives/clicked-outside';
 import { LevelViewComponent } from './components/level-view/level-view.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
@@ -66,7 +66,7 @@ import { IpViewComponent } from './components/ip-view/ip-view.component';
     InputFieldComponent,
     LevelsComponent,
     DropdownComponent,
-    DropdownButtonComponent,
+    SelectableButtonComponent,
     ClickOutsideDirective,
     LevelViewComponent,
     StatisticComponent,
