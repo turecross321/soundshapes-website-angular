@@ -10,6 +10,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { LevelPageComponent } from './pages/level-page/level-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
+import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -46,6 +47,7 @@ const routes: Routes = [
     component: LevelPageComponent,
   },
   { path: 'me', component: UserPageComponent },
+  { path: 'authorization/:filter', component: AuthorizationPageComponent },
   { path: '**', component: ErrorPageComponent },
 ];
 

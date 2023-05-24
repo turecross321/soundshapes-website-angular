@@ -28,7 +28,7 @@ export class NavbarComponent {
   ];
 
   loggedInButtonPreset: NavbarButton[] = [
-    { Path: '/authorization', Icon: faKey, Label: 'Authorization' },
+    { Path: '/authorization/pending', Icon: faKey, Label: 'Authorization' },
   ];
 
   leftButtons: NavbarButton[] = [

@@ -40,6 +40,8 @@ import { LevelEditableNameComponent } from './components/level-editable-name/lev
 import { ReportButtonComponent } from './components/report-button/report-button.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 import { SendPasswordSessionComponent } from './components/send-password-session/send-password-session.component';
+import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
+import { IpViewComponent } from './components/ip-view/ip-view.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { SendPasswordSessionComponent } from './components/send-password-session
     ReportButtonComponent,
     ResetPasswordPageComponent,
     SendPasswordSessionComponent,
+    AuthorizationPageComponent,
+    IpViewComponent,
   ],
   imports: [
     BrowserModule,

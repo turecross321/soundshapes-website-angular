@@ -1,4 +1,4 @@
-<div class="container w-full gap-4 grid lg:grid-cols-3">
+<div class="container w-full gap-4 grid lg:grid-cols-4">
   <!--- File Size --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">File Size</p>
@@ -13,6 +13,21 @@
     <p class="text-center text-2xl mb-4">Total Entities</p>
     <app-statistic
       text="{{ level?.TotalEntities }}"
+      class="w-full"
+    ></app-statistic>
+  </div>
+
+  <!--- Has Car -->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Has Car</p>
+    <app-statistic text="{{ level?.HasCar }}" class="w-full"></app-statistic>
+  </div>
+
+  <!--- Has Exploding Car -->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Has Exploding Car</p>
+    <app-statistic
+      text="{{ level?.HasExplodingCar }}"
       class="w-full"
     ></app-statistic>
   </div>
@@ -47,12 +62,6 @@
     ></app-statistic>
   </div>
 
-  <!--- Total Play Time --->
-  <div class="w-full">
-    <p class="text-center text-2xl mb-4">Total Play Time</p>
-    <app-statistic [text]="totalPlayTime" class="w-full"></app-statistic>
-  </div>
-
   <!--- Unique Plays --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Unique Plays</p>
@@ -60,6 +69,21 @@
       text="{{ level?.UniquePlays }}"
       class="w-full"
     ></app-statistic>
+  </div>
+
+  <!--- Unique Completions --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Unique Completions</p>
+    <app-statistic
+      text="{{ level?.UniqueCompletions }}"
+      class="w-full"
+    ></app-statistic>
+  </div>
+
+  <!--- Total Play Time --->
+  <div class="w-full">
+    <p class="text-center text-2xl mb-4">Total Play Time</p>
+    <app-statistic [text]="totalPlayTime" class="w-full"></app-statistic>
   </div>
 
   <!--- Deaths --->

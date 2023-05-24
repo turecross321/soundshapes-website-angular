@@ -7,12 +7,11 @@ import {
   SetPasswordRequest,
 } from '../types/api/account';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import axios, { AxiosRequestConfig } from 'axios';
-import { sha512Async } from '../hash';
+import axios from 'axios';
 import { FullUser, UserRelation } from '../types/api/users';
 import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
-import { SendPasswordSessionComponent } from '../components/send-password-session/send-password-session.component';
+import { IpWrapper } from '../types/api/ip';
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {
@@ -213,5 +212,15 @@ export class ApiClientService {
     } catch (error: any) {
       return error.response;
     }
+  }
+
+  async getIpRequests(from: number, count: number, authorized: boolean) {
+    return await axios.get<IpWrapper>(ApiUrl + 'ip/addresses', {
+      params: {
+        from: from,
+        count: count,
+        authorized: authorized,
+      },
+    });
   }
 }

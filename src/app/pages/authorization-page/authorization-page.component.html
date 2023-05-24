@@ -1,0 +1,23 @@
+<div class="flex items-center flex-col">
+  <div class="container">
+    <h1 class="text-5xl mb-4">Authorization</h1>
+    <div class="gap-2 flex">
+      <app-primary-button
+        routerLink="/authorization/pending"
+        label="Pending Requests"
+      ></app-primary-button>
+      <app-primary-button
+        routerLink="/authorization/authorized"
+        label="Authorized Requests"
+      ></app-primary-button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="flex-col">
+      <h2 class="text-5xl">Pending</h2>
+      <app-ip-view
+        *ngFor="let level of requests?.IpAddresses; let i = index"
+      ></app-ip-view>
+    </div>
+  </div>
+</div>

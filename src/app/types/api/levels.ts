@@ -46,6 +46,8 @@ export interface FullLevel {
   ModificationDate: Date;
   TotalPlays: number;
   UniquePlays: number;
+  TotalCompletions: number;
+  UniqueCompletions: number;
   Likes: number;
   TotalDeaths: number;
   TotalPlayTime: number;
@@ -57,6 +59,8 @@ export interface FullLevel {
   ScaleIndex: Scale;
   TotalScreens: number;
   TotalEntities: number;
+  HasCar: boolean;
+  HasExplodingCar: boolean;
   Albums: Album[];
   DailyLevels: DailyLevel[];
 }
