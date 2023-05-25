@@ -56,12 +56,12 @@ export class NavbarComponent {
 
           if (session.User.PermissionsType == PermissionsType.Administrator) {
             this.rightButtons = [
-              ...this.loggedInButtonPreset,
               {
                 Path: '/admin',
                 Icon: faWrench,
                 Label: 'Administration',
               },
+              ...this.rightButtons,
             ];
           }
         } else this.rightButtons = this.notLoggedInButtons;
