@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ApiUrl } from 'src/app/config';
 import { SendPasswordSessionRequest, Session } from '../types/api/account';
 import {
   LoginRequest,
@@ -12,6 +11,7 @@ import { FullUser, UserRelation } from '../types/api/users';
 import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
 import { AuthorizeIpRequest, IpWrapper } from '../types/api/ip';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {
@@ -63,7 +63,7 @@ export class ApiClientService {
 
     try {
       const response = await axios.post<Session>(
-        ApiUrl + 'account/login',
+        environment.apiBaseUrl + 'account/login',
         body
       );
 
@@ -87,7 +87,7 @@ export class ApiClientService {
 
   async logOut() {
     try {
-      await axios.post(ApiUrl + 'account/logout');
+      await axios.post(environment.apiBaseUrl + 'account/logout');
     } catch (error) {}
 
     localStorage.removeItem('session');
@@ -104,11 +104,15 @@ export class ApiClientService {
     };
 
     try {
-      const response = await axios.post(ApiUrl + 'account/setEmail', body, {
-        headers: {
-          Authorization: emailCode,
-        },
-      });
+      const response = await axios.post(
+        environment.apiBaseUrl + 'account/setEmail',
+        body,
+        {
+          headers: {
+            Authorization: emailCode,
+          },
+        }
+      );
 
       return response;
     } catch (error: any) {
@@ -121,7 +125,10 @@ export class ApiClientService {
       Email: email,
     };
 
-    return await axios.post(ApiUrl + 'account/sendPasswordSession', body);
+    return await axios.post(
+      environment.apiBaseUrl + 'account/sendPasswordSession',
+      body
+    );
   }
 
   async setPassword(passwordCode: string, hash: string) {
@@ -129,7 +136,7 @@ export class ApiClientService {
       NewPasswordSha512: hash,
     };
 
-    return axios.post(ApiUrl + 'account/setPassword', body, {
+    return axios.post(environment.apiBaseUrl + 'account/setPassword', body, {
       headers: {
         Authorization: passwordCode.toUpperCase(),
       },
@@ -138,7 +145,9 @@ export class ApiClientService {
 
   async getUserWithUsername(username: string) {
     try {
-      return await axios.get<FullUser>(ApiUrl + 'users/username/' + username);
+      return await axios.get<FullUser>(
+        environment.apiBaseUrl + 'users/username/' + username
+      );
     } catch (error: any) {
       return error.response;
     }
@@ -149,7 +158,11 @@ export class ApiClientService {
       let session = await firstValueFrom(this.session$);
 
       return await axios.get<UserRelation>(
-        ApiUrl + 'users/id/' + userId + '/users/id/' + session?.User.Id
+        environment.apiBaseUrl +
+          'users/id/' +
+          userId +
+          '/users/id/' +
+          session?.User.Id
       );
     } catch (error: any) {
       return error.response;
@@ -164,7 +177,7 @@ export class ApiClientService {
     searchQuery?: string
   ) {
     try {
-      return await axios.get<LevelsWrapper>(ApiUrl + 'levels', {
+      return await axios.get<LevelsWrapper>(environment.apiBaseUrl + 'levels', {
         params: {
           from: from,
           count: count,
@@ -180,7 +193,9 @@ export class ApiClientService {
 
   async getLevelWithId(id: string) {
     try {
-      return await axios.get<FullLevel>(ApiUrl + 'levels/id/' + id);
+      return await axios.get<FullLevel>(
+        environment.apiBaseUrl + 'levels/id/' + id
+      );
     } catch (error: any) {
       return error.response;
     }
@@ -190,32 +205,43 @@ export class ApiClientService {
       let session = await firstValueFrom(this.session$);
 
       return await axios.get<LevelRelation>(
-        ApiUrl + 'levels/id/' + id + '/users/id/' + session?.User.Id
+        environment.apiBaseUrl +
+          'levels/id/' +
+          id +
+          '/users/id/' +
+          session?.User.Id
       );
     } catch (error: any) {
       return error.response;
     }
   }
   async likeLevel(id: string) {
-    return await axios.post(ApiUrl + 'levels/id/' + id + '/like');
+    return await axios.post(
+      environment.apiBaseUrl + 'levels/id/' + id + '/like'
+    );
   }
 
   async unLikeLevel(id: string) {
-    return await axios.post(ApiUrl + 'levels/id/' + id + '/unLike');
+    return await axios.post(
+      environment.apiBaseUrl + 'levels/id/' + id + '/unLike'
+    );
   }
 
   async setLevelName(id: string, newName: string) {
     try {
-      return await axios.post(ApiUrl + 'levels/id/' + id + '/edit', {
-        Name: newName,
-      });
+      return await axios.post(
+        environment.apiBaseUrl + 'levels/id/' + id + '/edit',
+        {
+          Name: newName,
+        }
+      );
     } catch (error: any) {
       return error.response;
     }
   }
 
   async getIpRequests(from: number, count: number, authorized: boolean) {
-    return await axios.get<IpWrapper>(ApiUrl + 'ip/addresses', {
+    return await axios.get<IpWrapper>(environment.apiBaseUrl + 'ip/addresses', {
       params: {
         from: from,
         count: count,
@@ -230,10 +256,10 @@ export class ApiClientService {
       OneTimeUse: oneTimeUse,
     };
 
-    await axios.post(ApiUrl + 'ip/authorize', body);
+    await axios.post(environment.apiBaseUrl + 'ip/authorize', body);
   }
 
   async removeAuthorizedIp(address: string) {
-    await axios.post(ApiUrl + 'ip/' + address + '/remove');
+    await axios.post(environment.apiBaseUrl + 'ip/' + address + '/remove');
   }
 }

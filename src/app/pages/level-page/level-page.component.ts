@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { faPlay, faHeart, IconPack } from '@fortawesome/free-solid-svg-icons';
-import { ApiUrl } from 'src/app/config';
+import { faPlay, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { FullLevel } from 'src/app/types/api/levels';
 import {
@@ -12,6 +11,7 @@ import {
   subDays,
 } from 'date-fns';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-level-page',
@@ -69,7 +69,7 @@ export class LevelPageComponent {
         if (!this.level) return;
 
         this.thumbnailUrl =
-          ApiUrl + 'levels/id/' + this.level.Id + '/thumbnail';
+          environment.apiBaseUrl + 'levels/id/' + this.level.Id + '/thumbnail';
         this.difficulty = this.level.Difficulty;
 
         this.setDate();
