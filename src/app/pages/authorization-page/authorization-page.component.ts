@@ -28,14 +28,16 @@ export class AuthorizationPageComponent {
   arrowRight = faArrowRight;
   refreshIcon = faRefresh;
 
-  pendingButton: SelectableButton = {
-    Label: 'Pending',
-    Icon: faClock,
-  };
-  authorizedButton: SelectableButton = {
-    Label: 'Authorized',
-    Icon: faCheck,
-  };
+  buttons: SelectableButton[] = [
+    {
+      Label: 'Pending',
+      Icon: faClock,
+    },
+    {
+      Label: 'Authorized',
+      Icon: faCheck,
+    },
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -67,6 +69,17 @@ export class AuthorizationPageComponent {
   }
   async loadAuthorized() {
     this.requests = await this.getRequests(0, true);
+  }
+
+  setFilter(event: any) {
+    this.filter = event;
+    if (this.filter == Filter.Pending) {
+      this.loadPending();
+      this.router.navigate(['/authorization/pending']);
+    } else if (this.filter == Filter.Authorized) {
+      this.loadAuthorized();
+      this.router.navigate(['/authorization/authorized']);
+    }
   }
 
   async refresh() {
@@ -113,15 +126,6 @@ export class AuthorizationPageComponent {
 
     this.loading = false;
     return response.data;
-  }
-
-  goToAuthorized() {
-    this.filter = Filter.Authorized;
-    this.router.navigate(['/authorization/authorized']);
-  }
-  goToPending() {
-    this.filter = Filter.Pending;
-    this.router.navigate(['/authorization/pending']);
   }
 }
 

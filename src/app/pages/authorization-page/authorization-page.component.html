@@ -1,25 +1,22 @@
 <div class="flex items-center flex-col">
   <div class="container">
     <h1 class="text-5xl mb-4">Authorization</h1>
-    <div class="gap-2 flex">
-      <app-selectable-button
-        [button]="pendingButton"
-        [selected]="filter == 0"
-        [index]="0"
-        (numberChanged)="goToPending()"
-        class="w-full"
-      ></app-selectable-button>
-      <app-selectable-button
-        [button]="authorizedButton"
-        [selected]="filter == 1"
-        [index]="1"
-        (numberChanged)="goToAuthorized()"
-        class="w-full"
-      ></app-selectable-button>
-      <app-icon-button
-        [icon]="refreshIcon"
-        (click)="refresh()"
-      ></app-icon-button>
+    <div class="flex flex-col">
+      <p class="text-2xl mb-2">Filters</p>
+      <div class="flex gap-2">
+        <app-dropdown
+          [buttons]="buttons"
+          label="Filters"
+          [selectedOption]="filter"
+          (changedOption)="setFilter($event)"
+          class="w-full"
+        ></app-dropdown>
+
+        <app-icon-button
+          [icon]="refreshIcon"
+          (click)="refresh()"
+        ></app-icon-button>
+      </div>
     </div>
   </div>
   <div *ngIf="!loading" class="container animate-fade-in">
