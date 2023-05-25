@@ -9,9 +9,10 @@ import {
   faUser,
   faKey,
   faCompactDisc,
+  faWrench,
 } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
-import { Session } from 'src/app/types/api/account';
+import { PermissionsType, Session } from 'src/app/types/api/account';
 import { BriefUser } from 'src/app/types/api/users';
 import { NavbarButton } from 'src/app/types/navbar-button';
 
@@ -52,6 +53,17 @@ export class NavbarComponent {
               Label: session.User.Username,
             },
           ];
+
+          if (session.User.PermissionsType == PermissionsType.Administrator) {
+            this.rightButtons = [
+              ...this.loggedInButtonPreset,
+              {
+                Path: '/admin',
+                Icon: faWrench,
+                Label: 'Administration',
+              },
+            ];
+          }
         } else this.rightButtons = this.notLoggedInButtons;
       });
     });

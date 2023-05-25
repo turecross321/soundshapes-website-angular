@@ -28,5 +28,5 @@ export interface Session {
 export enum PermissionsType {
   Defualt = 0,
   Moderator = 1,
-  Admin = 2,
+  Administrator = 2,
 }
