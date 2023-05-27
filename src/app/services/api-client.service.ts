@@ -11,7 +11,7 @@ import { FullUser, UserRelation } from '../types/api/users';
 import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
 import { AuthorizeIpRequest, IpWrapper } from '../types/api/ip';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {
