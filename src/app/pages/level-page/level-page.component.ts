@@ -11,7 +11,7 @@ import {
   subDays,
 } from 'date-fns';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-level-page',
