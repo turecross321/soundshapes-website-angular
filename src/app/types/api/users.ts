@@ -4,8 +4,8 @@ export interface BriefUser {
   Id: string;
   Username: string;
   PermissionsType: PermissionsType;
-  PublishedLevelsCount: number;
-  FollowersCount: number;
+  PublishedLevels: number;
+  Followers: number;
 }
 
 export interface FullUser {
@@ -13,12 +13,12 @@ export interface FullUser {
   Username: string;
   CreationDate: Date;
   PermissionsType: number;
-  FollowersCount: number;
-  FollowingCount: number;
-  LikedLevelsCount: number;
-  PublishedLevelsCount: number;
-  ActivitiesCount: number;
-  PlayedLevelsCount: number;
+  Followers: number;
+  Following: number;
+  LikedLevels: number;
+  PublishedLevels: number;
+  Activities: number;
+  PlayedLevels: number;
   TotalDeaths: number;
   TotalPlayTime: number;
 }

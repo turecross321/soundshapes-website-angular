@@ -32,7 +32,7 @@ export class UserStatisticsComponent {
         .join();
 
       if (this.totalPlayTime == '') this.totalPlayTime = '0 seconds';
-      this.playedLevels = this.user.PlayedLevelsCount.toString();
+      this.playedLevels = this.user.PlayedLevels.toString();
       this.totalDeaths = this.user.TotalDeaths.toString();
     }
   }

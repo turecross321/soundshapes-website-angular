@@ -3,7 +3,7 @@
   <div class="w-full">
     <p class="text-center text-2xl mb-4">File Size</p>
     <app-statistic
-      text="{{ level?.FileSize }} bytes"
+      text="{{ level?.Analysis?.FileSize }} bytes"
       class="w-full"
     ></app-statistic>
   </div>
@@ -12,7 +12,7 @@
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Total Entities</p>
     <app-statistic
-      text="{{ level?.TotalEntities }}"
+      text="{{ level?.Analysis?.TotalEntities }}"
       class="w-full"
     ></app-statistic>
   </div>
@@ -21,7 +21,7 @@
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Has Car</p>
     <app-statistic
-      text="{{ level?.HasCar ? 'Yes' : 'No' }}"
+      text="{{ level?.Analysis?.HasCar ? 'Yes' : 'No' }}"
       class="w-full"
     ></app-statistic>
   </div>
@@ -30,7 +30,7 @@
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Has Exploding Car</p>
     <app-statistic
-      text="{{ level?.HasExplodingCar ? 'Yes' : 'No' }}"
+      text="{{ level?.Analysis?.HasExplodingCar ? 'Yes' : 'No' }}"
       class="w-full"
     ></app-statistic>
   </div>
@@ -39,7 +39,7 @@
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Total Screens</p>
     <app-statistic
-      text="{{ level?.TotalScreens }}"
+      text="{{ level?.Analysis?.TotalScreens }}"
       class="w-full"
     ></app-statistic>
   </div>
@@ -47,7 +47,10 @@
   <!--- BPM --->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">BPM</p>
-    <app-statistic text="{{ level?.Bpm }}" class="w-full"></app-statistic>
+    <app-statistic
+      text="{{ level?.Analysis?.Bpm }}"
+      class="w-full"
+    ></app-statistic>
   </div>
 
   <!--- Scale --->
@@ -60,7 +63,7 @@
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Transpose Value</p>
     <app-statistic
-      text="{{ level?.TransposeValue }}"
+      text="{{ level?.Analysis?.TransposeValue }}"
       class="w-full"
     ></app-statistic>
   </div>

@@ -2,32 +2,34 @@
   *ngIf="user != undefined"
   class="flex justify-center flex-col items-center"
 >
-  <div class="w-full flex items-center justify-center">
-    <div class="container flex items-start justify-start flex-col">
-      <div class="lg:flex justify-between w-full mb-1">
-        <h1 class="text-7xl">{{ user.Username }}</h1>
-
-        <div class="flex my-2 lg:my-0 gap-2">
-          <app-report-button class="w-full"> </app-report-button>
-          <div *ngIf="loggedIn && !!user" class="w-full">
-            <app-user-follow-button
-              [userId]="user.Id"
-              class="w-full"
-            ></app-user-follow-button>
-          </div>
+  <div class="w-full lg:flex container">
+    <div class="flex-col w-full">
+      <div class="lg:flex lg:justify-between w-full">
+        <div>
+          <h1 class="text-7xl">{{ user.Username }}</h1>
         </div>
       </div>
       <div class="flex gap-2 text-lg items-center mb-1">
         <!--- Levels --->
         <fa-icon [icon]="levelsIcon" class="fa-lg"></fa-icon>
-        <p>{{ user.PublishedLevelsCount }}</p>
+        <p>{{ user.PublishedLevels }}</p>
 
         <!--- Followers --->
         <fa-icon [icon]="followersIcon" class="fa-lg"></fa-icon>
-        <p>{{ user.FollowersCount }}</p>
+        <p>{{ user.Followers }}</p>
       </div>
       <div class="flex text-lg italic text-light-gray">
         <span title="{{ 'Joined at ' + user.CreationDate }}">{{ joined }}</span>
+      </div>
+    </div>
+
+    <div class="flex my-2 lg:my-0 gap-2">
+      <app-report-button class="w-full"> </app-report-button>
+      <div *ngIf="loggedIn && !!user" class="w-full">
+        <app-user-follow-button
+          [userId]="user.Id"
+          class="w-full"
+        ></app-user-follow-button>
       </div>
     </div>
   </div>

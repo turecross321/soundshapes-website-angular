@@ -35,14 +35,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LevelPageComponent } from './pages/level-page/level-page.component';
 import { LevelStatisticsComponent } from './components/level-statistics/level-statistics.component';
 import { DifficultyViewerComponent } from './components/difficulty-viewer/difficulty-viewer.component';
-import { LevelInteractionButtonComponent } from './components/level-interaction-button/level-interaction-button.component';
 import { LevelEditableNameComponent } from './components/level-editable-name/level-editable-name.component';
 import { ReportButtonComponent } from './components/report-button/report-button.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 import { SendPasswordSessionComponent } from './components/send-password-session/send-password-session.component';
 import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
 import { IpViewComponent } from './components/ip-view/ip-view.component';
-import { TimeTextComponent } from './time-text/time-text.component';
+import { TimeTextComponent } from './components/time-text/time-text.component';
+import { WideIconButtonComponent } from './components/wide-icon-button/wide-icon-button.component';
+import { LevelLikeButtonComponent } from './components/level-like-button/level-like-button.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,6 @@ import { TimeTextComponent } from './time-text/time-text.component';
     LevelPageComponent,
     LevelStatisticsComponent,
     DifficultyViewerComponent,
-    LevelInteractionButtonComponent,
     LevelEditableNameComponent,
     ReportButtonComponent,
     ResetPasswordPageComponent,
@@ -84,6 +84,8 @@ import { TimeTextComponent } from './time-text/time-text.component';
     AuthorizationPageComponent,
     IpViewComponent,
     TimeTextComponent,
+    WideIconButtonComponent,
+    LevelLikeButtonComponent,
   ],
   imports: [
     BrowserModule,

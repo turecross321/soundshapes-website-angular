@@ -5,7 +5,7 @@
   <div class="w-full flex items-center justify-center">
     <div class="container flex justify-between">
       <div class="lg:flex w-full gap-6">
-        <div class="lg:flex w-full overflow-x-auto mb-2 lg:mb-0">
+        <div class="lg:flex w-full mb-2 lg:mb-0">
           <img
             [src]="thumbnailUrl"
             class="aspect-video w-full lg:w-auto lg:mr-4 mb-4 lg:mb-0"
@@ -15,7 +15,7 @@
               <app-level-editable-name
                 [level]="level"
                 (changedName)="setDate()"
-                class="w-full lg:truncate"
+                class="w-full"
               ></app-level-editable-name>
             </div>
 
@@ -49,9 +49,15 @@
                 <fa-icon [icon]="likeIcon"></fa-icon>
                 <p>{{ level.Likes }}</p>
               </div>
+
+              <!---- Queues --->
+              <div *ngIf="level.Queues != 0" class="flex gap-1 text-lg">
+                <fa-icon [icon]="queueIcon"></fa-icon>
+                <p>{{ level.Queues }}</p>
+              </div>
             </div>
 
-            <div class="flex text-lg italic text-light-gray">
+            <div class="text-lg italic text-light-gray">
               <span title="{{ 'Created at ' + level.CreationDate }}">{{
                 creation
               }}</span>
@@ -63,11 +69,11 @@
         </div>
 
         <div class="flex items-start gap-2 w-full lg:w-auto">
-          <app-report-button class="w-full lg:w-auto"></app-report-button>
-          <app-level-interaction-button
-            class="w-full lg:w-auto"
+          <app-report-button class="w-full"></app-report-button>
+          <app-level-like-button
             [level]="level"
-          ></app-level-interaction-button>
+            class="w-full"
+          ></app-level-like-button>
         </div>
 
         <div></div>

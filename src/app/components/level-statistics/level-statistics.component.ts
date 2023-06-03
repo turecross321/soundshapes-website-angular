@@ -29,7 +29,7 @@ export class LevelStatisticsComponent {
         .join();
 
       if (this.totalPlayTime == '') this.totalPlayTime = '0 seconds';
-      this.scaleName = Scale[this.level.ScaleIndex];
+      this.scaleName = Scale[this.level.Analysis.ScaleIndex];
     }
   }
 }

@@ -11,6 +11,7 @@ export interface BriefLevel {
   TotalPlays: number;
   UniquePlays: number;
   Likes: number;
+  Queues: number;
   Difficulty: number;
 }
 
@@ -27,6 +28,7 @@ export enum LevelOrder {
   TotalCompletions = 'totalCompletions',
   UniqueCompletions = 'uniqueCompletions',
   Likes = 'likes',
+  Queues = 'queues',
   FileSize = 'fileSize',
   Difficulty = 'difficulty',
   Relevance = 'relevance',
@@ -51,10 +53,17 @@ export interface FullLevel {
   TotalCompletions: number;
   UniqueCompletions: number;
   Likes: number;
+  Queues: number;
   TotalDeaths: number;
   TotalPlayTime: number;
   Language: number;
   Difficulty: number;
+  Analysis: LevelAnalysis;
+  Albums: Album[];
+  DailyLevels: DailyLevel[];
+}
+
+export interface LevelAnalysis {
   FileSize: number;
   Bpm: number;
   TransposeValue: number;
@@ -63,8 +72,6 @@ export interface FullLevel {
   TotalEntities: number;
   HasCar: boolean;
   HasExplodingCar: boolean;
-  Albums: Album[];
-  DailyLevels: DailyLevel[];
 }
 
 export enum Scale {
@@ -77,4 +84,5 @@ export enum Scale {
 export interface LevelRelation {
   Completed: boolean;
   Liked: boolean;
+  Queued: boolean;
 }

@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { faPlay, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faHeart, faBell } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { FullLevel } from 'src/app/types/api/levels';
-import {
-  format,
-  formatDistance,
-  formatDistanceStrict,
-  formatRelative,
-  subDays,
-} from 'date-fns';
+import { formatDistanceStrict } from 'date-fns';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { environment } from 'src/environments/environment';
 
@@ -29,6 +23,7 @@ export class LevelPageComponent {
 
   playIcon = faPlay;
   likeIcon = faHeart;
+  queueIcon = faBell;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,8 +40,9 @@ export class LevelPageComponent {
         });
 
       if (this.level.ModificationDate != this.level.CreationDate) {
+        this.creation += ',';
         this.modification =
-          ', last modified ' +
+          'last modified ' +
           formatDistanceStrict(
             new Date(this.level.ModificationDate),
             new Date(),

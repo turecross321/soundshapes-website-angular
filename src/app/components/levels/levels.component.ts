@@ -11,6 +11,7 @@ import {
   faArrowRight,
   faArrowUp,
   faArrowsUpDown,
+  faBell,
   faBookSkull,
   faBox,
   faBoxesStacked,
@@ -202,6 +203,10 @@ export class LevelsComponent {
     {
       Label: 'Likes',
       Icon: faHeart,
+    },
+    {
+      Label: 'Queues',
+      Icon: faBell,
     },
     {
       Label: 'File Size',
