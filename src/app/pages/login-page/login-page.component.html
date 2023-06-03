@@ -1,5 +1,9 @@
 <div class="flex justify-center">
-  <app-banned-page *ngIf="banned" [punishments]="punishments"></app-banned-page>
+  <app-banned-page
+    *ngIf="banned"
+    [punishments]="punishments"
+    class="w-full max-w-2xl"
+  ></app-banned-page>
 
   <div
     *ngIf="!banned"
