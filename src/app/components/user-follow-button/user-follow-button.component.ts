@@ -1,13 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  faGear,
-  faRightFromBracket,
-  faUserMinus,
-  faUserPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUserMinus, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
-import { FollowButtonType } from 'src/app/types/follow-button-type';
+import { FullUser } from 'src/app/types/api/users';
 
 @Component({
   selector: 'app-user-follow-button',
@@ -15,64 +10,44 @@ import { FollowButtonType } from 'src/app/types/follow-button-type';
   styleUrls: ['./user-follow-button.component.scss'],
 })
 export class UserFollowButtonComponent {
-  @Input() userId!: string;
+  @Input() user!: FullUser;
 
-  type: FollowButtonType | null = null;
-  icon!: IconProp;
+  isFollowing: boolean = false;
+  icon: IconProp = faUserPlus;
 
   constructor(private apiClient: ApiClientService) {}
 
   async ngOnInit() {
-    this.apiClient.session$.subscribe((session) => {
-      if (session?.User.Id == this.userId) {
-        this.type = FollowButtonType.LogOut;
-      }
-    });
+    let response = await this.apiClient.checkFollowStatus(this.user.Id);
 
-    if (this.type == null) {
-      let response = await this.apiClient.checkFollowStatus(this.userId);
-
-      if (response.data.Following === true)
-        this.type = FollowButtonType.UnFollow;
-      else this.type = FollowButtonType.Follow;
-    }
-
-    this.setIcon();
+    this.isFollowing = response.data.Following;
+    this.setButtonType(this.isFollowing);
   }
 
-  setIcon() {
-    switch (this.type) {
-      case FollowButtonType.LogOut:
-        this.icon = faRightFromBracket;
-        break;
-      case FollowButtonType.UnFollow:
-        this.icon = faUserMinus;
-        break;
-      case FollowButtonType.Follow:
-        this.icon = faUserPlus;
-        break;
+  setButtonType(isFollowing: boolean) {
+    if (isFollowing) {
+      this.icon = faUserMinus;
+    } else if (!isFollowing) {
+      this.icon = faUserPlus;
     }
   }
 
   click() {
-    switch (this.type) {
-      case FollowButtonType.Follow:
-        this.follow();
-        break;
-      case FollowButtonType.UnFollow:
-        this.unFollow;
-        break;
-      case FollowButtonType.LogOut:
-        this.logOut();
-        break;
-    }
+    if (!this.isFollowing) this.follow();
+    else if (this.isFollowing) this.unFollow();
   }
 
-  async follow() {}
+  async follow() {
+    this.apiClient.followUser(this.user.Id);
+    this.isFollowing = true;
+    this.setButtonType(this.isFollowing);
+    this.user.Followers++;
+  }
 
-  async unFollow() {}
-
-  async logOut() {
-    this.apiClient.logOut();
+  async unFollow() {
+    this.apiClient.unFollowUser(this.user.Id);
+    this.isFollowing = false;
+    this.setButtonType(this.isFollowing);
+    this.user.Followers--;
   }
 }

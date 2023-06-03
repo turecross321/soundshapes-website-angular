@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LevelPageComponent {
   level: FullLevel | undefined = undefined;
+  loggedIn: boolean = false;
 
   thumbnailUrl = '';
   difficulty = 0;
@@ -76,6 +77,10 @@ export class LevelPageComponent {
           this.interactionIcon = faHeart;
         });
       });
+    });
+
+    this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
+      this.loggedIn = loggedIn;
     });
   }
 }

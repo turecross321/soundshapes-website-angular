@@ -169,6 +169,18 @@ export class ApiClientService {
     }
   }
 
+  async followUser(id: string) {
+    return await axios.post(
+      environment.apiBaseUrl + 'users/id/' + id + '/follow'
+    );
+  }
+
+  async unFollowUser(id: string) {
+    return await axios.post(
+      environment.apiBaseUrl + 'users/id/' + id + '/unFollow'
+    );
+  }
+
   async getLevels(
     from: number,
     count: number,
@@ -224,6 +236,18 @@ export class ApiClientService {
   async unLikeLevel(id: string) {
     return await axios.post(
       environment.apiBaseUrl + 'levels/id/' + id + '/unLike'
+    );
+  }
+
+  async queueLevel(id: string) {
+    return await axios.post(
+      environment.apiBaseUrl + 'levels/id/' + id + '/queue'
+    );
+  }
+
+  async unQueueLevel(id: string) {
+    return await axios.post(
+      environment.apiBaseUrl + 'levels/id/' + id + '/unQueue'
     );
   }
 

@@ -69,11 +69,16 @@
         </div>
 
         <div class="flex items-start gap-2 w-full lg:w-auto">
-          <app-report-button class="w-full"></app-report-button>
+          <app-level-queue-button
+          *ngIf="loggedIn"
+            [level]="level"
+            class="w-full"
+          ></app-level-queue-button>
           <app-level-like-button
             [level]="level"
             class="w-full"
           ></app-level-like-button>
+          <app-report-button class="w-full"></app-report-button>
         </div>
 
         <div></div>
