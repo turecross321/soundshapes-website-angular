@@ -74,7 +74,6 @@ export class LevelPageComponent {
     if (loggedIn) {
       const response = await this.apiClient.getLevelRelation(levelId);
       this.relation = response.data;
-      console.log(this.relation);
     }
 
     this.thumbnailUrl =

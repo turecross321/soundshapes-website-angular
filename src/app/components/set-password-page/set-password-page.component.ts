@@ -48,7 +48,5 @@ export class SetPasswordPageComponent {
     } else {
       this.errorMessage = 'An error has occurred.';
     }
-
-    console.log(response.status);
   }
 }
