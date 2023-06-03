@@ -15,6 +15,7 @@ import { UserSidebarButtonType } from 'src/app/types/user-page-sidebar-buttons';
   styleUrls: ['./user-page.component.scss'],
 })
 export class UserPageComponent {
+  loading: boolean = true;
   buttons: SidebarButton[] = [];
   user: FullUser | undefined = undefined;
   loggedIn = false;
@@ -63,6 +64,8 @@ export class UserPageComponent {
       );
       this.relation = relationResponse.data;
     }
+
+    this.loading = false;
   }
 
   levelsWrapper: LevelsWrapper = {

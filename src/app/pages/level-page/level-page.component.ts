@@ -14,6 +14,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./level-page.component.scss'],
 })
 export class LevelPageComponent {
+  loading: boolean = true;
   level: FullLevel | undefined = undefined;
   relation: LevelRelation | undefined = undefined;
   loggedIn: boolean = false;
@@ -79,5 +80,7 @@ export class LevelPageComponent {
     this.thumbnailUrl =
       environment.apiBaseUrl + 'levels/id/' + this.level.Id + '/thumbnail';
     this.difficulty = this.level.Difficulty;
+
+    this.loading = false;
   }
 }
