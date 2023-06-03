@@ -12,15 +12,12 @@ import { FullUser } from 'src/app/types/api/users';
 export class UserFollowButtonComponent {
   @Input() user!: FullUser;
 
-  isFollowing: boolean = false;
+  @Input() isFollowing: boolean = false;
   icon: IconProp = faUserPlus;
 
   constructor(private apiClient: ApiClientService) {}
 
   async ngOnInit() {
-    let response = await this.apiClient.checkFollowStatus(this.user.Id);
-
-    this.isFollowing = response.data.Following;
     this.setButtonType(this.isFollowing);
   }
 

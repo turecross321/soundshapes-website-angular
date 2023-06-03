@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faPlay, faHeart, faBell } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
-import { FullLevel } from 'src/app/types/api/levels';
+import { FullLevel, LevelRelation } from 'src/app/types/api/levels';
 import { formatDistanceStrict } from 'date-fns';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { environment } from 'src/environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-level-page',
@@ -14,13 +15,13 @@ import { environment } from 'src/environments/environment';
 })
 export class LevelPageComponent {
   level: FullLevel | undefined = undefined;
+  relation: LevelRelation | undefined = undefined;
   loggedIn: boolean = false;
 
   thumbnailUrl = '';
   difficulty = 0;
   creation: string = '';
   modification: string | null = null;
-  interactionIcon!: IconProp;
 
   playIcon = faPlay;
   likeIcon = faHeart;
@@ -55,32 +56,29 @@ export class LevelPageComponent {
     }
   }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      let levelId = params.get('levelId') as string;
+  async ngOnInit() {
+    const params = await firstValueFrom(this.route.paramMap);
 
-      this.apiClient.getLevelWithId(levelId).then((response) => {
-        if (response.status != 200) this.router.navigate(['/404']);
+    let levelId = params.get('levelId') as string;
 
-        this.level = response.data;
-        if (!this.level) return;
+    const response = await this.apiClient.getLevelWithId(levelId);
+    if (response.status != 200) this.router.navigate(['/404']);
 
-        this.thumbnailUrl =
-          environment.apiBaseUrl + 'levels/id/' + this.level.Id + '/thumbnail';
-        this.difficulty = this.level.Difficulty;
+    this.level = response.data;
+    if (!this.level) return;
 
-        this.setDate();
+    this.setDate();
 
-        this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
-          if (!loggedIn) return;
+    const loggedIn = await firstValueFrom(this.apiClient.isLoggedIn$);
+    this.loggedIn = loggedIn;
+    if (loggedIn) {
+      const response = await this.apiClient.getLevelRelation(levelId);
+      this.relation = response.data;
+      console.log(this.relation);
+    }
 
-          this.interactionIcon = faHeart;
-        });
-      });
-    });
-
-    this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
-      this.loggedIn = loggedIn;
-    });
+    this.thumbnailUrl =
+      environment.apiBaseUrl + 'levels/id/' + this.level.Id + '/thumbnail';
+    this.difficulty = this.level.Difficulty;
   }
 }

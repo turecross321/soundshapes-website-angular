@@ -16,13 +16,9 @@ import { FullLevel } from 'src/app/types/api/levels';
 export class LevelQueueButtonComponent {
   constructor(private apiClient: ApiClientService) {}
 
-  isQueued!: boolean;
+  @Input() isQueued!: boolean;
   icon: IconProp = faBell;
   @Input() level!: FullLevel;
-
-  async ngOnInit() {
-    this.fetchButtonType();
-  }
 
   async onClick() {
     if (!this.isQueued) {
@@ -38,15 +34,14 @@ export class LevelQueueButtonComponent {
     }
   }
 
-  async fetchButtonType() {
-    const response = await this.apiClient.getLevelRelation(this.level.Id);
-    this.setButtonType(response.data.Liked);
+  ngOnInit() {
+    this.setButtonType(this.isQueued);
   }
 
-  setButtonType(isLiked: boolean) {
-    if (isLiked) {
+  setButtonType(isQueued: boolean) {
+    if (isQueued) {
       this.icon = faBellSlash;
-    } else if (!isLiked) {
+    } else if (!isQueued) {
       this.icon = faBell;
     }
   }

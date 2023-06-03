@@ -30,7 +30,7 @@ export class LoginFormComponent {
   @Output() loggedInSession: EventEmitter<Session> =
     new EventEmitter<Session>();
   @Output() loggedInEmail: EventEmitter<string> = new EventEmitter<string>();
-  @Input() saveLogin: boolean = false;
+  @Input() saveLogin: boolean = true;
 
   constructor(private apiClientService: ApiClientService) {}
 

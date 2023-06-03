@@ -188,7 +188,7 @@ export class ApiClientService {
     }
   }
 
-  async checkFollowStatus(userId: string) {
+  async getUserRelation(userId: string) {
     try {
       let session = await firstValueFrom(this.session$);
 

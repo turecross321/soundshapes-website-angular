@@ -26,9 +26,10 @@
     <div class="flex my-2 lg:my-0 gap-2">
       <app-report-button class="w-full"> </app-report-button>
       <app-user-follow-button
-        *ngIf="loggedIn && !myAccount"
+        *ngIf="relation"
         [user]="user"
         class="w-full"
+        [isFollowing]="relation.Following"
       ></app-user-follow-button>
       <app-log-out-button
         *ngIf="loggedIn && myAccount"

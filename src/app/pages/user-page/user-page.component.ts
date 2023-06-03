@@ -2,9 +2,10 @@ import { Component, OnChanges, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { faMusic, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { formatDistanceStrict } from 'date-fns';
+import { firstValueFrom } from 'rxjs';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { LevelsWrapper } from 'src/app/types/api/levels';
-import { FullUser } from 'src/app/types/api/users';
+import { FullUser, UserRelation } from 'src/app/types/api/users';
 import { SidebarButton } from 'src/app/types/sidebar-button';
 import { UserSidebarButtonType } from 'src/app/types/user-page-sidebar-buttons';
 
@@ -18,6 +19,7 @@ export class UserPageComponent {
   user: FullUser | undefined = undefined;
   loggedIn = false;
   myAccount: boolean = false;
+  relation: UserRelation | undefined = undefined;
 
   followersIcon = faUsers;
   levelsIcon = faMusic;
@@ -30,37 +32,33 @@ export class UserPageComponent {
     private apiClient: ApiClientService
   ) {}
 
-  ngOnInit(): void {
-    this.apiClient.isLoggedIn$.subscribe((response) => {
-      this.loggedIn = response;
-    });
+  async ngOnInit() {
+    const params: ParamMap = await firstValueFrom(this.route.paramMap);
+    let username = params.get('username') as string | undefined;
 
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      let username = params.get('username') as string | undefined;
+    const loggedIn = await firstValueFrom(this.apiClient.isLoggedIn$);
+    this.loggedIn = loggedIn;
 
-      this.apiClient.session$.subscribe((session) => {
-        username ??= session?.User.Username;
+    const session = await firstValueFrom(this.apiClient.session$);
+    username ??= session?.User.Username;
+
+    if (username == null) return;
+    this.myAccount = session?.User.Username == username;
+
+    const response = await this.apiClient.getUserWithUsername(username);
+    if (response.status != 200) this.router.navigate(['/404']);
+
+    this.user = response.data;
+    if (this.user == null) return;
+
+    this.joined =
+      'Joined ' +
+      formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
+        addSuffix: true,
       });
 
-      if (username == null) return;
-
-      this.apiClient.getUserWithUsername(username).then((response) => {
-        if (response.status != 200) this.router.navigate(['/404']);
-
-        this.user = response.data;
-        if (this.user == null) return;
-
-        this.joined =
-          'Joined ' +
-          formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
-            addSuffix: true,
-          });
-
-        this.apiClient.session$.subscribe((session) => {
-          this.myAccount = session?.User.Id == this.user?.Id;
-        });
-      });
-    });
+    const relationResponse = await this.apiClient.getUserRelation(this.user.Id);
+    this.relation = relationResponse.data;
   }
 
   levelsWrapper: LevelsWrapper = {

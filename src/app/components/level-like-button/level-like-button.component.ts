@@ -12,12 +12,12 @@ import { FullLevel } from 'src/app/types/api/levels';
 export class LevelLikeButtonComponent {
   constructor(private apiClient: ApiClientService) {}
 
-  isLiked!: boolean;
+  @Input() isLiked!: boolean;
   icon: IconProp = faHeart;
   @Input() level!: FullLevel;
 
   async ngOnInit() {
-    this.fetchButtonType();
+    this.setButtonType(this.isLiked);
   }
 
   async onClick() {
@@ -32,11 +32,6 @@ export class LevelLikeButtonComponent {
       this.setButtonType(this.isLiked);
       this.level.Likes--;
     }
-  }
-
-  async fetchButtonType() {
-    const response = await this.apiClient.getLevelRelation(this.level.Id);
-    this.setButtonType(response.data.Liked);
   }
 
   setButtonType(isLiked: boolean) {
