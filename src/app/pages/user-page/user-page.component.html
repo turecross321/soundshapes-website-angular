@@ -4,14 +4,17 @@
 >
   <div class="w-full flex items-center justify-center">
     <div class="container flex items-start justify-start flex-col">
-      <div class="flex justify-between w-full">
-        <h1 class="text-5xl">{{ user.Username }}</h1>
+      <div class="lg:flex justify-between w-full mb-1">
+        <h1 class="text-7xl">{{ user.Username }}</h1>
 
-        <div *ngIf="loggedIn && !!user">
-          <app-user-follow-button
-            class="items-start"
-            [userId]="user.Id"
-          ></app-user-follow-button>
+        <div class="flex my-2 lg:my-0 gap-2">
+          <app-report-button class="w-full"> </app-report-button>
+          <div *ngIf="loggedIn && !!user" class="w-full">
+            <app-user-follow-button
+              [userId]="user.Id"
+              class="w-full"
+            ></app-user-follow-button>
+          </div>
         </div>
       </div>
       <div class="flex gap-2 text-lg items-center mb-1">
