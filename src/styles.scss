@@ -7,9 +7,10 @@
 }
 
 .container {
-  @apply text-[#3f2e27] m-3;
+  @apply text-[#3f2e27];
   background-color: #efe0da;
   padding: 40px;
+  margin: 20px;
   box-shadow: 8px 9px 0px rgba(0, 0, 0, 0.3);
 }
 
