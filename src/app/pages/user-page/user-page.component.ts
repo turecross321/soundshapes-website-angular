@@ -57,8 +57,12 @@ export class UserPageComponent {
         addSuffix: true,
       });
 
-    const relationResponse = await this.apiClient.getUserRelation(this.user.Id);
-    this.relation = relationResponse.data;
+    if (!this.myAccount) {
+      const relationResponse = await this.apiClient.getUserRelation(
+        this.user.Id
+      );
+      this.relation = relationResponse.data;
+    }
   }
 
   levelsWrapper: LevelsWrapper = {

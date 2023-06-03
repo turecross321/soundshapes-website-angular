@@ -25,4 +25,5 @@ export interface FullUser {
 
 export interface UserRelation {
   Following: boolean;
+  Followed: boolean;
 }

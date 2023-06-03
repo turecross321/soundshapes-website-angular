@@ -62,6 +62,10 @@
   color: #bdaca6;
 }
 
+.border-light-gray {
+  @apply border-[#bdaca6];
+}
+
 .text-light-gray-hover:hover {
   color: #8d837f;
 }
