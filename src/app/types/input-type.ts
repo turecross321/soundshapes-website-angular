@@ -4,4 +4,5 @@ export enum InputType {
   Password,
   EmailCode,
   PasswordCode,
+  RemovalCode,
 }

@@ -38,6 +38,7 @@ export class InputFieldComponent {
       case InputType.PasswordCode:
       case InputType.Text:
       case InputType.EmailCode:
+      case InputType.RemovalCode:
         this.typeString = 'text';
         break;
     }
@@ -64,6 +65,13 @@ export class InputFieldComponent {
       const passwordCodeRegex = /^[a-zA-Z]{8}$/;
       if (!passwordCodeRegex.test(this.field.value)) {
         this.errorMessage = 'Invalid Password Code.';
+      } else {
+        this.errorMessage = null;
+      }
+    } else if (this.type == InputType.RemovalCode) {
+      const passwordCodeRegex = /^[a-zA-Z0-9]{8}$/;
+      if (!passwordCodeRegex.test(this.field.value)) {
+        this.errorMessage = 'Invalid Removal Code.';
       } else {
         this.errorMessage = null;
       }

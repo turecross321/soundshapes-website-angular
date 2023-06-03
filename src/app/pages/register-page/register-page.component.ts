@@ -11,11 +11,11 @@ export class RegisterPageComponent {
   constructor(private router: Router) {}
 
   emailAddress!: string;
-  PageIndex = 0;
+  pageIndex = 0;
 
   sentCode(email: string): void {
     this.emailAddress = email;
-    this.PageIndex = 1;
+    this.pageIndex = 1;
   }
 
   onFinishedRegistration(): void {

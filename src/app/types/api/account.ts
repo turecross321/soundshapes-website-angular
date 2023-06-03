@@ -1,3 +1,4 @@
+import { Punishment } from './punishments';
 import { BriefUser } from './users';
 
 export interface LoginRequest {
@@ -21,8 +22,7 @@ export interface Session {
   Id: string;
   ExpiresAt: Date;
   User: BriefUser;
-  IsBanned: boolean;
-  BanReason?: string;
+  ActivePunishments: Punishment[];
 }
 
 export enum PermissionsType {

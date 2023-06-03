@@ -1,0 +1,33 @@
+<div class="flex max-w-2xl flex-col">
+  <p class="text-red-600 -mt-4 mb-2" *ngIf="errorMessage != null">
+    {{ errorMessage }}
+  </p>
+  <div class="w-full mb-2">
+    <label for="email"></label>
+    <app-input-field
+      [id]="emailId"
+      name="Email Address"
+      [icon]="emailIcon"
+      [type]="emailInputType"
+      (keydown.enter)="logIn()"
+    ></app-input-field>
+  </div>
+  <div class="w-full mb-2">
+    <label for="password"></label>
+    <app-input-field
+      [id]="passwordId"
+      name="Password"
+      [type]="passwordInputType"
+      [icon]="passwordIcon"
+      (keydown.enter)="logIn()"
+    ></app-input-field>
+  </div>
+
+  <div class="row w-full mb-2">
+    <app-primary-button
+      label="Log In"
+      class="w-full"
+      (click)="logIn()"
+    ></app-primary-button>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="mb-2">
+  <p class="mb-2">Account Removal Code has been sent to {{ emailAddress }}</p>
+
+  <app-input-field
+    [id]="removalCodeId"
+    name="Removal Code"
+    [icon]="removalCodeIcon"
+    [type]="removalCodeInputType"
+    (keydown.enter)="removeAccount()"
+  ></app-input-field>
+</div>
+
+<div class="mb-2">
+  <app-primary-button
+    label="Finish"
+    class="w-full"
+    (click)="removeAccount()"
+  ></app-primary-button>
+</div>

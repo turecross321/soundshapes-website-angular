@@ -5,19 +5,19 @@
     <div class="mb-2">
       <app-stepper
         [StepsCount]="2"
-        [StepIndex]="PageIndex"
+        [StepIndex]="pageIndex"
         class="w-full"
       ></app-stepper>
     </div>
 
     <app-set-email-page
-      *ngIf="PageIndex == 0"
+      *ngIf="pageIndex == 0"
       class="w-full"
       (sentCode)="sentCode($event)"
     ></app-set-email-page>
 
     <app-set-password-page
-      *ngIf="PageIndex == 1"
+      *ngIf="pageIndex == 1"
       class="w-full"
       [emailAddress]="emailAddress"
       (onFinishedRegistration)="onFinishedRegistration()"

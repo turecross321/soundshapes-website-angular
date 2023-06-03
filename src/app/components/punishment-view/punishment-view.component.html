@@ -1,0 +1,12 @@
+<div>
+  <p class="text-3xl">
+    {{ punishmentTypeName }}
+  </p>
+  <p class="text-xl">"{{ punishment.Reason }}"</p>
+  <app-time-text
+    [date]="punishment.ExpiresAt"
+    prefix="Expires "
+    class="text-xl"
+  ></app-time-text>
+  <p class="text-light-gray">by {{ punishment.Author.Username }}</p>
+</div>

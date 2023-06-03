@@ -4,6 +4,11 @@ import { ApiClientService } from 'src/app/services/api-client.service';
 import { sha512Async } from 'src/app/hash';
 import { InputType } from 'src/app/types/input-type';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import {
+  DoPunishmentsIncludeBan,
+  Punishment,
+} from 'src/app/types/api/punishments';
+import { Session } from 'src/app/types/api/account';
 
 @Component({
   selector: 'app-login-page',
@@ -11,38 +16,17 @@ import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
-  emailId: string = 'login-email';
-  passwordId: string = 'login-password';
+  banned: boolean = false;
+  punishments: Punishment[] = [];
 
-  errorMessage = null;
+  constructor(private router: Router) {}
 
-  EmailInputType: InputType = InputType.Email;
-  PasswordInputType: InputType = InputType.Password;
-
-  emailIcon = faEnvelope;
-  passwordIcon = faKey;
-
-  constructor(
-    private apiClientService: ApiClientService,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {}
-
-  async logIn() {
-    const emailInput: string = (<HTMLInputElement>(
-      document.getElementById(this.emailId)
-    )).value;
-    const passwordInput: string = (<HTMLInputElement>(
-      document.getElementById(this.passwordId)
-    )).value;
-
-    const hash = await sha512Async(passwordInput);
-    const response = await this.apiClientService.logIn(emailInput, hash);
-    if (response.status != 200) {
-      this.errorMessage = response.data;
+  onLoggedIn(session: Session) {
+    if (session.ActivePunishments.length > 0) {
+      this.banned = DoPunishmentsIncludeBan(session.ActivePunishments);
+      this.punishments = session.ActivePunishments;
     } else {
-      this.router.navigate(['user/' + response.data.User.Username]);
+      this.router.navigate(['user/' + session.User.Username]);
     }
   }
 }

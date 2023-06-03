@@ -1,0 +1,28 @@
+<div class="flex justify-center">
+  <div class="container max-w-2xl flex-col">
+    <h1 class="header mb-6">Account Removal</h1>
+
+    <div class="mb-2">
+      <app-stepper
+        [StepsCount]="3"
+        [StepIndex]="pageIndex"
+        class="w-full"
+      ></app-stepper>
+    </div>
+
+    <app-removal-warning
+      *ngIf="pageIndex == 0"
+      (readWarning)="onReadWarning()"
+    ></app-removal-warning>
+    <app-login-form
+      *ngIf="pageIndex == 1"
+      (loggedInSession)="onLoggedInSession($event)"
+      (loggedInEmail)="onLoggedInEmail($event)"
+    ></app-login-form>
+    <div *ngIf="pageIndex == 2">
+      <app-remove-account-form
+        [emailAddress]="emailAddress"
+      ></app-remove-account-form>
+    </div>
+  </div>
+</div>

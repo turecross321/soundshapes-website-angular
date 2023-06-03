@@ -11,6 +11,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { LevelPageComponent } from './pages/level-page/level-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
+import { RemoveAccountPageComponent } from './pages/remove-account-page/remove-account-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'resetPassword',
     component: ResetPasswordPageComponent,
+  },
+  {
+    path: 'removeAccount',
+    component: RemoveAccountPageComponent,
   },
   {
     path: 'user/:username',

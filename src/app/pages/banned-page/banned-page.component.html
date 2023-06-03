@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 class="header">Banned</h1>
+  <div class="mb-4">
+    <p class="text-md mb-2">
+      You are banned. You may log in once all bans have expired.
+    </p>
+    <app-primary-button
+      label="Remove Account"
+      routerLink="/removeAccount"
+    ></app-primary-button>
+  </div>
+  <div>
+    <app-punishment-view
+      *ngFor="let punishment of punishments; let i = index"
+      [punishment]="punishment"
+    ></app-punishment-view>
+  </div>
+</div>

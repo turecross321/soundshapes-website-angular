@@ -1,14 +1,10 @@
 import { Component, Input } from '@angular/core';
-import {
-  faBookSkull,
-  faFill,
-  faSkull,
-} from '@fortawesome/free-solid-svg-icons';
+import { faSkull } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-difficulty-viewer',
-  templateUrl: './difficulty-viewer.component.html',
-  styleUrls: ['./difficulty-viewer.component.scss'],
+  selector: 'app-difficulty-view',
+  templateUrl: './difficulty-view.component.html',
+  styleUrls: ['./difficulty-view.component.scss'],
 })
 export class DifficultyViewerComponent {
   @Input() difficulty!: number;

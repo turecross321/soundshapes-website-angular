@@ -1,39 +1,18 @@
 <div class="flex justify-center">
-  <div class="flex container max-w-2xl flex-col">
+  <app-banned-page *ngIf="banned" [punishments]="punishments"></app-banned-page>
+
+  <div
+    *ngIf="!banned"
+    class="flex-col justify-between w-full container max-w-2xl"
+  >
     <h1 class="header mb-6">Login</h1>
-    <p class="text-red-600 -mt-4 mb-2" *ngIf="errorMessage != null">
-      {{ errorMessage }}
-    </p>
-    <div class="w-full mb-2">
-      <label for="email"></label>
-      <app-input-field
-        [id]="emailId"
-        name="Email Address"
-        [icon]="emailIcon"
-        [type]="EmailInputType"
-        (keydown.enter)="logIn()"
-      ></app-input-field>
-    </div>
-    <div class="w-full mb-2">
-      <label for="password"></label>
-      <app-input-field
-        [id]="passwordId"
-        name="Password"
-        [type]="PasswordInputType"
-        [icon]="passwordIcon"
-        (keydown.enter)="logIn()"
-      ></app-input-field>
-    </div>
+    <app-login-form
+      *ngIf="!banned"
+      (loggedInSession)="onLoggedIn($event)"
+      class="w-full"
+    ></app-login-form>
 
-    <div class="row w-full mb-2">
-      <app-primary-button
-        label="Log In"
-        class="w-full"
-        (click)="logIn()"
-      ></app-primary-button>
-    </div>
-
-    <div class="flex justify-between w-full">
+    <div class="flex">
       <app-primary-button
         routerLink="/resetPassword"
         label="Reset Password"

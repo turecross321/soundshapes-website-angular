@@ -6,12 +6,13 @@ import {
   SetPasswordRequest,
 } from '../types/api/account';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { FullUser, UserRelation } from '../types/api/users';
 import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
 import { AuthorizeIpRequest, IpWrapper } from '../types/api/ip';
 import { environment } from 'src/environments/environment';
+import { DoPunishmentsIncludeBan } from '../types/api/punishments';
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {
@@ -66,6 +67,9 @@ export class ApiClientService {
         environment.apiBaseUrl + 'account/login',
         body
       );
+
+      if (DoPunishmentsIncludeBan(response.data.ActivePunishments))
+        return response;
 
       this.finishLogIn(response.data);
       localStorage.setItem('email', email);
@@ -129,6 +133,26 @@ export class ApiClientService {
       environment.apiBaseUrl + 'account/sendPasswordSession',
       body
     );
+  }
+  async sendAccountRemovalSession(sessionId: string) {
+    return await axios.post(
+      environment.apiBaseUrl + 'account/sendRemovalSession',
+      null,
+      {
+        headers: {
+          Authorization: sessionId,
+        },
+      }
+    );
+  }
+
+  async removeAccount(removalCode: string) {
+    console.log('lmao what');
+    return await axios.post(environment.apiBaseUrl + 'account/remove', null, {
+      headers: {
+        Authorization: removalCode,
+      },
+    });
   }
 
   async setPassword(passwordCode: string, hash: string) {

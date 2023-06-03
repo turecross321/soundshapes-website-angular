@@ -34,7 +34,7 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LevelPageComponent } from './pages/level-page/level-page.component';
 import { LevelStatisticsComponent } from './components/level-statistics/level-statistics.component';
-import { DifficultyViewerComponent } from './components/difficulty-viewer/difficulty-viewer.component';
+import { DifficultyViewerComponent } from './components/difficulty-view/difficulty-view.component';
 import { LevelEditableNameComponent } from './components/level-editable-name/level-editable-name.component';
 import { ReportButtonComponent } from './components/report-button/report-button.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
@@ -46,6 +46,12 @@ import { WideIconButtonComponent } from './components/wide-icon-button/wide-icon
 import { LevelLikeButtonComponent } from './components/level-like-button/level-like-button.component';
 import { LevelQueueButtonComponent } from './components/level-queue-button/level-queue-button.component';
 import { LogOutButtonComponent } from './components/log-out-button/log-out-button.component';
+import { BannedPageComponent } from './pages/banned-page/banned-page.component';
+import { PunishmentViewComponent } from './components/punishment-view/punishment-view.component';
+import { RemoveAccountPageComponent } from './pages/remove-account-page/remove-account-page.component';
+import { RemovalWarningComponent } from './components/removal-warning/removal-warning.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RemoveAccountFormComponent } from './components/remove-account-form/remove-account-form.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +96,12 @@ import { LogOutButtonComponent } from './components/log-out-button/log-out-butto
     LevelLikeButtonComponent,
     LevelQueueButtonComponent,
     LogOutButtonComponent,
+    BannedPageComponent,
+    PunishmentViewComponent,
+    RemoveAccountPageComponent,
+    RemovalWarningComponent,
+    LoginFormComponent,
+    RemoveAccountFormComponent,
   ],
   imports: [
     BrowserModule,
