@@ -37,34 +37,37 @@ export class LevelInteractionButtonComponent {
 
       this.showButton = true;
 
-      this.setButtonType();
+      this.fetchButtonType();
     });
   }
 
   async onClick() {
+    console.log('Botch As');
     if (this.buttonType == ButtonType.Like) {
-      await this.apiClient.likeLevel(this.level.Id);
-      this.setButtonType();
+      this.apiClient.likeLevel(this.level.Id);
+      this.setButtonType(true);
       this.level.Likes++;
-    }
-    if (this.buttonType == ButtonType.UnLike) {
-      await this.apiClient.unLikeLevel(this.level.Id);
-      this.setButtonType();
+    } else if (this.buttonType == ButtonType.UnLike) {
+      this.apiClient.unLikeLevel(this.level.Id);
+      this.setButtonType(false);
       this.level.Likes--;
     }
   }
 
-  setButtonType() {
+  fetchButtonType() {
     this.apiClient.getLevelRelation(this.level.Id).then((response) => {
-      const isLiked = response.data.Liked;
-      if (isLiked) {
-        this.icon = faHeartBroken;
-        this.buttonType = ButtonType.UnLike;
-      } else {
-        this.icon = faHeart;
-        this.buttonType = ButtonType.Like;
-      }
+      this.setButtonType(response.data.Liked);
     });
+  }
+
+  setButtonType(isLiked: boolean) {
+    if (isLiked) {
+      this.icon = faHeartBroken;
+      this.buttonType = ButtonType.UnLike;
+    } else {
+      this.icon = faHeart;
+      this.buttonType = ButtonType.Like;
+    }
   }
 }
 
