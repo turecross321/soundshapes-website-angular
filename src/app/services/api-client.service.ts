@@ -241,7 +241,7 @@ export class ApiClientService {
   }
 
   async getIpRequests(from: number, count: number, authorized: boolean) {
-    return await axios.get<IpWrapper>(environment.apiBaseUrl + 'ip/addresses', {
+    return await axios.get<IpWrapper>(environment.apiBaseUrl + 'ip', {
       params: {
         from: from,
         count: count,
@@ -260,6 +260,8 @@ export class ApiClientService {
   }
 
   async removeAuthorizedIp(address: string) {
-    await axios.post(environment.apiBaseUrl + 'ip/' + address + '/remove');
+    await axios.post(
+      environment.apiBaseUrl + 'ip/address/' + address + '/remove'
+    );
   }
 }

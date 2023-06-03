@@ -42,6 +42,7 @@ import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-pa
 import { SendPasswordSessionComponent } from './components/send-password-session/send-password-session.component';
 import { AuthorizationPageComponent } from './pages/authorization-page/authorization-page.component';
 import { IpViewComponent } from './components/ip-view/ip-view.component';
+import { TimeTextComponent } from './time-text/time-text.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { IpViewComponent } from './components/ip-view/ip-view.component';
     SendPasswordSessionComponent,
     AuthorizationPageComponent,
     IpViewComponent,
+    TimeTextComponent,
   ],
   imports: [
     BrowserModule,

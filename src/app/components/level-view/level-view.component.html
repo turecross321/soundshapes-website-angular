@@ -20,11 +20,7 @@
             class="flex w-full justify-between truncate items-center"
           >
             <h2 class="text-dark-gray truncate">{{ level.Name }}</h2>
-            <span
-              title="{{ 'Created at ' + level.CreationDate }}"
-              class="text-sm text-light-gray"
-              >{{ creationDate }}</span
-            >
+            <app-time-text [date]="level.CreationDate"></app-time-text>
           </button>
         </div>
 

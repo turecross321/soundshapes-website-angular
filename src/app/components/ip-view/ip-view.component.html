@@ -1,5 +1,5 @@
 <div>
-  <div class="flex mb-2 gap-1">
+  <div class="flex gap-1 mb-1">
     <h1 class="text-4xl">{{ ip.IpAddress }}</h1>
     <span
       title="Will automatically be removed upon next login"
@@ -8,6 +8,7 @@
       <fa-icon [icon]="oneTimeUseIcon"></fa-icon>
     </span>
   </div>
+
   <div class="flex gap-2">
     <app-primary-button
       label="Authorize"
@@ -20,5 +21,9 @@
       *ngIf="!ip.Authorized"
     ></app-primary-button>
     <app-primary-button label="Remove" (click)="remove()"></app-primary-button>
+  </div>
+
+  <div>
+    <app-time-text [date]="ip.ModificationDate"></app-time-text>
   </div>
 </div>

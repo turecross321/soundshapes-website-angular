@@ -23,13 +23,6 @@ export class LevelViewComponent {
     if (this.level) {
       this.thumbnailUrl =
         environment.apiBaseUrl + 'levels/id/' + this.level.Id + '/thumbnail';
-      this.creationDate = formatDistanceStrict(
-        new Date(this.level.CreationDate),
-        new Date(),
-        {
-          addSuffix: true,
-        }
-      );
     }
   }
 }
