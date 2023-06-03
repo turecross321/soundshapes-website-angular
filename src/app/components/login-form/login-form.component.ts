@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { sha512Async } from 'src/app/hash';
@@ -30,6 +30,7 @@ export class LoginFormComponent {
   @Output() loggedInSession: EventEmitter<Session> =
     new EventEmitter<Session>();
   @Output() loggedInEmail: EventEmitter<string> = new EventEmitter<string>();
+  @Input() saveLogin: boolean = false;
 
   constructor(private apiClientService: ApiClientService) {}
 
@@ -44,7 +45,11 @@ export class LoginFormComponent {
     )).value;
 
     const hash = await sha512Async(passwordInput);
-    const response = await this.apiClientService.logIn(emailInput, hash);
+    const response = await this.apiClientService.logIn(
+      emailInput,
+      hash,
+      this.saveLogin
+    );
     if (response.status != 200) {
       this.errorMessage = response.data;
     } else {

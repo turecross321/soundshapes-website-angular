@@ -11,8 +11,8 @@ import { faHashtag, faKey } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./set-password-page.component.scss'],
 })
 export class SetPasswordPageComponent {
-  @Input() emailAddress! : string;
-  
+  @Input() emailAddress!: string;
+
   passwordCodeId: string = 'register-password-code';
   passwordId: string = 'register-password';
 
@@ -21,6 +21,8 @@ export class SetPasswordPageComponent {
 
   passwordCodeIcon = faHashtag;
   passwordIcon = faKey;
+
+  errorMessage: string | null = null;
 
   @Output()
   onFinishedRegistration = new EventEmitter();
@@ -41,6 +43,12 @@ export class SetPasswordPageComponent {
     if (response.status == 201) {
       this.onFinishedRegistration.emit();
       localStorage.setItem('passwordSha512', hash);
+    } else if (response.status == 403) {
+      this.errorMessage = 'Incorrect Password Code.';
+    } else {
+      this.errorMessage = 'An error has occurred.';
     }
+
+    console.log(response.status);
   }
 }

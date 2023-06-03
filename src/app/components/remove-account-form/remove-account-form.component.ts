@@ -18,6 +18,8 @@ export class RemoveAccountFormComponent {
   removalCodeInputType = InputType.RemovalCode;
   removalCodeIcon = faHashtag;
 
+  errorMessage: string | null = null;
+
   @Output()
   onFinishedRegistration = new EventEmitter();
 
@@ -28,6 +30,12 @@ export class RemoveAccountFormComponent {
       .value;
 
     const response = await this.apiClient.removeAccount(code);
-    this.router.navigate(['/']);
+    if (response.status == 200) {
+      this.router.navigate(['/']);
+    } else if (response.status == 403) {
+      this.errorMessage = 'Incorrect Account Removal Code.';
+    } else {
+      this.errorMessage = 'An error has occurred.';
+    }
   }
 }

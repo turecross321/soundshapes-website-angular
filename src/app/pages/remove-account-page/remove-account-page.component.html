@@ -18,6 +18,7 @@
       *ngIf="pageIndex == 1"
       (loggedInSession)="onLoggedInSession($event)"
       (loggedInEmail)="onLoggedInEmail($event)"
+      [saveLogin]="false"
     ></app-login-form>
     <div *ngIf="pageIndex == 2">
       <app-remove-account-form

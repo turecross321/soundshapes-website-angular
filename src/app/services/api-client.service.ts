@@ -56,7 +56,7 @@ export class ApiClientService {
     }
   }
 
-  async logIn(email: string, hash: string) {
+  async logIn(email: string, hash: string, saveLogin: boolean = true) {
     const body: LoginRequest = {
       Email: email,
       PasswordSha512: hash,
@@ -71,9 +71,11 @@ export class ApiClientService {
       if (DoPunishmentsIncludeBan(response.data.ActivePunishments))
         return response;
 
-      this.finishLogIn(response.data);
-      localStorage.setItem('email', email);
-      localStorage.setItem('passwordSha512', hash);
+      if (saveLogin) {
+        this.finishLogIn(response.data);
+        localStorage.setItem('email', email);
+        localStorage.setItem('passwordSha512', hash);
+      }
 
       return response;
     } catch (error: any) {
@@ -89,9 +91,9 @@ export class ApiClientService {
     axios.defaults.headers.common['Authorization'] = session.Id;
   }
 
-  async logOut() {
+  logOut() {
     try {
-      await axios.post(environment.apiBaseUrl + 'account/logout');
+      axios.post(environment.apiBaseUrl + 'account/logout');
     } catch (error) {}
 
     localStorage.removeItem('session');
@@ -108,7 +110,7 @@ export class ApiClientService {
     };
 
     try {
-      const response = await axios.post(
+      return await axios.post(
         environment.apiBaseUrl + 'account/setEmail',
         body,
         {
@@ -117,8 +119,6 @@ export class ApiClientService {
           },
         }
       );
-
-      return response;
     } catch (error: any) {
       return error.response;
     }
@@ -147,12 +147,15 @@ export class ApiClientService {
   }
 
   async removeAccount(removalCode: string) {
-    console.log('lmao what');
-    return await axios.post(environment.apiBaseUrl + 'account/remove', null, {
-      headers: {
-        Authorization: removalCode,
-      },
-    });
+    try {
+      return await axios.post(environment.apiBaseUrl + 'account/remove', null, {
+        headers: {
+          Authorization: removalCode,
+        },
+      });
+    } catch (error: any) {
+      return error.response;
+    }
   }
 
   async setPassword(passwordCode: string, hash: string) {
@@ -160,11 +163,19 @@ export class ApiClientService {
       NewPasswordSha512: hash,
     };
 
-    return axios.post(environment.apiBaseUrl + 'account/setPassword', body, {
-      headers: {
-        Authorization: passwordCode.toUpperCase(),
-      },
-    });
+    try {
+      return await axios.post(
+        environment.apiBaseUrl + 'account/setPassword',
+        body,
+        {
+          headers: {
+            Authorization: passwordCode.toUpperCase(),
+          },
+        }
+      );
+    } catch (error: any) {
+      return error.response;
+    }
   }
 
   async getUserWithUsername(username: string) {

@@ -1,6 +1,8 @@
 <div class="mb-2">
   <p class="mb-2">Account Removal Code has been sent to {{ emailAddress }}</p>
-
+  <p class="text-red-600 mb-2" *ngIf="errorMessage != null">
+    {{ errorMessage }}
+  </p>
   <app-input-field
     [id]="removalCodeId"
     name="Removal Code"

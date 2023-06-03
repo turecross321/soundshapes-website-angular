@@ -39,7 +39,7 @@ export class SetEmailPageComponent {
     } else if (response.data) {
       this.errorMessage = response.data;
     } else if (response.status == 403) {
-      this.errorMessage = 'Email Code is Incorrect.';
+      this.errorMessage = 'Incorrect Email Code.';
     } else {
       this.errorMessage = 'An error has occurred.';
     }

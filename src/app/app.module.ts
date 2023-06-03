@@ -101,6 +101,7 @@ import { RemoveAccountFormComponent } from './components/remove-account-form/rem
     RemoveAccountPageComponent,
     RemovalWarningComponent,
     LoginFormComponent,
+    RemoveAccountPageComponent,
     RemoveAccountFormComponent,
   ],
   imports: [
