@@ -20,14 +20,17 @@
   <!--- Has Car -->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Has Car</p>
-    <app-statistic text="{{ level?.HasCar }}" class="w-full"></app-statistic>
+    <app-statistic
+      text="{{ level?.HasCar ? 'Yes' : 'No' }}"
+      class="w-full"
+    ></app-statistic>
   </div>
 
   <!--- Has Exploding Car -->
   <div class="w-full">
     <p class="text-center text-2xl mb-4">Has Exploding Car</p>
     <app-statistic
-      text="{{ level?.HasExplodingCar }}"
+      text="{{ level?.HasExplodingCar ? 'Yes' : 'No' }}"
       class="w-full"
     ></app-statistic>
   </div>
