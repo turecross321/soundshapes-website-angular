@@ -17,6 +17,7 @@ export class UserPageComponent {
   buttons: SidebarButton[] = [];
   user: FullUser | undefined = undefined;
   loggedIn = false;
+  myAccount: boolean = false;
 
   followersIcon = faUsers;
   levelsIcon = faMusic;
@@ -50,9 +51,13 @@ export class UserPageComponent {
         if (this.user == null) return;
 
         this.joined =
-        'Joined ' +
-        formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
-          addSuffix: true,
+          'Joined ' +
+          formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
+            addSuffix: true,
+          });
+
+        this.apiClient.session$.subscribe((session) => {
+          this.myAccount = session?.User.Id == this.user?.Id;
         });
       });
     });

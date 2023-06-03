@@ -45,6 +45,7 @@ import { TimeTextComponent } from './components/time-text/time-text.component';
 import { WideIconButtonComponent } from './components/wide-icon-button/wide-icon-button.component';
 import { LevelLikeButtonComponent } from './components/level-like-button/level-like-button.component';
 import { LevelQueueButtonComponent } from './components/level-queue-button/level-queue-button.component';
+import { LogOutButtonComponent } from './components/log-out-button/log-out-button.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { LevelQueueButtonComponent } from './components/level-queue-button/level
     WideIconButtonComponent,
     LevelLikeButtonComponent,
     LevelQueueButtonComponent,
+    LogOutButtonComponent,
   ],
   imports: [
     BrowserModule,

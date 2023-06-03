@@ -25,12 +25,15 @@
 
     <div class="flex my-2 lg:my-0 gap-2">
       <app-report-button class="w-full"> </app-report-button>
-      <div *ngIf="loggedIn && !!user" class="w-full">
-        <app-user-follow-button
-          [user]="user"
-          class="w-full"
-        ></app-user-follow-button>
-      </div>
+      <app-user-follow-button
+        *ngIf="loggedIn && !myAccount"
+        [user]="user"
+        class="w-full"
+      ></app-user-follow-button>
+      <app-log-out-button
+        *ngIf="loggedIn && myAccount"
+        class="w-full"
+      ></app-log-out-button>
     </div>
   </div>
 
