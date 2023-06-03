@@ -3,7 +3,7 @@
   class="flex justify-center flex-col items-center animate-fade-in"
 >
   <div class="w-full flex items-center justify-center">
-    <div class="container flex justify-between">
+    <div class="container flex justify-between overflow-auto">
       <div class="lg:flex w-full gap-6">
         <div class="lg:flex w-full mb-2 lg:mb-0">
           <img
@@ -68,20 +68,24 @@
           </div>
         </div>
 
-        <div class="flex items-start gap-2 w-full lg:w-auto">
-          <app-level-queue-button
-            *ngIf="relation"
-            [isQueued]="relation.Queued"
-            [level]="level"
-            class="w-full"
-          ></app-level-queue-button>
-          <app-level-like-button
-            *ngIf="relation"
-            [isLiked]="relation.Liked"
-            [level]="level"
-            class="w-full"
-          ></app-level-like-button>
-          <app-report-button class="w-full"></app-report-button>
+        <div>
+          <div class="gap-2 w-full">
+            <app-level-queue-button
+              *ngIf="relation"
+              [isQueued]="relation.Queued"
+              [level]="level"
+              class="w-full"
+            ></app-level-queue-button>
+            <div class="flex mt-2 gap-2">
+              <app-report-button></app-report-button>
+              <app-level-like-button
+                *ngIf="relation"
+                [isLiked]="relation.Liked"
+                [level]="level"
+                class="w-full"
+              ></app-level-like-button>
+            </div>
+          </div>
         </div>
 
         <div></div>
