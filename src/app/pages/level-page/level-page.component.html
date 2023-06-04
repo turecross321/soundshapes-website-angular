@@ -3,21 +3,19 @@
   class="flex justify-center flex-col items-center animate-fade-in"
 >
   <div class="w-full flex items-center justify-center">
-    <div class="container flex justify-between overflow-auto">
+    <div class="container flex justify-between">
       <div class="lg:flex w-full gap-6">
         <div class="lg:flex w-full mb-2 lg:mb-0">
           <img
             [src]="thumbnailUrl"
             class="aspect-video w-full lg:w-auto lg:mr-4 mb-4 lg:mb-0"
           />
-          <div class="flex-col w-full">
-            <div>
-              <app-level-editable-name
-                [level]="level"
-                (changedName)="setDate()"
-                class="w-full"
-              ></app-level-editable-name>
-            </div>
+          <div class="flex-col w-full overflow-auto">
+            <app-level-editable-name
+              [level]="level"
+              (changedName)="setDate()"
+              class="w-full break-all"
+            ></app-level-editable-name>
 
             <div class="items-center flex gap-2">
               <h2 class="text-xl">
@@ -68,23 +66,21 @@
           </div>
         </div>
 
-        <div>
-          <div class="gap-2 w-full">
-            <app-level-queue-button
+        <div class="gap-2 w-full lg:w-1/4">
+          <app-level-queue-button
+            *ngIf="relation"
+            [isQueued]="relation.Queued"
+            [level]="level"
+            class="w-full"
+          ></app-level-queue-button>
+          <div class="flex mt-2 gap-2">
+            <app-report-button class="w-full"></app-report-button>
+            <app-level-like-button
               *ngIf="relation"
-              [isQueued]="relation.Queued"
+              [isLiked]="relation.Liked"
               [level]="level"
               class="w-full"
-            ></app-level-queue-button>
-            <div class="flex mt-2 gap-2">
-              <app-report-button></app-report-button>
-              <app-level-like-button
-                *ngIf="relation"
-                [isLiked]="relation.Liked"
-                [level]="level"
-                class="w-full"
-              ></app-level-like-button>
-            </div>
+            ></app-level-like-button>
           </div>
         </div>
 
