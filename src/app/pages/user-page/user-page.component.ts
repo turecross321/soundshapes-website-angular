@@ -42,6 +42,8 @@ export class UserPageComponent {
       });
 
       this.apiClient.session$.subscribe(async (session) => {
+        this.relation = undefined;
+
         username ??= session?.User.Username;
         if (username == null) return;
         this.myAccount = session?.User.Username == username;

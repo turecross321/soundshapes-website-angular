@@ -13,7 +13,7 @@ export class LevelStatisticsComponent {
   totalPlayTime = '';
   scaleName = '';
 
-  ngOnInit() {
+  ngOnChanges() {
     if (this.level) {
       const totalPlayTime: Duration = intervalToDuration({
         start: 0,

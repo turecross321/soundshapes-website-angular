@@ -15,7 +15,7 @@ export class UserStatisticsComponent {
   playedLevels = '';
   totalDeaths = '';
 
-  ngOnInit() {
+  ngOnChanges() {
     if (this.user) {
       const totalPlayTime: Duration = intervalToDuration({
         start: 0,

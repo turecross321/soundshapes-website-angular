@@ -17,7 +17,7 @@ export class UserFollowButtonComponent {
 
   constructor(private apiClient: ApiClientService) {}
 
-  async ngOnInit() {
+  async ngOnChanges() {
     this.setButtonType(this.isFollowing);
   }
 

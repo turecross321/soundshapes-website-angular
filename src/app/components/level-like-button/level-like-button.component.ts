@@ -16,7 +16,7 @@ export class LevelLikeButtonComponent {
   icon: IconProp = faHeart;
   @Input() level!: FullLevel;
 
-  async ngOnInit() {
+  async ngOnChanges() {
     this.setButtonType(this.isLiked);
   }
 
