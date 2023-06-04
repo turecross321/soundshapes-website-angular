@@ -8,7 +8,7 @@
         <div>
           <h1 class="text-7xl">{{ user.Username }}</h1>
           <p
-            *ngIf="relation"
+            *ngIf="relation?.Followed"
             class="mb-2 text-light-gray break-normal text-sm border-2 p-1 w-fit border-light-gray rounded-md font-bold"
           >
             follows you
