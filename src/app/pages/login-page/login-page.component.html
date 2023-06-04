@@ -1,4 +1,4 @@
-<div class="flex justify-center">
+<div class="flex justify-center content">
   <app-banned-page
     *ngIf="banned"
     [punishments]="punishments"
@@ -7,26 +7,32 @@
 
   <div
     *ngIf="!banned"
-    class="flex-col justify-between w-full container max-w-2xl"
+    class="flex-col items-center justify-center w-full max-w-2xl"
   >
-    <h1 class="header mb-6">Login</h1>
-    <app-login-form
-      *ngIf="!banned"
-      (loggedInSession)="onLoggedIn($event)"
-      class="w-full"
-    ></app-login-form>
-
-    <div class="flex">
-      <app-primary-button
-        routerLink="/resetPassword"
-        label="Reset Password"
-        class="w-full mr-2"
-      ></app-primary-button>
-      <app-primary-button
-        routerLink="/register"
-        label="Register Account"
+    <div
+      class="bg-[#cdb242] w-full p-6 items-center flex justify-center box-shadow"
+    >
+      <h1 class="header font-bold text-center">Login</h1>
+    </div>
+    <div class="container w-full">
+      <app-login-form
+        *ngIf="!banned"
+        (loggedInSession)="onLoggedIn($event)"
         class="w-full"
-      ></app-primary-button>
+      ></app-login-form>
+
+      <div class="flex">
+        <app-primary-button
+          routerLink="/resetPassword"
+          label="Reset Password"
+          class="w-full mr-2"
+        ></app-primary-button>
+        <app-primary-button
+          routerLink="/register"
+          label="Register Account"
+          class="w-full"
+        ></app-primary-button>
+      </div>
     </div>
   </div>
 </div>

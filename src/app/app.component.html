@@ -1,7 +1,4 @@
 <app-navbar></app-navbar>
-<main
-  [@routeAnimations]="o.isActivated ? o.activatedRoute : ''"
-  class="content"
->
+<main [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
 </main>

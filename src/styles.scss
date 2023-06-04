@@ -6,8 +6,12 @@
   font-family: Helvetica, Arial, Verdana, sans-serif;
 }
 
+.content {
+  padding:20px;
+}
+
 .container {
-  @apply text-[#3f2e27] m-3;
+  @apply text-[#3f2e27];
   background-color: #efe0da;
   padding: 40px;
   box-shadow: 8px 9px 0px rgba(0, 0, 0, 0.3);
@@ -19,7 +23,11 @@
 }
 
 .header {
-  @apply text-6xl text-start w-full text-[#3f2e27];
+  @apply text-6xl w-full text-[#3f2e27];
+}
+
+.box-shadow {
+  box-shadow: 8px 9px 0px rgba(0, 0, 0, 0.3);
 }
 
 .pulse-on-hover {

@@ -1,26 +1,32 @@
-<div class="flex justify-center">
-  <div class="container max-w-2xl flex-col">
-    <h1 class="header mb-6">Register</h1>
-
-    <div class="mb-2">
-      <app-stepper
-        [StepsCount]="2"
-        [StepIndex]="pageIndex"
-        class="w-full"
-      ></app-stepper>
+<div class="flex justify-center content">
+  <div class="flex-col items-center justify-center w-full max-w-2xl content">
+    <div
+      class="bg-[#cdb242] w-full p-6 items-center flex justify-center box-shadow"
+    >
+      <h1 class="header font-bold text-center">Register</h1>
     </div>
 
-    <app-set-email-page
-      *ngIf="pageIndex == 0"
-      class="w-full"
-      (sentCode)="sentCode($event)"
-    ></app-set-email-page>
+    <div class="container flex-col">
+      <div class="mb-2">
+        <app-stepper
+          [StepsCount]="2"
+          [StepIndex]="pageIndex"
+          class="w-full"
+        ></app-stepper>
+      </div>
 
-    <app-set-password-page
-      *ngIf="pageIndex == 1"
-      class="w-full"
-      [emailAddress]="emailAddress"
-      (onFinishedRegistration)="onFinishedRegistration()"
-    ></app-set-password-page>
+      <app-set-email-page
+        *ngIf="pageIndex == 0"
+        class="w-full"
+        (sentCode)="sentCode($event)"
+      ></app-set-email-page>
+
+      <app-set-password-page
+        *ngIf="pageIndex == 1"
+        class="w-full"
+        [emailAddress]="emailAddress"
+        (onFinishedRegistration)="onFinishedRegistration()"
+      ></app-set-password-page>
+    </div>
   </div>
 </div>

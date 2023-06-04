@@ -19,7 +19,7 @@ export class LoginFormComponent {
   emailId: string = 'login-email';
   passwordId: string = 'login-password';
 
-  errorMessage = null;
+  errorMessage: string | null = null;
 
   emailInputType: InputType = InputType.Email;
   passwordInputType: InputType = InputType.Password;
@@ -50,11 +50,16 @@ export class LoginFormComponent {
       hash,
       this.saveLogin
     );
-    if (response.status != 200) {
-      this.errorMessage = response.data;
-    } else {
+    this.errorMessage = null;
+    if (response.status == 200) {
       this.loggedInSession.next(response.data);
       this.loggedInEmail.next(emailInput);
+    } else if (response.status == 403) {
+      this.errorMessage = response.data;
+    } else {
+      this.errorMessage = 'An error has occurred.';
     }
+
+    console.log('lyo');
   }
 }
