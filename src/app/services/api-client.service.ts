@@ -247,6 +247,11 @@ export class ApiClientService {
       return error.response;
     }
   }
+
+  getLevelThumbnailUrl(id: string) {
+    return environment.apiBaseUrl + 'levels/id/' + id + '/thumbnail';
+  }
+
   async getLevelRelation(id: string) {
     try {
       let session = await firstValueFrom(this.session$);

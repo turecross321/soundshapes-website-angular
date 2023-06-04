@@ -58,29 +58,29 @@ export class LevelPageComponent {
   }
 
   async ngOnInit() {
-    const params = await firstValueFrom(this.route.paramMap);
+    this.route.paramMap.subscribe(async (params) => {
+      let levelId = params.get('levelId') as string;
+      this.thumbnailUrl = this.apiClient.getLevelThumbnailUrl(levelId);
 
-    let levelId = params.get('levelId') as string;
+      const response = await this.apiClient.getLevelWithId(levelId);
+      if (response.status != 200) this.router.navigate(['/404']);
 
-    const response = await this.apiClient.getLevelWithId(levelId);
-    if (response.status != 200) this.router.navigate(['/404']);
+      this.level = response.data;
+      if (!this.level) return;
 
-    this.level = response.data;
-    if (!this.level) return;
+      this.setDate();
 
-    this.setDate();
+      this.apiClient.isLoggedIn$.subscribe(async (loggedIn) => {
+        this.loggedIn = loggedIn;
+        if (loggedIn) {
+          const response = await this.apiClient.getLevelRelation(levelId);
+          this.relation = response.data;
+        }
+      });
 
-    const loggedIn = await firstValueFrom(this.apiClient.isLoggedIn$);
-    this.loggedIn = loggedIn;
-    if (loggedIn) {
-      const response = await this.apiClient.getLevelRelation(levelId);
-      this.relation = response.data;
-    }
+      this.difficulty = this.level.Difficulty;
 
-    this.thumbnailUrl =
-      environment.apiBaseUrl + 'levels/id/' + this.level.Id + '/thumbnail';
-    this.difficulty = this.level.Difficulty;
-
-    this.loading = false;
+      this.loading = false;
+    });
   }
 }

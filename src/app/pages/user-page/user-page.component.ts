@@ -34,38 +34,40 @@ export class UserPageComponent {
   ) {}
 
   async ngOnInit() {
-    const params: ParamMap = await firstValueFrom(this.route.paramMap);
-    let username = params.get('username') as string | undefined;
+    this.route.paramMap.subscribe((params) => {
+      let username = params.get('username') as string | undefined;
 
-    const loggedIn = await firstValueFrom(this.apiClient.isLoggedIn$);
-    this.loggedIn = loggedIn;
-
-    const session = await firstValueFrom(this.apiClient.session$);
-    username ??= session?.User.Username;
-
-    if (username == null) return;
-    this.myAccount = session?.User.Username == username;
-
-    const response = await this.apiClient.getUserWithUsername(username);
-    if (response.status != 200) this.router.navigate(['/404']);
-
-    this.user = response.data;
-    if (this.user == null) return;
-
-    this.joined =
-      'Joined ' +
-      formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
-        addSuffix: true,
+      this.apiClient.isLoggedIn$.subscribe((loggedIn) => {
+        this.loggedIn = loggedIn;
       });
 
-    if (!this.myAccount) {
-      const relationResponse = await this.apiClient.getUserRelation(
-        this.user.Id
-      );
-      this.relation = relationResponse.data;
-    }
+      this.apiClient.session$.subscribe(async (session) => {
+        username ??= session?.User.Username;
+        if (username == null) return;
+        this.myAccount = session?.User.Username == username;
 
-    this.loading = false;
+        const response = await this.apiClient.getUserWithUsername(username);
+        if (response.status != 200) this.router.navigate(['/404']);
+
+        this.user = response.data;
+        if (this.user == null) return;
+
+        this.joined =
+          'Joined ' +
+          formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
+            addSuffix: true,
+          });
+
+        if (!this.myAccount) {
+          const relationResponse = await this.apiClient.getUserRelation(
+            this.user.Id
+          );
+          this.relation = relationResponse.data;
+        }
+
+        this.loading = false;
+      });
+    });
   }
 
   levelsWrapper: LevelsWrapper = {
