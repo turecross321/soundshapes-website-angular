@@ -25,7 +25,7 @@ export class UserPageComponent {
   followersIcon = faUsers;
   levelsIcon = faMusic;
 
-  joined!: string;
+  lastLogin!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,9 +54,9 @@ export class UserPageComponent {
         this.user = response.data;
         if (this.user == null) return;
 
-        this.joined =
-          'Joined ' +
-          formatDistanceStrict(new Date(this.user.CreationDate), new Date(), {
+        this.lastLogin =
+          'Last online ' +
+          formatDistanceStrict(new Date(this.user.LastGameLogin), new Date(), {
             addSuffix: true,
           });
 
