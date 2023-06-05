@@ -7,6 +7,7 @@ import { formatDistanceStrict } from 'date-fns';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-level-page',
@@ -31,7 +32,8 @@ export class LevelPageComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private apiClient: ApiClientService
+    private apiClient: ApiClientService,
+    private metaService: Meta
   ) {}
 
   setDate() {
@@ -66,6 +68,14 @@ export class LevelPageComponent {
       if (response.status != 200) this.router.navigate(['/404']);
 
       this.level = response.data;
+      this.metaService.addTag({
+        name: 'title',
+        content: response.data.Name,
+      });
+      this.metaService.addTag({
+        name: 'image',
+        content: this.apiClient.getLevelThumbnailUrl(levelId),
+      });
       if (!this.level) return;
 
       this.setDate();

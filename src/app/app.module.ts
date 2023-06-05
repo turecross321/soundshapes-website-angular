@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Meta } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -111,8 +111,9 @@ import { RemoveAccountFormComponent } from './components/remove-account-form/rem
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    BrowserModule,
   ],
-  providers: [],
+  providers: [Meta],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
