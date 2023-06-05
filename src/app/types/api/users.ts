@@ -13,6 +13,7 @@ export interface FullUser {
   Username: string;
   CreationDate: Date;
   LastGameLogin: Date;
+  LastActivityDate: Date;
   PermissionsType: number;
   Followers: number;
   Following: number;

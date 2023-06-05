@@ -55,10 +55,14 @@ export class UserPageComponent {
         if (this.user == null) return;
 
         this.lastLogin =
-          'Last online ' +
-          formatDistanceStrict(new Date(this.user.LastGameLogin), new Date(), {
-            addSuffix: true,
-          });
+          'Last active ' +
+          formatDistanceStrict(
+            new Date(this.user.LastActivityDate),
+            new Date(),
+            {
+              addSuffix: true,
+            }
+          );
 
         if (!this.myAccount) {
           const relationResponse = await this.apiClient.getUserRelation(
