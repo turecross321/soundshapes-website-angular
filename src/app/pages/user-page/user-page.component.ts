@@ -25,7 +25,7 @@ export class UserPageComponent {
   followersIcon = faUsers;
   levelsIcon = faMusic;
 
-  lastLogin!: string;
+  lastActive!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +54,7 @@ export class UserPageComponent {
         this.user = response.data;
         if (this.user == null) return;
 
-        this.lastLogin =
+        this.lastActive =
           'Last active ' +
           formatDistanceStrict(
             new Date(this.user.LastActivityDate),
