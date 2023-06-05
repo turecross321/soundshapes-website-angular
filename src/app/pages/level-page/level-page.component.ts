@@ -4,10 +4,6 @@ import { faPlay, faHeart, faBell } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { FullLevel, LevelRelation } from 'src/app/types/api/levels';
 import { formatDistanceStrict } from 'date-fns';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { environment } from 'src/environments/environment';
-import { firstValueFrom } from 'rxjs';
-import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-level-page',
@@ -32,8 +28,7 @@ export class LevelPageComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private apiClient: ApiClientService,
-    private metaService: Meta
+    private apiClient: ApiClientService
   ) {}
 
   setDate() {
@@ -68,14 +63,6 @@ export class LevelPageComponent {
       if (response.status != 200) this.router.navigate(['/404']);
 
       this.level = response.data;
-      this.metaService.addTag({
-        name: 'title',
-        content: response.data.Name,
-      });
-      this.metaService.addTag({
-        name: 'image',
-        content: this.apiClient.getLevelThumbnailUrl(levelId),
-      });
       if (!this.level) return;
 
       this.setDate();
