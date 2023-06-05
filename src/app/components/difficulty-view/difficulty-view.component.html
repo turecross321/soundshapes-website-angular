@@ -1,9 +1,7 @@
-<div>
-  <div class="flex gap-1">
-    <fa-icon
-      [icon]="skullIcon"
-      class="fa-xl"
-      *ngFor="let _ of getRange(); let i = index"
-    ></fa-icon>
-  </div>
-</div>
+<ng-container>
+  <fa-icon
+    [icon]="skullIcon"
+    class="fa-xl p-0.5"
+    *ngFor="let _ of getRange(); let i = index"
+  ></fa-icon>
+</ng-container>
