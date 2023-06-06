@@ -20,13 +20,7 @@ export interface SetPasswordRequest {
 
 export interface Session {
   Id: string;
-  ExpiresAt: Date;
+  ExpiryDate: Date;
   User: BriefUser;
   ActivePunishments: Punishment[];
-}
-
-export enum PermissionsType {
-  Defualt = 0,
-  Moderator = 1,
-  Administrator = 2,
 }

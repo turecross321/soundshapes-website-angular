@@ -1,5 +1,3 @@
-import { PermissionsType } from './account';
-
 export interface BriefUser {
   Id: string;
   Username: string;
@@ -11,10 +9,10 @@ export interface BriefUser {
 export interface FullUser {
   Id: string;
   Username: string;
+  PermissionsType: PermissionsType;
   CreationDate: Date;
   LastGameLogin: Date;
-  LastActivityDate: Date;
-  PermissionsType: number;
+  LastEventDate: Date;
   Followers: number;
   Following: number;
   LikedLevels: number;
@@ -28,4 +26,10 @@ export interface FullUser {
 export interface UserRelation {
   Following: boolean;
   Followed: boolean;
+}
+
+export enum PermissionsType {
+  Default = 0,
+  Moderator = 1,
+  Administrator = 2,
 }

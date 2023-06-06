@@ -1,13 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { sha512Async } from 'src/app/hash';
 import { ApiClientService } from 'src/app/services/api-client.service';
 import { Session } from 'src/app/types/api/account';
-import {
-  Punishment,
-  DoPunishmentsIncludeBan,
-} from 'src/app/types/api/punishments';
 import { InputType } from 'src/app/types/input-type';
 
 @Component({
@@ -27,6 +22,8 @@ export class LoginFormComponent {
   emailIcon = faEnvelope;
   passwordIcon = faKey;
 
+  savedEmail: string = '';
+
   @Output() loggedInSession: EventEmitter<Session> =
     new EventEmitter<Session>();
   @Output() loggedInEmail: EventEmitter<string> = new EventEmitter<string>();
@@ -34,7 +31,9 @@ export class LoginFormComponent {
 
   constructor(private apiClientService: ApiClientService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.savedEmail = localStorage.getItem('email') ?? '';
+  }
 
   async logIn() {
     const emailInput: string = (<HTMLInputElement>(
@@ -59,7 +58,5 @@ export class LoginFormComponent {
     } else {
       this.errorMessage = 'An error has occurred.';
     }
-
-    console.log('lyo');
   }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faCheck, faCross, faX } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
-import { PermissionsType } from 'src/app/types/api/account';
+import { PermissionsType } from 'src/app/types/api/users';
 import { BriefLevel, FullLevel } from 'src/app/types/api/levels';
 
 @Component({

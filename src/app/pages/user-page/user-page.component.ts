@@ -56,15 +56,11 @@ export class UserPageComponent {
 
         this.lastActive =
           'Last active ' +
-          formatDistanceStrict(
-            new Date(this.user.LastActivityDate),
-            new Date(),
-            {
-              addSuffix: true,
-            }
-          );
+          formatDistanceStrict(new Date(this.user.LastEventDate), new Date(), {
+            addSuffix: true,
+          });
 
-        if (!this.myAccount) {
+        if (!this.myAccount && this.loggedIn) {
           const relationResponse = await this.apiClient.getUserRelation(
             this.user.Id
           );

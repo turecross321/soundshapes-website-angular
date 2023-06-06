@@ -12,8 +12,7 @@ import {
   faWrench,
 } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/services/api-client.service';
-import { PermissionsType, Session } from 'src/app/types/api/account';
-import { BriefUser } from 'src/app/types/api/users';
+import { PermissionsType } from 'src/app/types/api/users';
 import { NavbarButton } from 'src/app/types/navbar-button';
 
 @Component({

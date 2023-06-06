@@ -29,7 +29,7 @@ export class ApiClientService {
       const session = JSON.parse(sessionString) as Session;
 
       // Check if saved session has expired
-      const expiryDate = new Date(session.ExpiresAt);
+      const expiryDate = new Date(session.ExpiryDate);
 
       const currentDate = new Date();
       const currentUTCDate = new Date(
@@ -50,7 +50,10 @@ export class ApiClientService {
         const passwordSha512 = localStorage.getItem('passwordSha512');
 
         if (!!email && !!passwordSha512) {
-          this.logIn(email, passwordSha512);
+          this.logIn(email, passwordSha512).then((response) => {
+            if (response.status != 201)
+              localStorage.removeItem('passwordSha512');
+          });
         }
       }
     }
@@ -64,7 +67,7 @@ export class ApiClientService {
 
     try {
       const response = await axios.post<Session>(
-        environment.apiBaseUrl + 'account/login',
+        environment.apiBaseUrl + 'account/logIn',
         body
       );
 
@@ -93,7 +96,7 @@ export class ApiClientService {
 
   logOut() {
     try {
-      axios.post(environment.apiBaseUrl + 'account/logout');
+      axios.post(environment.apiBaseUrl + 'account/logOut');
     } catch (error) {}
 
     localStorage.removeItem('session');
