@@ -52,6 +52,7 @@ import { RemoveAccountPageComponent } from './pages/remove-account-page/remove-a
 import { RemovalWarningComponent } from './components/removal-warning/removal-warning.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RemoveAccountFormComponent } from './components/remove-account-form/remove-account-form.component';
+import { LevelCarouselComponent } from './level-carousel/level-carousel.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { RemoveAccountFormComponent } from './components/remove-account-form/rem
     LoginFormComponent,
     RemoveAccountPageComponent,
     RemoveAccountFormComponent,
+    LevelCarouselComponent,
   ],
   imports: [
     BrowserModule,

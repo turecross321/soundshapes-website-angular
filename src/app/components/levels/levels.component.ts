@@ -1,5 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationExtras,
+  Params,
+  Router,
+} from '@angular/router';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faSquareBehance } from '@fortawesome/free-brands-svg-icons';
 import { faRectangleTimes } from '@fortawesome/free-regular-svg-icons';
@@ -135,12 +140,7 @@ export class LevelsComponent {
       const searchQuery = params['search'];
       if (searchQuery) this.searchQuery = searchQuery;
 
-      this.loadLevels(
-        this.pageIndex,
-        this.orderType,
-        this.descending,
-        this.searchQuery
-      );
+      this.loadLevels(this.pageIndex, this.orderType, this.descending, params);
     });
   }
 
@@ -148,7 +148,7 @@ export class LevelsComponent {
     page: number,
     orderBy: number,
     descending: boolean,
-    searchQuery?: string
+    params: Params
   ) {
     const levelPageSize = 32;
 
@@ -161,7 +161,7 @@ export class LevelsComponent {
       levelPageSize,
       Object.values(LevelOrder)[orderBy],
       descending,
-      searchQuery
+      params
     );
     this.loading = false;
 

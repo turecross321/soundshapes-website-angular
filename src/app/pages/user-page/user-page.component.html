@@ -1,8 +1,9 @@
 <div
-  *ngIf="user != undefined"
+  *ngIf="!loading && user != undefined"
   class="flex justify-center flex-col items-center content"
 >
   <div class="w-full flex justify-center">
+    <!-- Main Stuff -->
     <div class="container lg:flex justify-between mb-4">
       <div class="flex-col">
         <div class="lg:flex lg:justify-between w-full">
@@ -50,6 +51,14 @@
 
   <app-user-statistics
     [user]="user"
-    class="w-full flex justify-center"
+    class="w-full flex justify-center mb-4"
   ></app-user-statistics>
+
+  <div *ngIf="publishedLevels" class="container">
+    <app-level-carousel
+      [levelsWrapper]="publishedLevels"
+      title="Published Levels"
+      [params]="createdByParams"
+    ></app-level-carousel>
+  </div>
 </div>

@@ -8,7 +8,12 @@ import {
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import axios, { AxiosRequestConfig } from 'axios';
 import { FullUser, UserRelation } from '../types/api/users';
-import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
+import {
+  FullLevel,
+  LevelFilters,
+  LevelOrder,
+  LevelRelation,
+} from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
 import { AuthorizeIpRequest, IpWrapper } from '../types/api/ip';
 import { environment } from 'src/environments/environment';
@@ -224,7 +229,7 @@ export class ApiClientService {
     count: number,
     order: LevelOrder,
     descending: boolean,
-    searchQuery?: string
+    filters: LevelFilters
   ) {
     try {
       return await axios.get<LevelsWrapper>(environment.apiBaseUrl + 'levels', {
@@ -233,7 +238,7 @@ export class ApiClientService {
           count: count,
           orderBy: order,
           descending: descending,
-          search: searchQuery,
+          ...filters,
         },
       });
     } catch (error: any) {

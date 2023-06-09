@@ -1,10 +1,10 @@
 import { Component, OnChanges, Output } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { faMusic, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { formatDistanceStrict } from 'date-fns';
 import { firstValueFrom } from 'rxjs';
 import { ApiClientService } from 'src/app/services/api-client.service';
-import { LevelsWrapper } from 'src/app/types/api/levels';
+import { LevelOrder, LevelsWrapper } from 'src/app/types/api/levels';
 import { FullUser, UserRelation } from 'src/app/types/api/users';
 import { SidebarButton } from 'src/app/types/sidebar-button';
 import { UserSidebarButtonType } from 'src/app/types/user-page-sidebar-buttons';
@@ -26,6 +26,10 @@ export class UserPageComponent {
   levelsIcon = faMusic;
 
   lastActive!: string;
+
+  publishedLevels: LevelsWrapper | null = null;
+
+  createdByParams!: Params;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +58,10 @@ export class UserPageComponent {
         this.user = response.data;
         if (this.user == null) return;
 
+        this.createdByParams = {
+          createdBy: this.user.Id,
+        };
+
         this.lastActive =
           'Last active ' +
           formatDistanceStrict(new Date(this.user.LastEventDate), new Date(), {
@@ -65,6 +73,20 @@ export class UserPageComponent {
             this.user.Id
           );
           this.relation = relationResponse.data;
+        }
+
+        if (this.user.PublishedLevels > 0) {
+          const response = await this.apiClient.getLevels(
+            0,
+            3,
+            LevelOrder.CreationDate,
+            true,
+            {
+              createdBy: this.user.Id,
+            }
+          );
+
+          if (response.data.Count > 0) this.publishedLevels = response.data;
         }
 
         this.loading = false;
