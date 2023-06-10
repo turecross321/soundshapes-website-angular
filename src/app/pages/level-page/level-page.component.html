@@ -6,10 +6,9 @@
     <div class="container flex justify-between mb-4">
       <div class="lg:flex w-full gap-6 h-full">
         <div class="lg:flex w-full mb-2 lg:mb-0 h-full">
-          <img
-            [src]="thumbnailUrl"
-            class="aspect-video w-full lg:w-auto lg:mr-4 mb-4 lg:mb-0"
-          />
+          <div class="bg-black aspect-video w-full lg:mr-4 mb-4 lg:mb-0">
+            <img [src]="thumbnailUrl" class="" />
+          </div>
           <div class="flex-col w-full">
             <app-level-editable-name
               [level]="level"

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BriefLevel, LevelsWrapper } from '../types/api/levels';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Params } from '@angular/router';
 
 @Component({
@@ -13,5 +13,9 @@ export class LevelCarouselComponent {
   @Input() levelsWrapper!: LevelsWrapper;
   @Input() params!: Params;
 
-  moreIcon = faArrowRight;
+  moreIcon = faArrowDown;
+
+  ngOnInit() {
+    this.levelsWrapper.Levels = this.levelsWrapper.Levels.copyWithin(0, 2);
+  }
 }

@@ -51,14 +51,22 @@
 
   <app-user-statistics
     [user]="user"
-    class="w-full flex justify-center mb-4"
+    class="w-full flex justify-center"
   ></app-user-statistics>
 
-  <div *ngIf="publishedLevels" class="container">
+  <div *ngIf="publishedLevels" class="container mt-4">
+    <p class="text-5xl mb-2">Published Levels</p>
     <app-level-carousel
       [levelsWrapper]="publishedLevels"
-      title="Published Levels"
       [params]="createdByParams"
+    ></app-level-carousel>
+  </div>
+
+  <div *ngIf="likedLevels" class="container mt-4">
+    <p class="text-5xl mb-2">Liked Levels</p>
+    <app-level-carousel
+      [levelsWrapper]="likedLevels"
+      [params]="likedByParams"
     ></app-level-carousel>
   </div>
 </div>

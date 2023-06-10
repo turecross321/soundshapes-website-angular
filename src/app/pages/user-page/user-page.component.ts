@@ -28,8 +28,10 @@ export class UserPageComponent {
   lastActive!: string;
 
   publishedLevels: LevelsWrapper | null = null;
-
   createdByParams!: Params;
+
+  likedLevels: LevelsWrapper | null = null;
+  likedByParams!: Params;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,10 +60,6 @@ export class UserPageComponent {
         this.user = response.data;
         if (this.user == null) return;
 
-        this.createdByParams = {
-          createdBy: this.user.Id,
-        };
-
         this.lastActive =
           'Last active ' +
           formatDistanceStrict(new Date(this.user.LastEventDate), new Date(), {
@@ -76,17 +74,35 @@ export class UserPageComponent {
         }
 
         if (this.user.PublishedLevels > 0) {
+          this.createdByParams = {
+            createdBy: this.user.Id,
+          };
+
           const response = await this.apiClient.getLevels(
             0,
             3,
             LevelOrder.CreationDate,
             true,
-            {
-              createdBy: this.user.Id,
-            }
+            this.createdByParams
           );
 
-          if (response.data.Count > 0) this.publishedLevels = response.data;
+          this.publishedLevels = response.data;
+        }
+
+        if (this.user.LikedLevels > 0) {
+          this.likedByParams = {
+            likedBy: this.user.Id,
+          };
+
+          const response = await this.apiClient.getLevels(
+            0,
+            3,
+            LevelOrder.CreationDate,
+            true,
+            this.likedByParams
+          );
+
+          this.likedLevels = response.data;
         }
 
         this.loading = false;

@@ -28,6 +28,7 @@ import {
   faClock,
   faCubesStacked,
   faFile,
+  faFilter,
   faFire,
   faHeart,
   faHeartPulse,
@@ -63,6 +64,7 @@ export class LevelsComponent {
   descending!: boolean;
   descendingIcon!: IconProp;
   searchQuery: string = '';
+  filterIcon: IconProp = faFilter;
 
   searchId: string = 'search';
   loading: boolean = true;

@@ -8,8 +8,9 @@
         (mouseenter)="hovered = true"
         (mouseleave)="hovered = false"
         routerLink="/level/{{ level.Id }}"
+        class="bg-black aspect-video w-full mb-2"
       >
-        <img [src]="thumbnailUrl" class="w-full aspect-video mb-2" />
+        <img [src]="thumbnailUrl" />
       </button>
       <div class="mb-1">
         <div class="flex justify-between w-full">
@@ -27,8 +28,8 @@
           </button>
         </div>
 
-        <div class="flex justify-between items-center text-sm">
-          <p>
+        <div class="flex justify-between items-center text-sm truncate">
+          <p class="truncate">
             by
             <button
               class="-mt-1 truncate text-light-gray-hover"

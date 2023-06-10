@@ -1,19 +1,18 @@
-<div class="flex flex-col">
-  <p class="text-5xl mb-2">{{ title }}</p>
-  <div class="flex items-center pb-4">
-    <ng-container *ngFor="let level of levelsWrapper?.Levels; let i = index">
-      <div class="w-full h-full ease-in duration-300 grid">
-        <app-level-view [level]="level"></app-level-view>
+<div class="flex flex-col h-full">
+  <div class="">
+    <div class="ease-in duration-300 grid grid-cols-3 w-full">
+      <div *ngFor="let level of levelsWrapper?.Levels; let i = index">
+        <app-level-view [level]="level" class="w-full h-full"></app-level-view>
       </div>
-    </ng-container>
-
-    <div class="w-1/5 pl-4">
-      <app-wide-icon-button
-        routerLink="/levels"
-        [queryParams]="params"
-        [icon]="moreIcon"
-        class="w-full h-full"
-      ></app-wide-icon-button>
     </div>
+  </div>
+
+  <div class="w-full mt-2">
+    <app-wide-icon-button
+      routerLink="/levels"
+      [queryParams]="params"
+      [icon]="moreIcon"
+      class="w-full h-full"
+    ></app-wide-icon-button>
   </div>
 </div>

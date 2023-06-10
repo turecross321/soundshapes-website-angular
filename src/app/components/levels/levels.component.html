@@ -19,7 +19,7 @@
           ></app-icon-button>
         </div>
 
-        <div class="mb-4">
+        <div class="flex items-center gap-2 mb-2">
           <app-input-field
             [id]="searchId"
             name="Search"
@@ -27,7 +27,13 @@
             [value]="searchQuery"
             (keydown.enter)="onSearch()"
             (clickOutside)="onSearch()"
+            class="w-full"
           ></app-input-field>
+          <app-icon-button
+            (click)="onToggledDescending()"
+            [icon]="filterIcon"
+            class="w-20 h-full"
+          ></app-icon-button>
         </div>
       </div>
     </div>
