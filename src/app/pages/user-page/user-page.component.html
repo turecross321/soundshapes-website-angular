@@ -1,11 +1,11 @@
 <div
   *ngIf="!loading && user != undefined"
-  class="flex justify-center flex-col items-center content"
+  class="flex justify-center flex-col content items-center"
 >
-  <div class="w-full flex justify-center">
+  <div class="flex container mb-4">
     <!-- Main Stuff -->
-    <div class="container lg:flex justify-between mb-4">
-      <div class="flex-col">
+    <div class="lg:flex justify-between w-full">
+      <div class="flex-col w-full">
         <div class="lg:flex lg:justify-between w-full">
           <div>
             <h1 class="text-7xl break-all">{{ user.Username }}</h1>
@@ -49,10 +49,12 @@
     </div>
   </div>
 
-  <app-user-statistics
-    [user]="user"
-    class="w-full flex justify-center"
-  ></app-user-statistics>
+  <div class="w-full flex justify-center">
+    <app-user-statistics
+      [user]="user"
+      class="container w-full flex justify-center"
+    ></app-user-statistics>
+  </div>
 
   <div *ngIf="publishedLevels" class="container mt-4">
     <p class="text-5xl mb-2">Published Levels</p>
@@ -62,11 +64,21 @@
     ></app-level-carousel>
   </div>
 
-  <div *ngIf="likedLevels" class="container mt-4">
-    <p class="text-5xl mb-2">Liked Levels</p>
-    <app-level-carousel
-      [levelsWrapper]="likedLevels"
-      [params]="likedByParams"
-    ></app-level-carousel>
+  <div class="lg:flex mt-4 w-auto">
+    <div *ngIf="likedLevels" class="w-full container">
+      <p class="text-5xl mb-2">Liked Levels</p>
+      <app-level-carousel
+        [levelsWrapper]="likedLevels"
+        [params]="likedByParams"
+      ></app-level-carousel>
+    </div>
+
+    <div *ngIf="queuedLevels" class="mt-4 lg:mt-0 lg:ml-4 w-full container">
+      <p class="text-5xl mb-2">Queued Levels</p>
+      <app-level-carousel
+        [levelsWrapper]="queuedLevels"
+        [params]="queuedByParams"
+      ></app-level-carousel>
+    </div>
   </div>
 </div>

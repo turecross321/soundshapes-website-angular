@@ -33,6 +33,9 @@ export class UserPageComponent {
   likedLevels: LevelsWrapper | null = null;
   likedByParams!: Params;
 
+  queuedLevels: LevelsWrapper | null = null;
+  queuedByParams!: Params;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -103,6 +106,22 @@ export class UserPageComponent {
           );
 
           this.likedLevels = response.data;
+        }
+
+        if (this.user.QueuedLevels > 0) {
+          this.queuedByParams = {
+            queuedBy: this.user.Id,
+          };
+
+          const response = await this.apiClient.getLevels(
+            0,
+            3,
+            LevelOrder.CreationDate,
+            true,
+            this.queuedByParams
+          );
+
+          this.queuedLevels = response.data;
         }
 
         this.loading = false;

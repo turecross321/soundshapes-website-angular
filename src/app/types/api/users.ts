@@ -16,6 +16,7 @@ export interface FullUser {
   Followers: number;
   Following: number;
   LikedLevels: number;
+  QueuedLevels: number;
   PublishedLevels: number;
   Activities: number;
   PlayedLevels: number;

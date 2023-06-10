@@ -16,6 +16,6 @@ export class LevelCarouselComponent {
   moreIcon = faArrowDown;
 
   ngOnInit() {
-    this.levelsWrapper.Levels = this.levelsWrapper.Levels.copyWithin(0, 2);
+    this.levelsWrapper.Levels = this.levelsWrapper.Levels.slice(0, 2);
   }
 }
