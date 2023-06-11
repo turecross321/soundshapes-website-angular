@@ -20,7 +20,9 @@
             routerLink="/level/{{ level.Id }}"
             class="flex w-full justify-between truncate items-center"
           >
-            <h2 class="text-dark-gray truncate">{{ level.Name }}</h2>
+            <h2 class="text-dark-gray truncate">
+              {{ level.Name }}
+            </h2>
             <app-time-text
               [date]="level.CreationDate"
               class="text-sm text-light-gray"
