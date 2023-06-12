@@ -58,10 +58,12 @@ export class UserPageComponent {
         this.myAccount = session?.User.Username == username;
 
         const response = await this.apiClient.getUserWithUsername(username);
-        if (response.status != 200) this.router.navigate(['/404']);
+        this.user = response;
 
-        this.user = response.data;
-        if (this.user == null) return;
+        if (this.user == null) {
+          this.router.navigate(['/404']);
+          return;
+        }
 
         this.lastActive =
           'Last active ' +

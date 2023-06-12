@@ -105,7 +105,7 @@ import { RemoveAccountFormComponent } from './components/remove-account-form/rem
     RemoveAccountFormComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,

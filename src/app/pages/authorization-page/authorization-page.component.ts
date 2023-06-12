@@ -122,10 +122,10 @@ export class AuthorizationPageComponent {
       authorized
     );
 
-    this.totalPages = Math.ceil((response.data.Count ?? 0) / this.pageSize);
+    this.totalPages = Math.ceil((response.Count ?? 0) / this.pageSize);
 
     this.loading = false;
-    return response.data;
+    return response;
   }
 }
 

@@ -60,10 +60,12 @@ export class LevelPageComponent {
       this.thumbnailUrl = this.apiClient.getLevelThumbnailUrl(levelId);
 
       const response = await this.apiClient.getLevelWithId(levelId);
-      if (response.status != 200) this.router.navigate(['/404']);
 
-      this.level = response.data;
-      if (!this.level) return;
+      this.level = response;
+      if (!this.level) {
+        this.router.navigate(['/404']);
+        return;
+      }
 
       this.setDate();
 

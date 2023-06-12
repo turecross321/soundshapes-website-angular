@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import { Component, Inject, Input, PLATFORM_ID } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationExtras,
@@ -69,11 +70,15 @@ export class LevelsComponent {
   searchId: string = 'search';
   loading: boolean = true;
 
+  platformId!: Object;
   constructor(
     private apiClient: ApiClientService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.platformId = platformId;
+  }
 
   onChangedOrder(param: number) {
     const queryParams: NavigationExtras = {
@@ -152,6 +157,10 @@ export class LevelsComponent {
     descending: boolean,
     params: Params
   ) {
+    this.levelsWrapper = {
+      Levels: [],
+      Count: 0,
+    };
     const levelPageSize = 32;
 
     if (this.levelsWrapper != undefined) this.levelsWrapper.Levels = [];
@@ -167,7 +176,7 @@ export class LevelsComponent {
     );
     this.loading = false;
 
-    this.levelsWrapper = response.data;
+    this.levelsWrapper = response;
     this.totalPages = Math.ceil(
       (this.levelsWrapper?.Count ?? 0) / levelPageSize
     );

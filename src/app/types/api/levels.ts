@@ -42,24 +42,6 @@ export enum LevelOrder {
   TransposeValue = 'transposeValue',
 }
 
-export interface LevelFilters {
-  search?: string | null;
-  createdBy?: string | null;
-  likedBy?: string | null;
-  queuedBy?: string | null;
-  likedOrQueuedBy?: string | null;
-  completedBy?: string | null;
-  inAlbum?: string | null;
-  inDaily?: string | null;
-  inDailyDate?: string | null;
-  inLastDaily?: boolean | null;
-  bpm?: number | null;
-  transposeValue?: number | null;
-  scaleIndex?: number | null;
-  hasCar?: boolean | null;
-  hasExplodingCar?: boolean | null;
-}
-
 export interface FullLevel {
   Id: string;
   Name: string;

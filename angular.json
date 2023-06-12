@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/soundshapes-website-angular",
+            "outputPath": "dist/soundshapes-website-angular/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -104,6 +104,66 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/soundshapes-website-angular/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "soundshapes-website-angular:build:development",
+              "serverTarget": "soundshapes-website-angular:server:development"
+            },
+            "production": {
+              "browserTarget": "soundshapes-website-angular:build:production",
+              "serverTarget": "soundshapes-website-angular:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "soundshapes-website-angular:build:production",
+              "serverTarget": "soundshapes-website-angular:server:production"
+            },
+            "development": {
+              "browserTarget": "soundshapes-website-angular:build:development",
+              "serverTarget": "soundshapes-website-angular:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

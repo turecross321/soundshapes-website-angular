@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { SendPasswordSessionRequest, Session } from '../types/api/account';
 import {
   LoginRequest,
@@ -6,18 +6,14 @@ import {
   SetPasswordRequest,
 } from '../types/api/account';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import axios, { AxiosRequestConfig } from 'axios';
 import { FullUser, UserRelation } from '../types/api/users';
-import {
-  FullLevel,
-  LevelFilters,
-  LevelOrder,
-  LevelRelation,
-} from '../types/api/levels';
+import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
 import { LevelsWrapper } from '../types/api/levels';
 import { AuthorizeIpRequest, IpWrapper } from '../types/api/ip';
 import { environment } from 'src/environments/environment';
 import { DoPunishmentsIncludeBan } from '../types/api/punishments';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class ApiClientService {
@@ -27,7 +23,17 @@ export class ApiClientService {
   private _session$ = new BehaviorSubject<Session | undefined>(undefined);
   session$ = this._session$.asObservable();
 
-  constructor() {
+  platformId!: Object;
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
+    this.platformId = platformId;
+
+    if (isPlatformBrowser(this.platformId)) this.logInAutomatically();
+  }
+
+  logInAutomatically() {
     // Check if there is a saved session
     const sessionString = localStorage.getItem('session');
     if (sessionString != null) {
@@ -71,23 +77,24 @@ export class ApiClientService {
     };
 
     try {
-      const response = await axios.post<Session>(
-        environment.apiBaseUrl + 'account/logIn',
-        body
+      const response = await firstValueFrom(
+        this.httpClient.post<Session>(
+          environment.apiBaseUrl + 'account/logIn',
+          body
+        )
       );
 
-      if (DoPunishmentsIncludeBan(response.data.ActivePunishments))
-        return response;
+      if (DoPunishmentsIncludeBan(response.ActivePunishments)) return response;
 
       if (saveLogin) {
-        this.finishLogIn(response.data);
+        this.finishLogIn(response);
         localStorage.setItem('email', email);
         localStorage.setItem('passwordSha512', hash);
       }
 
       return response;
     } catch (error: any) {
-      return error.response;
+      return error;
     }
   }
 
@@ -96,12 +103,12 @@ export class ApiClientService {
     this._session$.next(session);
 
     localStorage.setItem('session', JSON.stringify(session));
-    axios.defaults.headers.common['Authorization'] = session.Id;
+    //axios.defaults.headers.common['Authorization'] = session.Id;
   }
 
   logOut() {
     try {
-      axios.post(environment.apiBaseUrl + 'account/logOut');
+      this.httpClient.post(environment.apiBaseUrl + 'account/logOut', null);
     } catch (error) {}
 
     localStorage.removeItem('session');
@@ -118,14 +125,16 @@ export class ApiClientService {
     };
 
     try {
-      return await axios.post(
-        environment.apiBaseUrl + 'account/setEmail',
-        body,
-        {
-          headers: {
-            Authorization: emailCode,
-          },
-        }
+      return await firstValueFrom(
+        this.httpClient.post(
+          environment.apiBaseUrl + 'account/setEmail',
+          body,
+          {
+            headers: {
+              Authorization: emailCode,
+            },
+          }
+        )
       );
     } catch (error: any) {
       return error.response;
@@ -137,30 +146,36 @@ export class ApiClientService {
       Email: email,
     };
 
-    return await axios.post(
-      environment.apiBaseUrl + 'account/sendPasswordSession',
-      body
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'account/sendPasswordSession',
+        body
+      )
     );
   }
   async sendAccountRemovalSession(sessionId: string) {
-    return await axios.post(
-      environment.apiBaseUrl + 'account/sendRemovalSession',
-      null,
-      {
-        headers: {
-          Authorization: sessionId,
-        },
-      }
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'account/sendRemovalSession',
+        null,
+        {
+          headers: {
+            Authorization: sessionId,
+          },
+        }
+      )
     );
   }
 
   async removeAccount(removalCode: string) {
     try {
-      return await axios.post(environment.apiBaseUrl + 'account/remove', null, {
-        headers: {
-          Authorization: removalCode,
-        },
-      });
+      return await firstValueFrom(
+        this.httpClient.post(environment.apiBaseUrl + 'account/remove', null, {
+          headers: {
+            Authorization: removalCode,
+          },
+        })
+      );
     } catch (error: any) {
       return error.response;
     }
@@ -172,14 +187,16 @@ export class ApiClientService {
     };
 
     try {
-      return await axios.post(
-        environment.apiBaseUrl + 'account/setPassword',
-        body,
-        {
-          headers: {
-            Authorization: passwordCode.toUpperCase(),
-          },
-        }
+      return await firstValueFrom(
+        this.httpClient.post(
+          environment.apiBaseUrl + 'account/setPassword',
+          body,
+          {
+            headers: {
+              Authorization: passwordCode.toUpperCase(),
+            },
+          }
+        )
       );
     } catch (error: any) {
       return error.response;
@@ -188,8 +205,10 @@ export class ApiClientService {
 
   async getUserWithUsername(username: string) {
     try {
-      return await axios.get<FullUser>(
-        environment.apiBaseUrl + 'users/username/' + username
+      return await firstValueFrom(
+        this.httpClient.get<FullUser>(
+          environment.apiBaseUrl + 'users/username/' + username
+        )
       );
     } catch (error: any) {
       return error.response;
@@ -200,12 +219,14 @@ export class ApiClientService {
     try {
       let session = await firstValueFrom(this.session$);
 
-      return await axios.get<UserRelation>(
-        environment.apiBaseUrl +
-          'users/id/' +
-          userId +
-          '/users/id/' +
-          session?.User.Id
+      return await firstValueFrom(
+        this.httpClient.get<UserRelation>(
+          environment.apiBaseUrl +
+            'users/id/' +
+            userId +
+            '/users/id/' +
+            session?.User.Id
+        )
       );
     } catch (error: any) {
       return error.response;
@@ -213,14 +234,20 @@ export class ApiClientService {
   }
 
   async followUser(id: string) {
-    return await axios.post(
-      environment.apiBaseUrl + 'users/id/' + id + '/follow'
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'users/id/' + id + '/follow',
+        null
+      )
     );
   }
 
   async unFollowUser(id: string) {
-    return await axios.post(
-      environment.apiBaseUrl + 'users/id/' + id + '/unFollow'
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'users/id/' + id + '/unFollow',
+        null
+      )
     );
   }
 
@@ -229,18 +256,30 @@ export class ApiClientService {
     count: number,
     order: LevelOrder,
     descending: boolean,
-    filters: LevelFilters
+    filters: {
+      [param: string]:
+        | string
+        | number
+        | boolean
+        | readonly (string | number | boolean)[];
+    }
   ) {
+    let params = new HttpParams();
+
+    // Add the existing parameters
+    params = params.set('from', from);
+    params = params.set('count', count.toString());
+    params = params.set('orderBy', order);
+    params = params.set('descending', descending.toString());
+
+    params = params.appendAll(filters);
+
     try {
-      return await axios.get<LevelsWrapper>(environment.apiBaseUrl + 'levels', {
-        params: {
-          from: from,
-          count: count,
-          orderBy: order,
-          descending: descending,
-          ...filters,
-        },
-      });
+      return await firstValueFrom(
+        this.httpClient.get<LevelsWrapper>(environment.apiBaseUrl + 'levels', {
+          params: params,
+        })
+      );
     } catch (error: any) {
       return error.response;
     }
@@ -248,8 +287,10 @@ export class ApiClientService {
 
   async getLevelWithId(id: string) {
     try {
-      return await axios.get<FullLevel>(
-        environment.apiBaseUrl + 'levels/id/' + id
+      return await firstValueFrom(
+        this.httpClient.get<FullLevel>(
+          environment.apiBaseUrl + 'levels/id/' + id
+        )
       );
     } catch (error: any) {
       return error.response;
@@ -264,48 +305,64 @@ export class ApiClientService {
     try {
       let session = await firstValueFrom(this.session$);
 
-      return await axios.get<LevelRelation>(
-        environment.apiBaseUrl +
-          'levels/id/' +
-          id +
-          '/users/id/' +
-          session?.User.Id
+      return await firstValueFrom(
+        this.httpClient.get<LevelRelation>(
+          environment.apiBaseUrl +
+            'levels/id/' +
+            id +
+            '/users/id/' +
+            session?.User.Id
+        )
       );
     } catch (error: any) {
       return error.response;
     }
   }
   async likeLevel(id: string) {
-    return await axios.post(
-      environment.apiBaseUrl + 'levels/id/' + id + '/like'
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'levels/id/' + id + '/like',
+        null
+      )
     );
   }
 
   async unLikeLevel(id: string) {
-    return await axios.post(
-      environment.apiBaseUrl + 'levels/id/' + id + '/unLike'
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'levels/id/' + id + '/unLike',
+        null
+      )
     );
   }
 
   async queueLevel(id: string) {
-    return await axios.post(
-      environment.apiBaseUrl + 'levels/id/' + id + '/queue'
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'levels/id/' + id + '/queue',
+        null
+      )
     );
   }
 
   async unQueueLevel(id: string) {
-    return await axios.post(
-      environment.apiBaseUrl + 'levels/id/' + id + '/unQueue'
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'levels/id/' + id + '/unQueue',
+        null
+      )
     );
   }
 
   async setLevelName(id: string, newName: string) {
     try {
-      return await axios.post(
-        environment.apiBaseUrl + 'levels/id/' + id + '/edit',
-        {
-          Name: newName,
-        }
+      return await firstValueFrom(
+        this.httpClient.post(
+          environment.apiBaseUrl + 'levels/id/' + id + '/edit',
+          {
+            Name: newName,
+          }
+        )
       );
     } catch (error: any) {
       return error.response;
@@ -313,13 +370,15 @@ export class ApiClientService {
   }
 
   async getIpRequests(from: number, count: number, authorized: boolean) {
-    return await axios.get<IpWrapper>(environment.apiBaseUrl + 'ip', {
-      params: {
-        from: from,
-        count: count,
-        authorized: authorized,
-      },
-    });
+    return await firstValueFrom(
+      this.httpClient.get<IpWrapper>(environment.apiBaseUrl + 'ip', {
+        params: {
+          from: from,
+          count: count,
+          authorized: authorized,
+        },
+      })
+    );
   }
 
   async authorizeIp(address: string, oneTimeUse: boolean) {
@@ -328,12 +387,17 @@ export class ApiClientService {
       OneTimeUse: oneTimeUse,
     };
 
-    await axios.post(environment.apiBaseUrl + 'ip/authorize', body);
+    await firstValueFrom(
+      this.httpClient.post(environment.apiBaseUrl + 'ip/authorize', body)
+    );
   }
 
   async removeAuthorizedIp(address: string) {
-    await axios.post(
-      environment.apiBaseUrl + 'ip/address/' + address + '/remove'
+    await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'ip/address/' + address + '/remove',
+        null
+      )
     );
   }
 }
