@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faCheck, faCross, faX } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faX } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/api/api-client.service';
 import { PermissionsType } from 'src/app/api/types/users';
-import { BriefLevel, FullLevel } from 'src/app/api/types/levels';
+import { FullLevel } from 'src/app/api/types/levels';
 
 @Component({
   selector: 'app-level-editable-name',

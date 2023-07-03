@@ -30,10 +30,9 @@ export class RemoveAccountFormComponent {
       .value;
 
     try {
-      const response = await this.apiClient.removeAccount(code);
-      this.router.navigate(['/']);
-    }
-    catch (e : any) {
+      await this.apiClient.removeAccount(code);
+      await this.router.navigate(['/']);
+    } catch (e: any) {
       if (e.status == 403) {
         this.errorMessage = 'Incorrect Account Removal Code.';
       } else {

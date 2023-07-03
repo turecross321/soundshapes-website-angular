@@ -57,11 +57,10 @@ export class UserPageComponent {
         if (username == null) return;
         this.myAccount = session?.User.Username == username;
 
-        const response = await this.apiClient.getUserWithUsername(username);
-        this.user = response;
+        this.user = await this.apiClient.getUserWithUsername(username);
 
         if (this.user == null) {
-          this.router.navigate(['/404']);
+          await this.router.navigate(['/404']);
           return;
         }
 

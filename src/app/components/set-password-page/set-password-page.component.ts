@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiClientService } from 'src/app/api/api-client.service';
 import { sha512Async } from 'src/app/hash';
 import { InputType } from 'src/app/types/input-type';
@@ -40,7 +39,7 @@ export class SetPasswordPageComponent {
     const hash = await sha512Async(password);
 
     try {
-      let response = await this.apiClient.setPassword(code, hash);
+      await this.apiClient.setPassword(code, hash);
       this.onFinishedRegistration.emit();
       localStorage.setItem('passwordSha512', hash);
     } catch (e: any) {

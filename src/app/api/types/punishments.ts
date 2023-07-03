@@ -1,4 +1,3 @@
-import { el } from 'date-fns/locale';
 import { BriefUser } from './users';
 
 export interface Punishment {

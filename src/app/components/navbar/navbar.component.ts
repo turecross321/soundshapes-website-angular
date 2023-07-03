@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NavbarButtonComponent } from '../navbar-button/navbar-button.component';
 import {
   faHouseChimney,
   faMusic,
-  faFolderOpen,
   faUsers,
   faRightToBracket,
   faUser,

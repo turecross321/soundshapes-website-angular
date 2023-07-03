@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { faEnvelope, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/api/api-client.service';
 import { InputType } from 'src/app/types/input-type';
@@ -33,7 +32,7 @@ export class SetEmailPageComponent {
       .value;
 
     try {
-      let response = await this.apiClient.setEmail(emailCode, email);
+      await this.apiClient.setEmail(emailCode, email);
       this.sentCode.emit(email);
       localStorage.setItem('email', email);
     } catch (e: any) {

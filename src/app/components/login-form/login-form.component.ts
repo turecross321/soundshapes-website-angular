@@ -4,7 +4,6 @@ import { sha512Async } from 'src/app/hash';
 import { ApiClientService } from 'src/app/api/api-client.service';
 import { Session } from 'src/app/api/types/account';
 import { InputType } from 'src/app/types/input-type';
-import { ERROR } from '@angular/compiler-cli/src/ngtsc/logging/src/console_logger';
 
 @Component({
   selector: 'app-login-form',

@@ -1,5 +1,4 @@
-import { isPlatformServer } from '@angular/common';
-import { Component, Inject, Input, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationExtras,
@@ -7,27 +6,17 @@ import {
   Router,
 } from '@angular/router';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faSquareBehance } from '@fortawesome/free-brands-svg-icons';
-import { faRectangleTimes } from '@fortawesome/free-regular-svg-icons';
 import {
   faAnglesDown,
   faAnglesUp,
-  faArrowDown,
   faArrowLeft,
   faArrowRight,
-  faArrowUp,
   faArrowsUpDown,
   faBell,
   faBookSkull,
-  faBox,
-  faBoxesStacked,
   faCalendar,
-  faCaretDown,
   faChartLine,
-  faChevronDown,
-  faChevronUp,
   faClock,
-  faCubesStacked,
   faFile,
   faFilter,
   faFire,
@@ -35,17 +24,11 @@ import {
   faHeartPulse,
   faList,
   faPenNib,
-  faPhotoFilm,
   faPlay,
-  faRectangleAd,
-  faRectangleList,
   faSearch,
   faShuffle,
   faSitemap,
   faSkull,
-  faSpaghettiMonsterFlying,
-  faSquare,
-  faTimesRectangle,
   faTrophy,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
@@ -113,7 +96,7 @@ export class LevelsComponent {
   }
 
   setDescendingIcon() {
-    if (this.descending == true) {
+    if (this.descending) {
       this.descendingIcon = faAnglesDown;
     } else this.descendingIcon = faAnglesUp;
   }
@@ -163,7 +146,7 @@ export class LevelsComponent {
     };
     const levelPageSize = 32;
 
-    if (this.levelsWrapper != undefined) this.levelsWrapper.Levels = [];
+    this.levelsWrapper.Levels = [];
 
     this.loading = true;
 

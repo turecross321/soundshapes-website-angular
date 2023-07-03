@@ -1,10 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  faBell,
-  faBellConcierge,
-  faBellSlash,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBellSlash } from '@fortawesome/free-solid-svg-icons';
 import { ApiClientService } from 'src/app/api/api-client.service';
 import { FullLevel } from 'src/app/api/types/levels';
 

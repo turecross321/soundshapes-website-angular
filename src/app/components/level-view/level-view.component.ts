@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
-import { formatDistanceStrict } from 'date-fns';
 import { ApiClientService } from 'src/app/api/api-client.service';
 import { BriefLevel } from 'src/app/api/types/levels';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-level-view',

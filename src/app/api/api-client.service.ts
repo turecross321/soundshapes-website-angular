@@ -62,7 +62,7 @@ export class ApiClientService {
         const passwordSha512 = localStorage.getItem('passwordSha512');
 
         if (!!email && !!passwordSha512) {
-          this.logIn(email, passwordSha512).catch((response) => {
+          this.logIn(email, passwordSha512).catch(() => {
             localStorage.removeItem('passwordSha512');
           });
         }
@@ -121,15 +121,11 @@ export class ApiClientService {
     };
 
     return await firstValueFrom(
-      this.httpClient.post(
-        environment.apiBaseUrl + 'account/setEmail',
-        body,
-        {
-          headers: {
-            Authorization: emailCode,
-          },
-        }
-      )
+      this.httpClient.post(environment.apiBaseUrl + 'account/setEmail', body, {
+        headers: {
+          Authorization: emailCode,
+        },
+      })
     );
   }
 
@@ -201,10 +197,10 @@ export class ApiClientService {
     return await firstValueFrom(
       this.httpClient.get<UserRelation>(
         environment.apiBaseUrl +
-        'users/id/' +
-        userId +
-        '/users/id/' +
-        session?.User.Id
+          'users/id/' +
+          userId +
+          '/users/id/' +
+          session?.User.Id
       )
     );
   }
@@ -259,9 +255,7 @@ export class ApiClientService {
 
   async getLevelWithId(id: string) {
     return await firstValueFrom(
-      this.httpClient.get<FullLevel>(
-        environment.apiBaseUrl + 'levels/id/' + id
-      )
+      this.httpClient.get<FullLevel>(environment.apiBaseUrl + 'levels/id/' + id)
     );
   }
 
@@ -275,10 +269,10 @@ export class ApiClientService {
     return await firstValueFrom(
       this.httpClient.get<LevelRelation>(
         environment.apiBaseUrl +
-        'levels/id/' +
-        id +
-        '/users/id/' +
-        session?.User.Id
+          'levels/id/' +
+          id +
+          '/users/id/' +
+          session?.User.Id
       )
     );
   }

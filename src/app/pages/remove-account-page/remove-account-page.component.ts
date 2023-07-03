@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
 import { ApiClientService } from 'src/app/api/api-client.service';
 import { Session } from 'src/app/api/types/account';
 

@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiClientService } from 'src/app/api/api-client.service';
-import { sha512Async } from 'src/app/hash';
-import { InputType } from 'src/app/types/input-type';
-import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import {
   DoPunishmentsIncludeBan,
   Punishment,
