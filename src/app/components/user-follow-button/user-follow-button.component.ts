@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faUserMinus, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { FullUser } from 'src/app/types/api/users';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { FullUser } from 'src/app/api/types/users';
 
 @Component({
   selector: 'app-user-follow-button',

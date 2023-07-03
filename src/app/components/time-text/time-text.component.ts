@@ -9,13 +9,16 @@ import { formatDistanceStrict } from 'date-fns';
 export class TimeTextComponent {
   @Input() prefix: string = '';
   @Input() suffix: string = '';
-  @Input() date!: Date;
+  @Input() unix!: number;
+  date: Date | undefined;
   formattedDate!: string;
 
   ngOnInit() {
+    this.date = new Date(this.unix * 1000);
+
     this.formattedDate =
       this.prefix +
-      formatDistanceStrict(new Date(this.date), new Date(), {
+      formatDistanceStrict(this.date, new Date(), {
         addSuffix: true,
       }) +
       this.suffix;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiClientService } from 'src/app/services/api-client.service';
+import { ApiClientService } from 'src/app/api/api-client.service';
 
 @Component({
   selector: 'app-reset-password-page',

@@ -49,8 +49,8 @@ import {
   faTrophy,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { LevelOrder, LevelsWrapper } from 'src/app/types/api/levels';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { LevelOrder, LevelsWrapper } from 'src/app/api/types/levels';
 import { SelectableButton } from 'src/app/types/selectable-button';
 
 @Component({

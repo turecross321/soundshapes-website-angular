@@ -9,7 +9,7 @@
           <div
             class="bg-black aspect-video w-full lg:mr-4 mb-4 lg:mb-0 lg:max-w-sm"
           >
-            <img [src]="thumbnailUrl" class="" />
+            <img [ngSrc]="thumbnailUrl" alt="Level Thumbnail" class="" width="320" height="180"/>
           </div>
           <div class="flex-col w-full">
             <app-level-editable-name
@@ -57,11 +57,11 @@
             </div>
 
             <div class="text-lg italic text-light-gray">
-              <span title="{{ 'Created at ' + level.CreationDate }}">{{
-                creation
+              <span title="{{ 'Created at ' + creationDate }}">{{
+                creationString
               }}</span>
-              <span title="{{ 'Last Modified at ' + level.ModificationDate }}">
-                {{ modification }}
+              <span title="{{ 'Last Modified at ' + modificationDate }}">
+                {{ modificationString }}
               </span>
             </div>
           </div>

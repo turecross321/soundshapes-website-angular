@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { Session } from 'src/app/types/api/account';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { Session } from 'src/app/api/types/account';
 
 @Component({
   selector: 'app-remove-account-page',

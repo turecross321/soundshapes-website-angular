@@ -6,8 +6,8 @@ export interface BriefLevel {
   Id: string;
   Name: string;
   Author: BriefUser;
-  CreationDate: Date;
-  ModificationDate: Date;
+  CreationDate: number;
+  ModificationDate: number;
   TotalPlays: number;
   UniquePlays: number;
   Likes: number;
@@ -46,8 +46,8 @@ export interface FullLevel {
   Id: string;
   Name: string;
   Author: BriefUser;
-  CreationDate: Date;
-  ModificationDate: Date;
+  CreationDate: number;
+  ModificationDate: number;
   TotalPlays: number;
   UniquePlays: number;
   TotalCompletions: number;

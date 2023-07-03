@@ -11,8 +11,8 @@ import {
   faCompactDisc,
   faWrench,
 } from '@fortawesome/free-solid-svg-icons';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { PermissionsType } from 'src/app/types/api/users';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { PermissionsType } from 'src/app/api/types/users';
 import { NavbarButton } from 'src/app/types/navbar-button';
 
 @Component({

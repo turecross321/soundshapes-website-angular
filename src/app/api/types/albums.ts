@@ -2,8 +2,8 @@ export interface Album {
   Id: string;
   Author: string;
   Name: string;
-  LinerNotes: HTMLElement;
+  LinerNotes: XMLDocument;
   TotalLevels: number;
-  CreationDate: Date;
-  ModificationDate: Date;
+  CreationDate: number;
+  ModificationDate: number;
 }

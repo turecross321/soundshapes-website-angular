@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { formatDuration, intervalToDuration } from 'date-fns';
-import { FullUser } from 'src/app/types/api/users';
+import { FullUser } from 'src/app/api/types/users';
 
 @Component({
   selector: 'app-user-statistics',
@@ -22,7 +22,9 @@ export class UserStatisticsComponent {
         end: this.user.TotalPlayTime,
       });
 
-      this.creationDate = new Date(this.user.CreationDate).toLocaleDateString();
+      this.creationDate = new Date(
+        this.user.CreationDate * 1000
+      ).toLocaleDateString();
       this.totalPlayTime = formatDuration(totalPlayTime, {
         format: ['hours', 'minutes', 'seconds'],
         delimiter: ', ',

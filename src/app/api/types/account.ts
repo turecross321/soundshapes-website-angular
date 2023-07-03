@@ -20,7 +20,8 @@ export interface SetPasswordRequest {
 
 export interface Session {
   Id: string;
-  ExpiryDate: Date;
+  CreationDate: number;
+  ExpiryDate: number;
   User: BriefUser;
   ActivePunishments: Punishment[];
 }

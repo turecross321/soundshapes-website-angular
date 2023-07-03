@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Session } from 'src/app/types/api/account';
-import { Punishment } from 'src/app/types/api/punishments';
+import { Session } from 'src/app/api/types/account';
+import { Punishment } from 'src/app/api/types/punishments';
 
 @Component({
   selector: 'app-banned-page',

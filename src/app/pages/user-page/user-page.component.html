@@ -1,5 +1,5 @@
 <div
-  *ngIf="!loading && user != undefined"
+  *ngIf="!loading && user"
   class="flex justify-center flex-col content items-center"
 >
   <div class="flex container mb-4">
@@ -27,9 +27,7 @@
           <p>{{ user.Followers }}</p>
         </div>
         <div class="flex text-lg italic text-light-gray">
-          <span title="{{ 'Last active ' + user.LastEventDate }}">{{
-            lastActive
-          }}</span>
+          <span title="{{ lastActiveDate }}">{{ lastActive }}</span>
         </div>
       </div>
 
@@ -37,9 +35,9 @@
         <app-report-button class="w-full"> </app-report-button>
         <app-user-follow-button
           *ngIf="relation"
+          [isFollowing]="relation.Following"
           [user]="user"
           class="w-full"
-          [isFollowing]="relation.Following"
         ></app-user-follow-button>
         <app-log-out-button
           *ngIf="loggedIn && myAccount"

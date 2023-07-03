@@ -1,13 +1,11 @@
-import { Component, OnChanges, Output } from '@angular/core';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { faMusic, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { formatDistanceStrict } from 'date-fns';
-import { firstValueFrom } from 'rxjs';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { LevelOrder, LevelsWrapper } from 'src/app/types/api/levels';
-import { FullUser, UserRelation } from 'src/app/types/api/users';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { LevelOrder, LevelsWrapper } from 'src/app/api/types/levels';
+import { FullUser, UserRelation } from 'src/app/api/types/users';
 import { SidebarButton } from 'src/app/types/sidebar-button';
-import { UserSidebarButtonType } from 'src/app/types/user-page-sidebar-buttons';
 
 @Component({
   selector: 'app-user-page',
@@ -35,6 +33,8 @@ export class UserPageComponent {
 
   queuedLevels: LevelsWrapper | null = null;
   queuedByParams!: Params;
+
+  lastActiveDate: Date | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,17 +65,16 @@ export class UserPageComponent {
           return;
         }
 
+        this.lastActiveDate = new Date(this.user.LastEventDate * 1000);
+
         this.lastActive =
           'Last active ' +
-          formatDistanceStrict(new Date(this.user.LastEventDate), new Date(), {
+          formatDistanceStrict(this.lastActiveDate, new Date(), {
             addSuffix: true,
           });
 
         if (!this.myAccount && this.loggedIn) {
-          const relationResponse = await this.apiClient.getUserRelation(
-            this.user.Id
-          );
-          this.relation = relationResponse.data;
+          this.relation = await this.apiClient.getUserRelation(this.user.Id);
         }
 
         if (this.user.PublishedLevels > 0) {
@@ -83,15 +82,13 @@ export class UserPageComponent {
             createdBy: this.user.Id,
           };
 
-          const response = await this.apiClient.getLevels(
+          this.publishedLevels = await this.apiClient.getLevels(
             0,
             3,
             LevelOrder.CreationDate,
             true,
             this.createdByParams
           );
-
-          this.publishedLevels = response.data;
         }
 
         if (this.user.LikedLevels > 0) {
@@ -99,15 +96,13 @@ export class UserPageComponent {
             likedBy: this.user.Id,
           };
 
-          const response = await this.apiClient.getLevels(
+          this.likedLevels = await this.apiClient.getLevels(
             0,
             3,
             LevelOrder.CreationDate,
             true,
             this.likedByParams
           );
-
-          this.likedLevels = response.data;
         }
 
         if (this.user.QueuedLevels > 0) {
@@ -115,15 +110,13 @@ export class UserPageComponent {
             queuedBy: this.user.Id,
           };
 
-          const response = await this.apiClient.getLevels(
+          this.queuedLevels = await this.apiClient.getLevels(
             0,
             3,
             LevelOrder.CreationDate,
             true,
             this.queuedByParams
           );
-
-          this.queuedLevels = response.data;
         }
 
         this.loading = false;

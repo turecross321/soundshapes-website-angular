@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { faEnvelope, faHashtag } from '@fortawesome/free-solid-svg-icons';
-import { ApiClientService } from 'src/app/services/api-client.service';
+import { ApiClientService } from 'src/app/api/api-client.service';
 import { InputType } from 'src/app/types/input-type';
 
 @Component({
@@ -32,16 +32,18 @@ export class SetEmailPageComponent {
     const email = (<HTMLInputElement>document.getElementById(this.emailId))
       .value;
 
-    let response = await this.apiClient.setEmail(emailCode, email);
-    if (response.status == 201) {
+    try {
+      let response = await this.apiClient.setEmail(emailCode, email);
       this.sentCode.emit(email);
       localStorage.setItem('email', email);
-    } else if (response.data) {
-      this.errorMessage = response.data;
-    } else if (response.status == 403) {
-      this.errorMessage = 'Incorrect Email Code.';
-    } else {
-      this.errorMessage = 'An error has occurred.';
+    } catch (e: any) {
+      if (e.data) {
+        this.errorMessage = e.data;
+      } else if (e.status == 403) {
+        this.errorMessage = 'Incorrect Email Code.';
+      } else {
+        this.errorMessage = 'An error has occurred.';
+      }
     }
   }
 }

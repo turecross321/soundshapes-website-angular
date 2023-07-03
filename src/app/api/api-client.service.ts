@@ -1,17 +1,17 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { SendPasswordSessionRequest, Session } from '../types/api/account';
+import { SendPasswordSessionRequest, Session } from './types/account';
 import {
   LoginRequest,
   SetEmailRequest,
   SetPasswordRequest,
-} from '../types/api/account';
+} from './types/account';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import { FullUser, UserRelation } from '../types/api/users';
-import { FullLevel, LevelOrder, LevelRelation } from '../types/api/levels';
-import { LevelsWrapper } from '../types/api/levels';
-import { AuthorizeIpRequest, IpWrapper } from '../types/api/ip';
+import { FullUser, UserRelation } from './types/users';
+import { FullLevel, LevelOrder, LevelRelation } from './types/levels';
+import { LevelsWrapper } from './types/levels';
+import { AuthorizeIpRequest, IpWrapper } from './types/ip';
 import { environment } from 'src/environments/environment';
-import { DoPunishmentsIncludeBan } from '../types/api/punishments';
+import { DoPunishmentsIncludeBan } from './types/punishments';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -22,6 +22,7 @@ export class ApiClientService {
 
   private _session$ = new BehaviorSubject<Session | undefined>(undefined);
   session$ = this._session$.asObservable();
+  sessionId: string | undefined;
 
   platformId!: Object;
   constructor(
@@ -40,7 +41,7 @@ export class ApiClientService {
       const session = JSON.parse(sessionString) as Session;
 
       // Check if saved session has expired
-      const expiryDate = new Date(session.ExpiryDate);
+      const expiryDate = new Date(session.ExpiryDate * 1000);
 
       const currentDate = new Date();
       const currentUTCDate = new Date(
@@ -61,9 +62,8 @@ export class ApiClientService {
         const passwordSha512 = localStorage.getItem('passwordSha512');
 
         if (!!email && !!passwordSha512) {
-          this.logIn(email, passwordSha512).then((response) => {
-            if (response.status != 201)
-              localStorage.removeItem('passwordSha512');
+          this.logIn(email, passwordSha512).catch((response) => {
+            localStorage.removeItem('passwordSha512');
           });
         }
       }
@@ -76,26 +76,22 @@ export class ApiClientService {
       PasswordSha512: hash,
     };
 
-    try {
-      const response = await firstValueFrom(
-        this.httpClient.post<Session>(
-          environment.apiBaseUrl + 'account/logIn',
-          body
-        )
-      );
+    const response = await firstValueFrom(
+      this.httpClient.post<Session>(
+        environment.apiBaseUrl + 'account/logIn',
+        body
+      )
+    );
 
-      if (DoPunishmentsIncludeBan(response.ActivePunishments)) return response;
+    if (DoPunishmentsIncludeBan(response.ActivePunishments)) return response;
 
-      if (saveLogin) {
-        this.finishLogIn(response);
-        localStorage.setItem('email', email);
-        localStorage.setItem('passwordSha512', hash);
-      }
-
-      return response;
-    } catch (error: any) {
-      return error;
+    if (saveLogin) {
+      this.finishLogIn(response);
+      localStorage.setItem('email', email);
+      localStorage.setItem('passwordSha512', hash);
     }
+
+    return response;
   }
 
   finishLogIn(session: Session) {
@@ -103,7 +99,7 @@ export class ApiClientService {
     this._session$.next(session);
 
     localStorage.setItem('session', JSON.stringify(session));
-    //axios.defaults.headers.common['Authorization'] = session.Id;
+    this.sessionId = session.Id;
   }
 
   logOut() {
@@ -124,21 +120,17 @@ export class ApiClientService {
       NewEmail: address,
     };
 
-    try {
-      return await firstValueFrom(
-        this.httpClient.post(
-          environment.apiBaseUrl + 'account/setEmail',
-          body,
-          {
-            headers: {
-              Authorization: emailCode,
-            },
-          }
-        )
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'account/setEmail',
+        body,
+        {
+          headers: {
+            Authorization: emailCode,
+          },
+        }
+      )
+    );
   }
 
   async sendPasswordSession(email: string) {
@@ -168,17 +160,13 @@ export class ApiClientService {
   }
 
   async removeAccount(removalCode: string) {
-    try {
-      return await firstValueFrom(
-        this.httpClient.post(environment.apiBaseUrl + 'account/remove', null, {
-          headers: {
-            Authorization: removalCode,
-          },
-        })
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.post(environment.apiBaseUrl + 'account/remove', null, {
+        headers: {
+          Authorization: removalCode,
+        },
+      })
+    );
   }
 
   async setPassword(passwordCode: string, hash: string) {
@@ -186,51 +174,39 @@ export class ApiClientService {
       NewPasswordSha512: hash,
     };
 
-    try {
-      return await firstValueFrom(
-        this.httpClient.post(
-          environment.apiBaseUrl + 'account/setPassword',
-          body,
-          {
-            headers: {
-              Authorization: passwordCode.toUpperCase(),
-            },
-          }
-        )
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'account/setPassword',
+        body,
+        {
+          headers: {
+            Authorization: passwordCode.toUpperCase(),
+          },
+        }
+      )
+    );
   }
 
   async getUserWithUsername(username: string) {
-    try {
-      return await firstValueFrom(
-        this.httpClient.get<FullUser>(
-          environment.apiBaseUrl + 'users/username/' + username
-        )
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.get<FullUser>(
+        environment.apiBaseUrl + 'users/username/' + username
+      )
+    );
   }
 
   async getUserRelation(userId: string) {
-    try {
-      let session = await firstValueFrom(this.session$);
+    let session = await firstValueFrom(this.session$);
 
-      return await firstValueFrom(
-        this.httpClient.get<UserRelation>(
-          environment.apiBaseUrl +
-            'users/id/' +
-            userId +
-            '/users/id/' +
-            session?.User.Id
-        )
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.get<UserRelation>(
+        environment.apiBaseUrl +
+        'users/id/' +
+        userId +
+        '/users/id/' +
+        session?.User.Id
+      )
+    );
   }
 
   async followUser(id: string) {
@@ -274,27 +250,19 @@ export class ApiClientService {
 
     params = params.appendAll(filters);
 
-    try {
-      return await firstValueFrom(
-        this.httpClient.get<LevelsWrapper>(environment.apiBaseUrl + 'levels', {
-          params: params,
-        })
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.get<LevelsWrapper>(environment.apiBaseUrl + 'levels', {
+        params: params,
+      })
+    );
   }
 
   async getLevelWithId(id: string) {
-    try {
-      return await firstValueFrom(
-        this.httpClient.get<FullLevel>(
-          environment.apiBaseUrl + 'levels/id/' + id
-        )
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.get<FullLevel>(
+        environment.apiBaseUrl + 'levels/id/' + id
+      )
+    );
   }
 
   getLevelThumbnailUrl(id: string) {
@@ -302,21 +270,17 @@ export class ApiClientService {
   }
 
   async getLevelRelation(id: string) {
-    try {
-      let session = await firstValueFrom(this.session$);
+    let session = await firstValueFrom(this.session$);
 
-      return await firstValueFrom(
-        this.httpClient.get<LevelRelation>(
-          environment.apiBaseUrl +
-            'levels/id/' +
-            id +
-            '/users/id/' +
-            session?.User.Id
-        )
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.get<LevelRelation>(
+        environment.apiBaseUrl +
+        'levels/id/' +
+        id +
+        '/users/id/' +
+        session?.User.Id
+      )
+    );
   }
   async likeLevel(id: string) {
     return await firstValueFrom(
@@ -355,18 +319,14 @@ export class ApiClientService {
   }
 
   async setLevelName(id: string, newName: string) {
-    try {
-      return await firstValueFrom(
-        this.httpClient.post(
-          environment.apiBaseUrl + 'levels/id/' + id + '/edit',
-          {
-            Name: newName,
-          }
-        )
-      );
-    } catch (error: any) {
-      return error.response;
-    }
+    return await firstValueFrom(
+      this.httpClient.post(
+        environment.apiBaseUrl + 'levels/id/' + id + '/edit',
+        {
+          Name: newName,
+        }
+      )
+    );
   }
 
   async getIpRequests(from: number, count: number, authorized: boolean) {

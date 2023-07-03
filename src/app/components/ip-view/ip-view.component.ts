@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
-import { IpAddress } from 'src/app/types/api/ip';
+import { IpAddress } from 'src/app/api/types/ip';
 
 @Component({
   selector: 'app-ip-view',

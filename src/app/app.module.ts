@@ -52,6 +52,8 @@ import { RemoveAccountPageComponent } from './pages/remove-account-page/remove-a
 import { RemovalWarningComponent } from './components/removal-warning/removal-warning.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RemoveAccountFormComponent } from './components/remove-account-form/remove-account-form.component';
+import { ApiClientInterceptorProvider } from "./api/api-client.interceptor";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -111,8 +113,9 @@ import { RemoveAccountFormComponent } from './components/remove-account-form/rem
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgOptimizedImage,
   ],
-  providers: [],
+  providers: [ApiClientInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

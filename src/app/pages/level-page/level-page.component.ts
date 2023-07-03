@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { faPlay, faHeart, faBell } from '@fortawesome/free-solid-svg-icons';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { FullLevel, LevelRelation } from 'src/app/types/api/levels';
+import { ActivatedRoute, Router } from '@angular/router';
+import { faBell, faHeart, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { FullLevel, LevelRelation } from 'src/app/api/types/levels';
 import { formatDistanceStrict } from 'date-fns';
 
 @Component({
@@ -18,8 +18,11 @@ export class LevelPageComponent {
 
   thumbnailUrl = '';
   difficulty = 0;
-  creation: string = '';
-  modification: string | null = null;
+
+  creationDate: Date | undefined;
+  modificationDate: Date | undefined;
+  creationString: string = '';
+  modificationString: string | null = null;
 
   playIcon = faPlay;
   likeIcon = faHeart;
@@ -32,25 +35,24 @@ export class LevelPageComponent {
   ) {}
 
   setDate() {
-    if (this.level) {
-      this.creation =
-        'Published ' +
-        formatDistanceStrict(new Date(this.level.CreationDate), new Date(), {
+    if (!this.level) return;
+
+    this.creationDate = new Date(this.level.CreationDate * 1000);
+    this.creationString =
+      'Published ' +
+      formatDistanceStrict(this.creationDate, new Date(), {
+        addSuffix: true,
+      });
+
+    this.modificationDate = new Date(this.level.ModificationDate * 1000);
+
+    if (this.creationDate != this.modificationDate) {
+      this.creationString += ',';
+      this.modificationString =
+        'last modified ' +
+        formatDistanceStrict(this.modificationDate, new Date(), {
           addSuffix: true,
         });
-
-      if (this.level.ModificationDate != this.level.CreationDate) {
-        this.creation += ',';
-        this.modification =
-          'last modified ' +
-          formatDistanceStrict(
-            new Date(this.level.ModificationDate),
-            new Date(),
-            {
-              addSuffix: true,
-            }
-          );
-      }
     }
   }
 
@@ -59,11 +61,9 @@ export class LevelPageComponent {
       let levelId = params.get('levelId') as string;
       this.thumbnailUrl = this.apiClient.getLevelThumbnailUrl(levelId);
 
-      const response = await this.apiClient.getLevelWithId(levelId);
-
-      this.level = response;
+      this.level = await this.apiClient.getLevelWithId(levelId);
       if (!this.level) {
-        this.router.navigate(['/404']);
+        await this.router.navigate(['/404']);
         return;
       }
 
@@ -72,8 +72,7 @@ export class LevelPageComponent {
       this.apiClient.isLoggedIn$.subscribe(async (loggedIn) => {
         this.loggedIn = loggedIn;
         if (loggedIn) {
-          const response = await this.apiClient.getLevelRelation(levelId);
-          this.relation = response.data;
+          this.relation = await this.apiClient.getLevelRelation(levelId);
         }
       });
 

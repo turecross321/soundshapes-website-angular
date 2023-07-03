@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ApiClientService } from 'src/app/services/api-client.service';
+import { ApiClientService } from 'src/app/api/api-client.service';
 import { sha512Async } from 'src/app/hash';
 import { InputType } from 'src/app/types/input-type';
 import { faHashtag, faKey } from '@fortawesome/free-solid-svg-icons';
@@ -39,14 +39,16 @@ export class SetPasswordPageComponent {
 
     const hash = await sha512Async(password);
 
-    let response = await this.apiClient.setPassword(code, hash);
-    if (response.status == 201) {
+    try {
+      let response = await this.apiClient.setPassword(code, hash);
       this.onFinishedRegistration.emit();
       localStorage.setItem('passwordSha512', hash);
-    } else if (response.status == 403) {
-      this.errorMessage = 'Incorrect Password Code.';
-    } else {
-      this.errorMessage = 'An error has occurred.';
+    } catch (e: any) {
+      if (e.status == 403) {
+        this.errorMessage = 'Incorrect Password Code.';
+      } else {
+        this.errorMessage = 'An error has occurred.';
+      }
     }
   }
 }

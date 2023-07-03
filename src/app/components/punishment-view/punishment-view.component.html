@@ -4,7 +4,7 @@
   </p>
   <p class="text-xl">"{{ punishment.Reason }}"</p>
   <app-time-text
-    [date]="punishment.ExpiryDate"
+    [unix]="punishment.ExpiryDate"
     prefix="Expires "
     class="text-xl"
   ></app-time-text>

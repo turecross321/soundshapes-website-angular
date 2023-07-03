@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { sha512Async } from 'src/app/hash';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { Session } from 'src/app/types/api/account';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { Session } from 'src/app/api/types/account';
 import { InputType } from 'src/app/types/input-type';
+import { ERROR } from '@angular/compiler-cli/src/ngtsc/logging/src/console_logger';
 
 @Component({
   selector: 'app-login-form',
@@ -36,6 +37,8 @@ export class LoginFormComponent {
   }
 
   async logIn() {
+    this.errorMessage = null;
+
     const emailInput: string = (<HTMLInputElement>(
       document.getElementById(this.emailId)
     )).value;
@@ -44,19 +47,20 @@ export class LoginFormComponent {
     )).value;
 
     const hash = await sha512Async(passwordInput);
-    const response = await this.apiClientService.logIn(
-      emailInput,
-      hash,
-      this.saveLogin
-    );
-    this.errorMessage = null;
-    if (response.status == 200) {
-      this.loggedInSession.next(response.data);
+    try {
+      const response = await this.apiClientService.logIn(
+        emailInput,
+        hash,
+        this.saveLogin
+      );
+      this.loggedInSession.next(response);
       this.loggedInEmail.next(emailInput);
-    } else if (response.status == 403) {
-      this.errorMessage = response.data;
-    } else {
-      this.errorMessage = 'An error has occurred.';
+    } catch (error: any) {
+      if (error.status == 403) {
+        this.errorMessage = error.error;
+      } else {
+        this.errorMessage = 'An error has occurred.';
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { ApiClientService } from 'src/app/services/api-client.service';
+import { ApiClientService } from 'src/app/api/api-client.service';
 import { InputType } from 'src/app/types/input-type';
 
 @Component({
@@ -16,13 +16,19 @@ export class SendPasswordSessionComponent {
   emailIcon = faEnvelope;
   @Output()
   sentCode = new EventEmitter<string>();
+  errorMessage: string | null = null;
 
   async sendPasswordSession() {
+    this.errorMessage = null;
     const email = (<HTMLInputElement>document.getElementById(this.emailId))
       .value;
 
-    this.apiClient.sendPasswordSession(email);
-    this.sentCode.emit(email);
-    localStorage.setItem('email', email);
+    try {
+      await this.apiClient.sendPasswordSession(email);
+      this.sentCode.emit(email);
+      localStorage.setItem('email', email);
+    } catch (e) {
+      this.errorMessage = 'An error occurred. Please try again.';
+    }
   }
 }

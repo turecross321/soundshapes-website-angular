@@ -3,8 +3,9 @@ import { BriefLevel } from './levels';
 export interface DailyLevel {
   Id: string;
   Level: BriefLevel;
-  CreationDate: Date;
-  ModificationDate: Date;
+  CreationDate: number;
+  ModificationDate: number;
+  Date: number;
   TotalPlays: number;
   UniquePlays: number;
   Likes: number;

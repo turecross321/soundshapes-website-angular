@@ -8,9 +8,10 @@ export interface Punishment {
   Reason: string;
   Revoked: boolean;
   Author: BriefUser;
-  CreationDate: Date;
-  ExpiryDate: Date;
-  RevokeDate: Date | null;
+  CreationDate: number;
+  ModificationDate: number;
+  ExpiryDate: number;
+  RevokeDate: number | null;
 }
 
 export enum PunishmentType {

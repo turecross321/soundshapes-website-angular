@@ -8,8 +8,8 @@ import {
   faRefresh,
 } from '@fortawesome/free-solid-svg-icons';
 import { firstValueFrom } from 'rxjs';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { IpWrapper } from 'src/app/types/api/ip';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { IpWrapper } from 'src/app/api/types/ip';
 import { SelectableButton } from 'src/app/types/selectable-button';
 
 @Component({

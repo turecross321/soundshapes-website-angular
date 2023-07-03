@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { formatDuration, intervalToDuration } from 'date-fns';
-import { FullLevel, Scale } from 'src/app/types/api/levels';
+import { FullLevel, Scale } from 'src/app/api/types/levels';
 
 @Component({
   selector: 'app-level-statistics',

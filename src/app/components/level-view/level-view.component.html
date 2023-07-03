@@ -10,7 +10,7 @@
         routerLink="/level/{{ level.Id }}"
         class="bg-black aspect-video w-full mb-2"
       >
-        <img [src]="thumbnailUrl" />
+        <img [ngSrc]="thumbnailUrl" alt="Level Thumbnail" fill="false" width="320" height="180"/>
       </button>
       <div class="mb-1">
         <div class="flex justify-between w-full">
@@ -24,7 +24,7 @@
               {{ level.Name }}
             </h2>
             <app-time-text
-              [date]="level.CreationDate"
+              [unix]="level.CreationDate"
               class="text-sm text-light-gray"
             ></app-time-text>
           </button>

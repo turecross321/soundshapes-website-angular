@@ -5,8 +5,8 @@ import {
   faBellConcierge,
   faBellSlash,
 } from '@fortawesome/free-solid-svg-icons';
-import { ApiClientService } from 'src/app/services/api-client.service';
-import { FullLevel } from 'src/app/types/api/levels';
+import { ApiClientService } from 'src/app/api/api-client.service';
+import { FullLevel } from 'src/app/api/types/levels';
 
 @Component({
   selector: 'app-level-queue-button',

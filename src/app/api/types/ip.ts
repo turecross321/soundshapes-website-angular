@@ -2,8 +2,8 @@ export interface IpAddress {
   IpAddress: string;
   Authorized: boolean;
   OneTimeUse: boolean;
-  CreationDate: Date;
-  ModificationDate: Date;
+  CreationDate: number;
+  ModificationDate: number;
 }
 
 export interface IpWrapper {

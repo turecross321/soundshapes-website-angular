@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Punishment, PunishmentType } from 'src/app/types/api/punishments';
+import { Punishment, PunishmentType } from 'src/app/api/types/punishments';
 
 @Component({
   selector: 'app-punishment-view',

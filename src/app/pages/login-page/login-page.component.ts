@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiClientService } from 'src/app/services/api-client.service';
+import { ApiClientService } from 'src/app/api/api-client.service';
 import { sha512Async } from 'src/app/hash';
 import { InputType } from 'src/app/types/input-type';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import {
   DoPunishmentsIncludeBan,
   Punishment,
-} from 'src/app/types/api/punishments';
-import { Session } from 'src/app/types/api/account';
+} from 'src/app/api/types/punishments';
+import { Session } from 'src/app/api/types/account';
 
 @Component({
   selector: 'app-login-page',
